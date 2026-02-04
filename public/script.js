@@ -7,14 +7,10 @@ const fileUploadWrapper = promptForm.querySelector(".file-upload-wrapper");
 const themeToggleBtn = document.querySelector("#theme-toggle-btn");
 
 // ==============================
-// USER
-// ==============================
-const userName = localStorage.getItem("user_name") || "Aluno";
-// ==============================
 // BACKEND API (VERCEL)
 // ==============================
 const API_URL = "/api/chat"; // ✅ backend seguro
-const MODEL = "llama-3.1-8b-instant";
+const MODEL = "llama-3.1-8b-instant"
 
 let controller, typingInterval;
 const chatHistory = [];
@@ -22,9 +18,12 @@ const chatHistory = [];
 // ==============================
 // SYSTEM PROMPT (IDENTIDADE DA IA)
 // ==============================
-chatHistory.push({
-  role: "system",
-  content: `
+function updateSystemPrompt(userName) {
+  chatHistory.length = 0; // Limpa o histórico antigo de system prompt
+
+  chatHistory.push({
+    role: "system",
+    content: `
 Tu és o assistente oficial da plataforma FOCO PRIME, um assistente escolar chamado FocoPrime IA.
 
 Informação do utilizador:
@@ -54,7 +53,8 @@ Personalidade:
 - Motivador
 - Jovem e criativo
 `
-});
+  });
+}
 
 // ==============================
 // THEME
@@ -88,24 +88,25 @@ const getCurrentTime = () => {
   });
 };
 
+// ==============================
 // LOGIN MODAL
 // ==============================
 const loginModal = document.getElementById("loginModal");
 const loginBtn = document.getElementById("loginBtn");
 const loginNameInput = document.getElementById("loginName");
 
-const savedUser = localStorage.getItem("user_name");
-
+let savedUser = localStorage.getItem("user_name");
 if (savedUser) {
   loginModal.style.display = "none";
   document.querySelector(".heading").textContent = `Olá, ${savedUser}`;
+  updateSystemPrompt(savedUser); // <<< Atualiza o chat history com o nome correto
 } else {
   loginModal.style.display = "flex";
+  updateSystemPrompt("Aluno"); // fallback
 }
 
 loginBtn.addEventListener("click", () => {
   const name = loginNameInput.value.trim();
-
   if (!name) {
     loginNameInput.style.border = "1px solid #d62939";
     return;
@@ -114,9 +115,11 @@ loginBtn.addEventListener("click", () => {
   localStorage.setItem("user_name", name);
   loginModal.style.display = "none";
   document.querySelector(".heading").textContent = `Olá, ${name}`;
+
+  updateSystemPrompt(name); // <<< Atualiza o chat history após login
 });
 
-// mensagem de saída //
+// Mensagem de saída
 document.getElementById("logoutBtn")?.addEventListener("click", () => {
   localStorage.clear();
   location.reload();
@@ -170,9 +173,7 @@ const typingEffect = (text, textElement, botMsgDiv) => {
 
   typingInterval = setInterval(() => {
     if (index < words.length) {
-      textElement.innerHTML = marked.parse(
-        words.slice(0, index + 1).join(" ")
-      );
+      textElement.innerHTML = marked.parse(words.slice(0, index + 1).join(" "));
       index++;
       scrollToBottom();
     } else {
@@ -193,35 +194,22 @@ const generateResponse = async (botMsgDiv) => {
   try {
     const response = await fetch(API_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        messages: chatHistory
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: chatHistory }),
       signal: controller.signal
     });
 
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || "Erro no servidor");
 
-    const responseText =
-      data.choices?.[0]?.message?.content?.trim() ||
-      "Não consegui responder agora.";
+    const responseText = data.choices?.[0]?.message?.content?.trim() || "Não consegui responder agora.";
 
     typingEffect(responseText, textElement, botMsgDiv);
 
-    chatHistory.push({
-      role: "assistant",
-      content: responseText
-    });
+    chatHistory.push({ role: "assistant", content: responseText });
 
   } catch (error) {
-    textElement.textContent =
-      error.name === "AbortError"
-        ? "Resposta interrompida."
-        : error.message;
-
+    textElement.textContent = error.name === "AbortError" ? "Resposta interrompida." : error.message;
     textElement.style.color = "#d62939";
     botMsgDiv.classList.remove("loading");
     document.body.classList.remove("bot-responding");
@@ -240,18 +228,11 @@ const handleFormSubmit = (e) => {
   promptInput.value = "";
   document.body.classList.add("chats-active", "bot-responding");
 
-  chatHistory.push({
-    role: "user",
-    content: userMessage
-  });
+  chatHistory.push({ role: "user", content: userMessage });
 
   const time = getCurrentTime();
 
-  const userMsgHTML = `
-    <span class="message-time">${time}</span>
-    <p class="message-text"></p>
-  `;
-
+  const userMsgHTML = `<span class="message-time">${time}</span><p class="message-text"></p>`;
   const userMsgDiv = createMessageElement(userMsgHTML, "user-message");
   userMsgDiv.querySelector(".message-text").textContent = userMessage;
   chatsContainer.appendChild(userMsgDiv);
@@ -265,22 +246,15 @@ const handleFormSubmit = (e) => {
       <div class="bot-content">
         <span class="message-time">${botTime}</span>
         <p class="message-text">A pensar...</p>
-
         <div class="message-actions">
           <button class="action-btn copy"><i class="fa-regular fa-copy"></i></button>
           <button class="action-btn like"><i class="fa-regular fa-thumbs-up"></i></button>
           <button class="action-btn dislike"><i class="fa-regular fa-thumbs-down"></i></button>
           <button class="action-btn share"><i class="fa-solid fa-share-nodes"></i></button>
         </div>
-      </div>
-    `;
+      </div>`;
 
-    const botMsgDiv = createMessageElement(
-      botMsgHTML,
-      "bot-message",
-      "loading"
-    );
-
+    const botMsgDiv = createMessageElement(botMsgHTML, "bot-message", "loading");
     chatsContainer.appendChild(botMsgDiv);
     scrollToBottom();
     generateResponse(botMsgDiv);
