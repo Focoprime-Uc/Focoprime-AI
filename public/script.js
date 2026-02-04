@@ -7,10 +7,9 @@ const fileUploadWrapper = promptForm.querySelector(".file-upload-wrapper");
 const themeToggleBtn = document.querySelector("#theme-toggle-btn");
 
 // ==============================
-// GROQ API SETUP
+// BACKEND API (VERCEL)
 // ==============================
-const API_URL = "/api/chat"; // 🔴 substitui
-const API_URL = "https://api.groq.com/openai/v1/chat/completions";
+const API_URL = "/api/chat"; // ✅ backend seguro
 const MODEL = "llama-3.1-8b-instant";
 
 let controller, typingInterval;
@@ -43,8 +42,6 @@ Personalidade:
 - Profissional
 - Motivador
 - Jovem e criativo
-
-Se o usuário perguntar algo fora do teu escopo, responde educadamente e tenta ajudar.
 `
 });
 
@@ -80,6 +77,9 @@ const getCurrentTime = () => {
   });
 };
 
+// ==============================
+// MESSAGE ACTIONS
+// ==============================
 chatsContainer.addEventListener("click", (e) => {
   const btn = e.target.closest(".action-btn");
   if (!btn) return;
@@ -87,34 +87,30 @@ chatsContainer.addEventListener("click", (e) => {
   const message = btn.closest(".bot-content")
     ?.querySelector(".message-text")?.textContent;
 
-  // COPIAR
   if (btn.classList.contains("copy")) {
     navigator.clipboard.writeText(message);
-    btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+    btn.innerHTML = "✔️";
     setTimeout(() => {
       btn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-    }, 1200);
+    }, 1000);
   }
 
-  // LIKE
   if (btn.classList.contains("like")) {
     btn.classList.toggle("active");
     btn.parentElement.querySelector(".dislike")?.classList.remove("active");
   }
 
-  // DISLIKE
   if (btn.classList.contains("dislike")) {
     btn.classList.toggle("active");
     btn.parentElement.querySelector(".like")?.classList.remove("active");
   }
 
-  // PARTILHAR
   if (btn.classList.contains("share")) {
     if (navigator.share) {
       navigator.share({ text: message });
     } else {
       navigator.clipboard.writeText(message);
-      alert("Texto copiado para partilhar");
+      alert("Texto copiado para partilha");
     }
   }
 });
@@ -141,7 +137,7 @@ const typingEffect = (text, textElement, botMsgDiv) => {
 };
 
 // ==============================
-// GROQ REQUEST
+// REQUEST AO BACKEND
 // ==============================
 const generateResponse = async (botMsgDiv) => {
   const textElement = botMsgDiv.querySelector(".message-text");
@@ -151,30 +147,20 @@ const generateResponse = async (botMsgDiv) => {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        const response = await fetch(API_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    messages: chatHistory
-  }),
-  signal: controller.signal
-});
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: MODEL,
-        messages: chatHistory,
-        temperature: 0.7
+        messages: chatHistory
       }),
       signal: controller.signal
     });
 
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error?.message || "Erro na API");
+    if (!response.ok) throw new Error(data.error || "Erro no servidor");
 
-    const responseText = data.choices[0].message.content.trim();
+    const responseText =
+      data.choices?.[0]?.message?.content?.trim() ||
+      "Não consegui responder agora.";
 
     typingEffect(responseText, textElement, botMsgDiv);
 
@@ -207,7 +193,6 @@ const handleFormSubmit = (e) => {
   promptInput.value = "";
   document.body.classList.add("chats-active", "bot-responding");
 
-  // USER MESSAGE
   chatHistory.push({
     role: "user",
     content: userMessage
@@ -215,53 +200,44 @@ const handleFormSubmit = (e) => {
 
   const time = getCurrentTime();
 
-const userMsgHTML = `
-  <span class="message-time">${time}</span>
-  <p class="message-text"></p>
-`;
+  const userMsgHTML = `
+    <span class="message-time">${time}</span>
+    <p class="message-text"></p>
+  `;
+
   const userMsgDiv = createMessageElement(userMsgHTML, "user-message");
   userMsgDiv.querySelector(".message-text").textContent = userMessage;
   chatsContainer.appendChild(userMsgDiv);
   scrollToBottom();
 
   setTimeout(() => {
-    const time = getCurrentTime();
+    const botTime = getCurrentTime();
 
-const botMsgHTML = `
-  <img class="avatar" src="images/groq.png" />
-  <div class="bot-content">
-    <span class="message-time">${time}</span>
+    const botMsgHTML = `
+      <img class="avatar" src="images/groq.png" />
+      <div class="bot-content">
+        <span class="message-time">${botTime}</span>
+        <p class="message-text">A pensar...</p>
 
-    <p class="message-text">A pensar...</p>
+        <div class="message-actions">
+          <button class="action-btn copy"><i class="fa-regular fa-copy"></i></button>
+          <button class="action-btn like"><i class="fa-regular fa-thumbs-up"></i></button>
+          <button class="action-btn dislike"><i class="fa-regular fa-thumbs-down"></i></button>
+          <button class="action-btn share"><i class="fa-solid fa-share-nodes"></i></button>
+        </div>
+      </div>
+    `;
 
-    <div class="message-actions">
-      <button class="action-btn copy" title="Copiar">
-        <i class="fa-regular fa-copy"></i>
-      </button>
-
-      <button class="action-btn like" title="Gostei">
-        <i class="fa-regular fa-thumbs-up"></i>
-      </button>
-
-      <button class="action-btn dislike" title="Não gostei">
-        <i class="fa-regular fa-thumbs-down"></i>
-      </button>
-
-      <button class="action-btn share" title="Partilhar">
-        <i class="fa-solid fa-share-nodes"></i>
-      </button>
-    </div>
-  </div>
-`;
     const botMsgDiv = createMessageElement(
       botMsgHTML,
       "bot-message",
       "loading"
     );
+
     chatsContainer.appendChild(botMsgDiv);
     scrollToBottom();
     generateResponse(botMsgDiv);
-  }, 500);
+  }, 400);
 };
 
 // ==============================
@@ -289,7 +265,7 @@ themeToggleBtn.addEventListener("click", () => {
 // DELETE CHATS
 // ==============================
 document.querySelector("#delete-chats-btn").addEventListener("click", () => {
-  chatHistory.splice(1); // remove tudo EXCETO o system prompt
+  chatHistory.splice(1);
   chatsContainer.innerHTML = "";
   document.body.classList.remove("chats-active", "bot-responding");
 });
@@ -305,77 +281,12 @@ document.querySelectorAll(".suggestions-item").forEach(item => {
 });
 
 // ==============================
-// DISABLE FILE UPLOAD (Groq limitation)
+// FILE UPLOAD (DESATIVADO)
 // ==============================
-fileInput.disabled = false;
-fileUploadWrapper.style.display = "block";
-fileInput.accept = "image/png, image/jpeg"; // aceita apenas imagens
+fileInput.disabled = true;
+fileUploadWrapper.style.display = "none";
 
 // ==============================
 // EVENTS
 // ==============================
 promptForm.addEventListener("submit", handleFormSubmit);
-
-fileInput.addEventListener("change", async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  // Verifica se é imagem
-  if (!file.type.startsWith("image/")) {
-    alert("Apenas ficheiros de imagem são permitidos!");
-    fileInput.value = "";
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    const base64Image = reader.result; // A imagem em Base64
-
-    // Adiciona a imagem ao chat como "mensagem do utilizador"
-    const time = new Date().toLocaleTimeString("pt-PT", { hour: "2-digit", minute: "2-digit" });
-    const userMsgHTML = `
-      <span class="message-time">${time}</span>
-      <p class="message-text">[Imagem enviada]</p>
-      <img src="${base64Image}" alt="Imagem do utilizador" class="user-image"/>
-    `;
-    const userMsgDiv = createMessageElement(userMsgHTML, "user-message");
-    chatsContainer.appendChild(userMsgDiv);
-    scrollToBottom();
-
-    // Adiciona a imagem ao histórico como texto Base64
-    chatHistory.push({
-      role: "user",
-      content: `[Imagem em Base64]: ${base64Image}`
-    });
-
-    // Gera resposta do bot
-    const botMsgHTML = `
-      <img class="avatar" src="images/groq.png" />
-      <div class="bot-content">
-        <span class="message-time">${time}</span>
-        <p class="message-text">A processar imagem...</p>
-        <div class="message-actions">
-          <button class="action-btn copy" title="Copiar">
-            <i class="fa-regular fa-copy"></i>
-          </button>
-          <button class="action-btn like" title="Gostei">
-            <i class="fa-regular fa-thumbs-up"></i>
-          </button>
-          <button class="action-btn dislike" title="Não gostei">
-            <i class="fa-regular fa-thumbs-down"></i>
-          </button>
-          <button class="action-btn share" title="Partilhar">
-            <i class="fa-solid fa-share-nodes"></i>
-          </button>
-        </div>
-      </div>
-    `;
-    const botMsgDiv = createMessageElement(botMsgHTML, "bot-message", "loading");
-    chatsContainer.appendChild(botMsgDiv);
-    scrollToBottom();
-    generateResponse(botMsgDiv);
-  };
-
-  reader.readAsDataURL(file); // Lê como Base64
-  fileInput.value = ""; // limpa o input
-});
