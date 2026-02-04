@@ -1,6 +1,6 @@
-# Once UI for Next.js
+# Focoprime IA
 
-A design system for indie builders, startups and freelancers. Once UI combines the simplicity of low-code with the power of code: write 70% less code compared to shadcn + Tailwind. Includes 100+ advanced components.
+A focoprime é a plataforma oficial da Focoprime creative mozambique studios. fundada por Iriano Gonçalves Chimanbane em Vilankulo/Inhambane Moçambique 
 
 Check the demo [here](https://demo.once-ui.com).
 
