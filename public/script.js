@@ -7,6 +7,10 @@ const fileUploadWrapper = promptForm.querySelector(".file-upload-wrapper");
 const themeToggleBtn = document.querySelector("#theme-toggle-btn");
 
 // ==============================
+// USER
+// ==============================
+const userName = localStorage.getItem("user_name") || "Aluno";
+// ==============================
 // BACKEND API (VERCEL)
 // ==============================
 const API_URL = "/api/chat"; // ✅ backend seguro
@@ -111,8 +115,6 @@ loginBtn.addEventListener("click", () => {
   loginModal.style.display = "none";
   document.querySelector(".heading").textContent = `Olá, ${name}`;
 });
-
-const userName = localStorage.getItem("user_name") || "Aluno";
 
 // mensagem de saída //
 document.getElementById("logoutBtn")?.addEventListener("click", () => {
