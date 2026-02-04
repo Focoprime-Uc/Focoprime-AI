@@ -480,7 +480,7 @@ body.bot-responding .prompt-form #stop-response-btn {
 .message-actions {
   display: flex;
   gap: 8px;
-  margin-top: 6px;
+  margin-top: 4px;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
