@@ -283,12 +283,43 @@ themeToggleBtn.addEventListener("click", () => {
 });
 
 // ==============================
-// DELETE CHATS
+// SIDEBAR MENU
 // ==============================
-document.querySelector("#delete-chats-btn").addEventListener("click", () => {
+const sideMenu = document.getElementById("sideMenu");
+const menuOverlay = document.getElementById("menuOverlay");
+const closeMenuBtn = document.getElementById("closeMenuBtn");
+const sideLogoutBtn = document.getElementById("sideLogoutBtn");
+const newChatBtn = document.getElementById("newChatBtn");
+
+const openMenu = () => {
+  sideMenu.classList.add("active");
+  menuOverlay.classList.add("active");
+};
+
+const closeMenu = () => {
+  sideMenu.classList.remove("active");
+  menuOverlay.classList.remove("active");
+};
+
+// Abrir menu
+document.getElementById("delete-chats-btn").addEventListener("click", openMenu);
+
+// Fechar menu
+closeMenuBtn.addEventListener("click", closeMenu);
+menuOverlay.addEventListener("click", closeMenu);
+
+// Nova mensagem (limpa chat)
+newChatBtn.addEventListener("click", () => {
   chatHistory.splice(1);
   chatsContainer.innerHTML = "";
   document.body.classList.remove("chats-active", "bot-responding");
+  closeMenu();
+});
+
+// Logout (mesma função)
+sideLogoutBtn.addEventListener("click", () => {
+  localStorage.clear();
+  location.reload();
 });
 
 // ==============================
