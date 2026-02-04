@@ -78,6 +78,37 @@ const getCurrentTime = () => {
   });
 };
 
+//===== Login Simples ===== //
+// ==============================
+// LOGIN SIMPLES (FRONTEND)
+// ==============================
+let userLogged = localStorage.getItem("user_logged");
+
+if (!userLogged) {
+  const nome = prompt("🔐 Digite o seu nome para entrar:");
+
+  if (!nome || nome.trim() === "") {
+    alert("Precisa digitar um nome para usar a FocoPrime IA");
+    location.reload();
+  } else {
+    localStorage.setItem("user_logged", "true");
+    localStorage.setItem("user_name", nome.trim());
+  }
+}
+
+const userName = localStorage.getItem("user_name") || "Aluno";
+
+const heading = document.querySelector(".heading");
+if (heading) {
+  heading.textContent = `Olá, ${userName}`;
+}
+
+// mensagem de saída //
+document.getElementById("logoutBtn")?.addEventListener("click", () => {
+  localStorage.clear();
+  location.reload();
+});
+
 // ==============================
 // MESSAGE ACTIONS
 // ==============================
