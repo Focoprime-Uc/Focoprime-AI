@@ -42,7 +42,8 @@ Cria um texto para o aluno:
 
     const data = await response.json();
     const text = data.choices?.[0]?.message?.content || "Erro ao gerar texto.";
-    generatedText.innerHTML = marked.parse(text);
+    const html = marked.parse(text);
+typeWriter(generatedText, html, 20);
 
   } catch (err) {
     generatedText.textContent = "Erro na conexão com a IA.";
@@ -60,3 +61,18 @@ copyBtn.addEventListener("click", () => {
 // ===== HERDAR TEMA =====
 const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
 document.body.classList.toggle("light-theme", isLightTheme);
+
+function typeWriter(element, html, speed) {
+  element.innerHTML = "";
+  let i = 0;
+
+  function typing() {
+    if (i < html.length) {
+      element.innerHTML += html.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+
+  typing();
+}
