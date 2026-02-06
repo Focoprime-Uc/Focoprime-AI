@@ -1,3 +1,15 @@
+(async () => {
+  const res = await fetch("/api/me");
+  const data = await res.json();
+
+  if (!data.logged) {
+    loginModal.style.display = "flex";
+  } else {
+    loginModal.style.display = "none";
+    document.querySelector(".heading").textContent = `Olá, ${data.name}`;
+    updateSystemPrompt(data.name);
+  }
+})();
 const container = document.querySelector(".container");
 const chatsContainer = document.querySelector(".chats-container");
 const promptForm = document.querySelector(".prompt-form");
@@ -114,24 +126,31 @@ if (savedUser) {
   updateSystemPrompt("Aluno"); // fallback
 }
 
-loginBtn.addEventListener("click", () => {
+loginBtn.addEventListener("click", async () => {
   const name = loginNameInput.value.trim();
-  if (!name) {
-    loginNameInput.style.border = "1px solid #d62939";
+  if (!name) return;
+
+  const res = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name })
+  });
+
+  if (!res.ok) {
+    alert("Erro no login");
     return;
   }
 
-  localStorage.setItem("user_name", name);
-  loginModal.style.display = "none";
-  document.querySelector(".heading").textContent = `Olá, ${name}`;
+  const data = await res.json();
 
-  updateSystemPrompt(name); // <<< Atualiza o chat history após login
+  loginModal.style.display = "none";
+  document.querySelector(".heading").textContent = `Olá, ${data.name}`;
 });
 
 // Mensagem de saída
 document.getElementById("logoutBtn")?.addEventListener("click", () => {
-  localStorage.clear();
-  location.reload();
+  await fetch("/api/logout");
+location.reload();
 });
 
 // ==============================
