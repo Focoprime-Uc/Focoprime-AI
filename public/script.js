@@ -349,8 +349,8 @@ document.querySelectorAll(".suggestions-item").forEach(item => {
 // ==============================
 // FILE UPLOAD (DESATIVADO)
 // ==============================
-fileInput.disabled = true;
-fileUploadWrapper.style.display = "none";
+fileInput.disabled = false;
+fileUploadWrapper.style.display = "flex"; // mostra o container
 
 // ==============================
 // EVENTS
