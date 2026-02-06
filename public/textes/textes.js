@@ -1,3 +1,5 @@
+let typingInterval = null;
+const stopTypingBtn = document.getElementById("stopTypingBtn");
 const generateBtn = document.getElementById("generateTextBtn");
 const generatedText = document.getElementById("generatedText");
 const copyBtn = document.getElementById("copyTextBtn");
@@ -64,16 +66,24 @@ document.body.classList.toggle("light-theme", isLightTheme);
 
 function typeWriter(element, html, speed = 35) {
   element.innerHTML = "";
+  stopTypingBtn.style.display = "flex";
 
   const words = html.split(" ");
   let index = 0;
 
-  const interval = setInterval(() => {
+  typingInterval = setInterval(() => {
     if (index < words.length) {
       element.innerHTML += words[index] + " ";
       index++;
     } else {
-      clearInterval(interval);
+      clearInterval(typingInterval);
+      stopTypingBtn.style.display = "none";
     }
   }, speed);
 }
+
+// BOTÃO PARAR GERAÇÃO //
+stopTypingBtn.addEventListener("click", () => {
+  clearInterval(typingInterval);
+  stopTypingBtn.style.display = "none";
+});
