@@ -82,7 +82,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 24px;
   border-radus: 18px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   position: relative;
   overflow: hidden;
 }
@@ -142,4 +142,12 @@
 
 .generateTextBtn {
   color: #000;
+}
+
+/* ALINHAMENTO DOS ÍCONES */
+button i,
+button .material-symbols-rounded {
+  vertical-align: middle;
+  margin-right: 6px;
+  font-size: 1.1em; /* aumenta ou diminui conforme o tamanho do botão */
 }
