@@ -6,20 +6,15 @@ const generatedText = document.getElementById("generatedText");
 const copyBtn = document.getElementById("copyTextBtn");
 
 const btnText = generateBtn.querySelector(".btn-text");
-const btnIcon = generateBtn.querySelector("svg");
-const generateBtn = document.getElementById("generateTextBtn");
-const generatedText = document.getElementById("generatedText");
-const copyBtn = document.getElementById("copyTextBtn");
 
-// Pega o nome salvo ou usa "Aluno" como padrão
+// Nome do aluno
 const userName = localStorage.getItem("user_name") || "Aluno";
 
 generateBtn.addEventListener("click", async () => {
 
-  // SE ESTIVER A DIGITAR → PARAR
+  // 🔴 SE ESTÁ A DIGITAR → PARAR
   if (isTyping) {
     clearInterval(typingInterval);
-    isTyping = false;
     resetButton();
     return;
   }
@@ -34,7 +29,7 @@ generateBtn.addEventListener("click", async () => {
     return;
   }
 
-  generatedText.textContent = "A gerar texto...";
+  generatedText.innerHTML = "A gerar texto...";
 
   try {
     const response = await fetch("/api/chat", {
@@ -63,7 +58,7 @@ Cria um texto para o aluno:
     const html = marked.parse(text);
 
     startButtonAsStop();
-    typeWriter(generatedText, html, 20);
+    typeWriter(generatedText, html, 25);
 
   } catch (err) {
     generatedText.textContent = "Erro na conexão com a IA.";
@@ -72,21 +67,18 @@ Cria um texto para o aluno:
   }
 });
 
-// Copiar texto
+// 📋 COPIAR TEXTO
 copyBtn.addEventListener("click", () => {
-  const text = generatedText.textContent;
-  navigator.clipboard.writeText(text);
-  alert("Texto copiado para a área de transferência!");
+  navigator.clipboard.writeText(generatedText.textContent);
+  alert("Texto copiado!");
 });
 
-// ===== HERDAR TEMA =====
-const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
-document.body.classList.toggle("light-theme", isLightTheme);
-
-function typeWriter(element, html, speed = 35) {
+// ✍️ EFEITO DE DIGITAÇÃO
+function typeWriter(element, html, speed) {
   element.innerHTML = "";
   const words = html.split(" ");
   let index = 0;
+  isTyping = true;
 
   typingInterval = setInterval(() => {
     if (index < words.length) {
@@ -99,15 +91,20 @@ function typeWriter(element, html, speed = 35) {
   }, speed);
 }
 
-// BOTÃO PARAR GERAÇÃO //
+// 🔴 BOTÃO → PARAR
 function startButtonAsStop() {
   isTyping = true;
   generateBtn.classList.add("stop");
-  btnText.textContent = "Parar Geração";
+  btnText.textContent = "Parar";
 }
 
+// 🟢 BOTÃO → GERAR
 function resetButton() {
   isTyping = false;
   generateBtn.classList.remove("stop");
   btnText.textContent = "Gerar Texto";
 }
+
+// ===== HERDAR TEMA =====
+const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
+document.body.classList.toggle("light-theme", isLightTheme);
