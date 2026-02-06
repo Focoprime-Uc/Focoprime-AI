@@ -62,17 +62,18 @@ copyBtn.addEventListener("click", () => {
 const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
 document.body.classList.toggle("light-theme", isLightTheme);
 
-function typeWriter(element, html, speed) {
+function typeWriter(element, html, speed = 35) {
   element.innerHTML = "";
-  let i = 0;
 
-  function typing() {
-    if (i < html.length) {
-      element.innerHTML += html.charAt(i);
-      i++;
-      setTimeout(typing, speed);
+  const words = html.split(" ");
+  let index = 0;
+
+  const interval = setInterval(() => {
+    if (index < words.length) {
+      element.innerHTML += words[index] + " ";
+      index++;
+    } else {
+      clearInterval(interval);
     }
-  }
-
-  typing();
+  }, speed);
 }
