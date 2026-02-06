@@ -607,7 +607,7 @@ body.bot-responding .prompt-form #stop-response-btn {
   align-items: center;
   gap: 8px;
   padding: 7px 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   border: none;
   cursor: pointer;
 
@@ -804,4 +804,28 @@ body.bot-responding .prompt-form #stop-response-btn {
 
 .hair {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
+}
+
+.side-menu-list .side-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: linear-gradient(to right, #1d7efd, #8f6fff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.side-menu-list .side-item:hover::after {
+  transform: scaleX(1);
+}
+
+/* sujensk3hje*/
+.side-menu-list .side-item:not(:last-child) {
+  border-bottom: 1px solid rgba(29,126,253,0.2);
+  margin-bottom: 8px; /* espaço entre o item e o separador */
+  padding-bottom: 8px;
+}
