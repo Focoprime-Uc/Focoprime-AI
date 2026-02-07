@@ -209,11 +209,11 @@ body.chats-active .container :where(.app-header, .suggestions) {
 }
 
 .chats-container .message .avatar {
-  width: 34px;
-  height: 34px;
+  width: 43px;
+  height: 43px;
   flex-shrink: 0;
   align-self: flex-start;
-  border-radius: 12px;
+  border-radius: 50%;
   padding: 6px;
   margin-right: -7px;
   background: linear-gradient(to right, #1d7efd, #8f6fff);
@@ -828,4 +828,4 @@ body.bot-responding .prompt-form #stop-response-btn {
   border-bottom: 1px solid rgba(29,126,253,0.2);
   margin-bottom: 8px; /* espaço entre o item e o separador */
   padding-bottom: 8px;
-    }
+                  }
