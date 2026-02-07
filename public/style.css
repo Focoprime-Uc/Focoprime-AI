@@ -828,26 +828,4 @@ body.bot-responding .prompt-form #stop-response-btn {
   border-bottom: 1px solid rgba(29,126,253,0.2);
   margin-bottom: 8px; /* espaço entre o item e o separador */
   padding-bottom: 8px;
-}
-
-
-.file-upload-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.file-upload-wrapper.has-file {
-  background: rgba(255,255,255,0.08);
-  border-radius: 12px;
-  padding: 6px;
-}
-
-.file-preview {
-  width: 42px;
-  height: 42px;
-  object-fit: cover;
-  border-radius: 8px;
-  display: none;
-  border: 1px solid rgba(255,255,255,0.2);
   }
