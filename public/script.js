@@ -356,3 +356,23 @@ fileUploadWrapper.style.display = "flex"; // mostra o container
 // EVENTS
 // ==============================
 promptForm.addEventListener("submit", handleFormSubmit);
+
+async function gerarPDF(texto) {
+
+  const res = await fetch("/api/gerar_pdf", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ texto })
+  });
+
+  const blob = await res.blob();
+
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "focoprime.pdf";
+  a.click();
+}
