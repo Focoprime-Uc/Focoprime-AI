@@ -242,6 +242,9 @@ const handleFormSubmit = (e) => {
           <button class="action-btn like"><i class="fa-regular fa-thumbs-up"></i></button>
           <button class="action-btn dislike"><i class="fa-regular fa-thumbs-down"></i></button>
           <button class="action-btn share"><i class="fa-solid fa-share-nodes"></i></button>
+          <button class="action-btn pdf">
+  <i class="fa-solid fa-file-pdf"></i>
+</button>
         </div>
       </div>
     `, "bot-message", "loading");
@@ -322,4 +325,4 @@ async function gerarPDF(texto) {
   a.href = url;
   a.download = "focoprime.pdf";
   a.click();
-                               }
+  }
