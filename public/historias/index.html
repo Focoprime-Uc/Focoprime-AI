@@ -1,27 +1,105 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Histórico de Conversas</title>
+  <title>Histórias – FocoPrime IA</title>
+  <!-- Google Fonts e Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <style>
+    /* RESET & FONT */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #0b132b, #1c2541);
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
 
-  <!-- Google Icons -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
-  <link rel="stylesheet" href="historias.css">
+    /* Ícone principal */
+    .page-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
+      font-size: 90px;
+      color: #ffd500;
+      margin-bottom: 20px;
+      animation: float 2.5s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      color: #00bfff;
+      letter-spacing: 1px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      margin-bottom: 30px;
+    }
+
+    /* Cartão do temporizador (glassmorphism) */
+    .clock-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 20px 40px;
+      border-radius: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #00bfff;
+      letter-spacing: 2px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: transform 0.3s;
+    }
+
+    .clock-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Rodapé */
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      color: #ffd500;
+    }
+  </style>
 </head>
-
 <body>
-  <header class="history-header">
-    <h2>📚 Histórias de Conversas</h2>
-    <button onclick="history.back()" class="back-btn">
-      <span class="material-symbols-rounded">arrow_back</span>
-    </button>
-  </header>
+  <span class="material-symbols-outlined page-icon">history</span>
+  <h1>Página Histórias</h1>
+  <p>Esta página ainda está em desenvolvimento 🔧</p>
+  
+  <div class="clock-card" id="clock">--:--:--</div>
+  
+  <footer>FocoPrime IA &copy; 2026</footer>
 
-  <main class="history-container" id="historyList">
-    <!-- Conversas geradas via JS -->
-  </main>
+  <script>
+    // Atualizar hora
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2,'0');
+      const minutes = String(now.getMinutes()).padStart(2,'0');
+      const seconds = String(now.getSeconds()).padStart(2,'0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    }
 
-  <script src="historias.js"></script>
+    setInterval(updateClock, 1000);
+    updateClock(); // Inicializa imediatamente
+  </script>
 </body>
 </html>
