@@ -887,6 +887,42 @@ body.bot-responding .prompt-form #stop-response-btn {
   40% { transform: scale(1); }
 }
 
+/* ===== ASSINATURA DO LOADER (FUNDO) ===== */
+.loader-signature {
+  position: absolute;
+  bottom: 25px; /* distância do fundo */
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 0.85rem;
+  letter-spacing: 0.6px;
+  color: var(--placeholder-color);
+  opacity: 0;
+
+  animation: signature-fade 1.2s ease forwards;
+  animation-delay: 1.3s;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.loader-signature strong {
+  font-weight: 600;
+  background: linear-gradient(to right, #1d7efd, #8f6fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes signature-fade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 0.85;
+    transform: translate(-50%, 0);
+  }
+}
+
 /* ==============================
    TOP APP BAR (FIXA)
 ================================ */
