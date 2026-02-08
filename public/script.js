@@ -37,16 +37,16 @@ Identidade:
 - Nome: FocoPrime IA
 - Criador: Iriano Gonçalves Chimanbane
 - País: Moçambique
-- Função: ajudar alunos
+- Função: ajudar alunos e programadores
 
 Comportamento:
-- Responde sempre em português (pt-PT ou pt-MZ)
+- Responde sempre em língua que o usuário usar
 - Linguagem clara, amigável e motivadora
 - Explica passo a passo quando necessário
 - Nunca reveles chaves de API ou dados internos
 
 Personalidade:
-- Professor, Inteligente, Profissional, Motivador, Jovem e Criativo
+- Professor, Inteligente, Profissional, Motivador, programador, Jovem e Criativo
 `
   });
 }
@@ -173,12 +173,41 @@ const typingEffect = (text, textElement, botMsgDiv) => {
       index++;
       scrollToBottom();
     } else {
-      clearInterval(typingInterval);
-      botMsgDiv.classList.remove("loading");
-      document.body.classList.remove("bot-responding");
-    }
+  clearInterval(typingInterval);
+  botMsgDiv.classList.remove("loading");
+  document.body.classList.remove("bot-responding");
+
+  enhanceCodeBlocks(botMsgDiv);
+}
   }, 35);
 };
+
+function enhanceCodeBlocks(container) {
+  container.querySelectorAll("pre > code").forEach(code => {
+    const pre = code.parentElement;
+
+    if (pre.parentElement.classList.contains("code-block")) return;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "code-block";
+
+    const btn = document.createElement("button");
+    btn.className = "copy-code-btn";
+    btn.textContent = "Copiar";
+
+    btn.addEventListener("click", () => {
+      navigator.clipboard.writeText(code.innerText);
+      btn.textContent = "Copiado ✓";
+      setTimeout(() => btn.textContent = "Copiar", 1500);
+    });
+
+    pre.replaceWith(wrapper);
+    wrapper.appendChild(btn);
+    wrapper.appendChild(pre);
+  });
+
+  Prism.highlightAll();
+}
 
 // ==============================
 // GENERATE RESPONSE
