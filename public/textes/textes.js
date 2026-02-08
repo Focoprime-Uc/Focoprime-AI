@@ -108,3 +108,11 @@ function resetButton() {
 // ===== HERDAR TEMA =====
 const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
 document.body.classList.toggle("light-theme", isLightTheme);
+
+// ANIMAÇÃO DE ENTRADA
+window.addEventListener("load", () => {
+  const loader = document.getElementById("ai-loader");
+  setTimeout(() => {
+    loader.classList.add("hidden");
+  }, 2000); // mantém loader 2s antes de desaparecer
+});
