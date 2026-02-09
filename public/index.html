@@ -86,6 +86,28 @@ fill="currentColor" viewBox="0 0 24 24" >
     </header>
   <div class="container">
     
+    <!-- APP INSTALL BAR (SÓ NO NAVEGADOR) -->
+<div id="appInstallBar" class="app-install-bar">
+  <div class="app-install-content">
+    <div class="app-icon">
+      <img src="images/groq.png" alt="FocoPrime App">
+    </div>
+
+    <div class="app-text">
+      <strong>FocoPrime IA</strong>
+      <span>Tenha uma melhor experiência no app</span>
+    </div>
+
+    <a
+      href="https://SEU-LINK-DO-APP-AQUI"
+      class="app-install-btn"
+      target="_blank"
+    >
+      Baixar App
+    </a>
+  </div>
+</div>
+    
     <!-- LOADER DE ENTRADA -->
 <div id="ai-loader" class="ai-loader">
   <div class="loader-logo">
@@ -266,6 +288,24 @@ fill="currentColor" viewBox="0 0 24 24" >
   <script src="script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <script>
+(function () {
+  const ua = navigator.userAgent.toLowerCase();
+
+  const isWebView =
+    ua.includes("wv") ||
+    ua.includes("webview") ||
+    ua.includes("appcreator") ||
+    (!window.chrome && ua.includes("android"));
+
+  const bar = document.getElementById("appInstallBar");
+
+  if (isWebView && bar) {
+    bar.style.display = "none";
+  }
+})();
+</script>
 </body>
 
-  </html>
+    </html>
