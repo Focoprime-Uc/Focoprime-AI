@@ -306,19 +306,13 @@ fill="currentColor" viewBox="0 0 24 24" >
   const bar = document.getElementById("appInstallBar");
   const closeBtn = document.getElementById("closeAppBar");
 
-  /* Não mostrar se for WebView */
+  /* Não mostrar dentro do App (WebView) */
   if (isWebView && bar) {
     bar.style.display = "none";
     return;
   }
 
-  /* Não mostrar se o usuário já fechou */
-  if (localStorage.getItem("hideAppInstallBar") === "true") {
-    bar.style.display = "none";
-    return;
-  }
-
-  /* Fechar com animação */
+  /* Fechar temporariamente */
   if (closeBtn && bar) {
     closeBtn.addEventListener("click", () => {
       bar.style.opacity = "0";
@@ -328,12 +322,10 @@ fill="currentColor" viewBox="0 0 24 24" >
       setTimeout(() => {
         bar.style.display = "none";
       }, 300);
-
-      localStorage.setItem("hideAppInstallBar", "true");
     });
   }
 })();
 </script>
 </body>
 
-      </html>
+  </html>
