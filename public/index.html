@@ -88,6 +88,10 @@ fill="currentColor" viewBox="0 0 24 24" >
     
     <!-- APP INSTALL BAR (SÓ NO NAVEGADOR) -->
 <div id="appInstallBar" class="app-install-bar">
+  <!-- BOTÃO FECHAR -->
+  <button id="closeAppBar" class="app-install-close" aria-label="Fechar">
+    <i class="ri-close-line"></i>
+  </button>
   <div class="app-install-content">
     <div class="app-icon">
       <img src="images/groq.png" alt="FocoPrime App">
@@ -99,7 +103,7 @@ fill="currentColor" viewBox="0 0 24 24" >
     </div>
 
     <a
-      href="https://SEU-LINK-DO-APP-AQUI"
+      href="https://apk.e-droid.net/apk/app3258844-f45kmx.apk?v=7"
       class="app-install-btn"
       target="_blank"
     >
@@ -300,12 +304,36 @@ fill="currentColor" viewBox="0 0 24 24" >
     (!window.chrome && ua.includes("android"));
 
   const bar = document.getElementById("appInstallBar");
+  const closeBtn = document.getElementById("closeAppBar");
 
+  /* Não mostrar se for WebView */
   if (isWebView && bar) {
     bar.style.display = "none";
+    return;
+  }
+
+  /* Não mostrar se o usuário já fechou */
+  if (localStorage.getItem("hideAppInstallBar") === "true") {
+    bar.style.display = "none";
+    return;
+  }
+
+  /* Fechar com animação */
+  if (closeBtn && bar) {
+    closeBtn.addEventListener("click", () => {
+      bar.style.opacity = "0";
+      bar.style.transform = "translateY(-10px)";
+      bar.style.transition = "0.3s ease";
+
+      setTimeout(() => {
+        bar.style.display = "none";
+      }, 300);
+
+      localStorage.setItem("hideAppInstallBar", "true");
+    });
   }
 })();
 </script>
 </body>
 
-    </html>
+      </html>
