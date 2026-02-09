@@ -1005,3 +1005,54 @@ body {
 .copy-code-btn:hover {
   background: #0264e3;
   }
+  
+  /* ===== BLOCO DE CÓDIGO CENTRALIZADO COM SCROLL HORIZONTAL ===== */
+.code-block {
+  position: relative;
+  background-color: var(--secondary-color);
+  padding: 1rem;
+  margin: 1rem auto; /* centraliza o bloco */
+  border-radius: 10px;
+  max-width: 95%; /* ocupa quase todo o container, mas com margem lateral */
+  overflow-x: auto; /* permite rolar horizontalmente */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Botão copiar */
+.copy-code-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: 0.2s;
+  z-index: 5;
+}
+
+.copy-code-btn:hover {
+  background: var(--secondary-hover-color);
+}
+
+/* Pre dentro do wrapper */
+.code-block pre {
+  margin: 0;
+  padding-top: 30px; /* espaço para o botão copiar */
+  white-space: pre; /* mantém formatação */
+}
+
+/* Faz a rolagem mais suave */
+.code-block::-webkit-scrollbar {
+  height: 8px;
+}
+.code-block::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color);
+  border-radius: 4px;
+}
+.code-block::-webkit-scrollbar-track {
+  background: transparent;
+  }
