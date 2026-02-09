@@ -1004,43 +1004,4 @@ body {
 
 .copy-code-btn:hover {
   background: #0264e3;
-  }
-  
-/* BLOCO DE CÓDIGO IGUAL À LARGURA DA MENSAGEM */
-.code-block {
-  position: relative;
-  background-color: var(--secondary-color);
-  padding: 1rem;
-  margin: 0.5rem 0; /* espaço entre mensagens */
-  border-radius: 10px;
-  width: fit-content; /* largura do conteúdo, mas limitada */
-  max-width: 80%; /* igual à largura das mensagens da IA */
-  overflow-x: auto; /* rolagem horizontal quando necessário */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-
-/* Botão copiar no canto */
-.copy-code-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: var(--primary-color);
-  color: var(--text-color);
-  border: none;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  cursor: pointer;
-  z-index: 5;
-}
-
-.copy-code-btn:hover {
-  background: var(--secondary-hover-color);
-}
-
-/* Pre dentro do wrapper */
-.code-block pre {
-  margin: 0;
-  padding-top: 25px; /* espaço para o botão copiar */
-  white-space: pre; /* mantém formatação */
-  }
