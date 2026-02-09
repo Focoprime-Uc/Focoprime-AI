@@ -637,7 +637,7 @@ body.bot-responding .prompt-form #stop-response-btn {
 /* ===== SIDEBAR DIREITA ===== */
 .side-menu {
   position: fixed;
-  top: 0;
+  top: 45px;
   right: -100vw;
   width: 100vw;
   height: 100vh;
@@ -661,7 +661,7 @@ body.bot-responding .prompt-form #stop-response-btn {
   justify-content: space-between;
   background: linear-gradient(to right, #1d7efd, #8f6fff);
   margin: -20px -20px 20px -20px;
-  padding: 16px 20px;
+  padding: 10px 10px;
 }
 
 .side-menu-header img {
@@ -912,6 +912,23 @@ body.bot-responding .prompt-form #stop-response-btn {
   -webkit-text-fill-color: transparent;
 }
 
+.loader-parag {
+  position: absolute;
+  bottom: 45px; /* distância do fundo */
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 0.60rem;
+  letter-spacing: 0.6px;
+  color: var(--placeholder-color);
+  opacity: 0;
+
+  animation: signature-fade 1.2s ease forwards;
+  animation-delay: 1.3s;
+  text-align: center;
+  white-space: nowrap;
+}
+
 @keyframes signature-fade {
   from {
     opacity: 0;
@@ -1112,4 +1129,4 @@ body {
 
 .app-install-close:active {
   transform: scale(0.9);
-  }
+    }
