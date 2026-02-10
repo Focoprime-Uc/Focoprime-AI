@@ -363,61 +363,53 @@ async function gerarPDF(texto) {
   doc.save("focoprime.pdf");
 }
 
+const logoutBtn = document.getElementById("logoutBtn");
+const sideMenu = document.getElementById("sideMenu");
+const closeMenuBtn = document.getElementById("closeMenuBtn");
+const sideLogoutBtn = document.getElementById("sideLogoutBtn");
+const userNameInput = document.getElementById("userNameInput");
+const saveUserNameBtn = document.getElementById("saveUserNameBtn");
+const userEmailDiv = document.getElementById("userEmail");
 
-// ELEMENTOS
-const logoutBtnMain = document.getElementById("logoutBtn"); // botão de topo
-const userSidebar = document.getElementById("userSidebar");
-const closeUserSidebar = document.getElementById("closeUserSidebar");
-const userOverlay = document.getElementById("userOverlay");
-
-const userNameInput = document.getElementById("userName");
-const userEmailInput = document.getElementById("userEmail");
-const saveUserInfoBtn = document.getElementById("saveUserInfo");
-const userLogoutBtn = document.getElementById("userLogoutBtn");
-
-// Abrir sidebar usuário
-logoutBtnMain.addEventListener("click", () => {
-  userSidebar.classList.add("active");
-  userOverlay.classList.add("active");
-
-  // Preencher dados do usuário
-  const user = auth.currentUser;
-  if (user) {
-    userNameInput.value = user.displayName;
-    userEmailInput.value = user.email;
-  }
+// Abrir menu ao clicar no botão do usuário
+logoutBtn.addEventListener("click", () => {
+  sideMenu.classList.add("active");
 });
 
-// Fechar sidebar
-closeUserSidebar.addEventListener("click", () => {
-  userSidebar.classList.remove("active");
-  userOverlay.classList.remove("active");
+// Fechar menu
+closeMenuBtn.addEventListener("click", () => {
+  sideMenu.classList.remove("active");
 });
 
-userOverlay.addEventListener("click", () => {
-  userSidebar.classList.remove("active");
-  userOverlay.classList.remove("active");
-});
-
-// Salvar alterações do nome (Firebase)
-saveUserInfoBtn.addEventListener("click", async () => {
-  const user = auth.currentUser;
-  if (user) {
-    try {
-      await user.updateProfile({ displayName: userNameInput.value });
-      alert("Nome atualizado com sucesso!");
-      document.querySelector(".heading").textContent =
-        "Olá, " + userNameInput.value;
-    } catch (err) {
-      alert("Erro ao atualizar nome");
-      console.error(err);
-    }
-  }
-});
-
-// Logout da sidebar
-userLogoutBtn.addEventListener("click", () => {
+// Logout real
+sideLogoutBtn.addEventListener("click", () => {
   signOut(auth);
-  userSidebar.classList.remove("active");
-  userOverlay.classList.remove("active");
+});
+
+// Salvar alteração do nome
+saveUserNameBtn.addEventListener("click", () => {
+  const newName = userNameInput.value.trim();
+  if (!newName) return alert("Digite um nome válido!");
+
+  // Atualiza displayName no Firebase
+  if (auth.currentUser) {
+    auth.currentUser.updateProfile({ displayName: newName })
+      .then(() => {
+        alert("Nome atualizado com sucesso!");
+        document.querySelector(".heading").textContent = "Olá, " + newName;
+      })
+      .catch((err) => alert("Erro ao atualizar nome: " + err.message));
+  }
+});
+
+// Atualiza info do menu quando o usuário loga
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginModal.style.display = "none";
+    document.querySelector(".heading").textContent = "Olá, " + user.displayName;
+    userNameInput.value = user.displayName;
+    userEmailDiv.textContent = user.email;
+  } else {
+    loginModal.style.display = "flex";
+  }
 });
