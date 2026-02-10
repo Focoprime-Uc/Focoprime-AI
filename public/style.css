@@ -1425,6 +1425,10 @@ body {
   font-size: 1rem;
 }
 
+.upgrade-header {
+  background: linear-gradient(to right, #1d7efd, #8f6fff);
+}
+
 .upgrade-features span {
   color: #1d7efd;
   font-size: 22px;
@@ -1458,4 +1462,9 @@ body {
   margin-top: 12px;
   font-size: 0.8rem;
   color: var(--placeholder-color);
+}
+
+.upgrade-logo {
+  font-size: 50px;
+  color: #4285f4;
   }
