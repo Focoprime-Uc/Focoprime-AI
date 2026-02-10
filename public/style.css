@@ -1487,3 +1487,8 @@ body {
   font-size: 50px;
   color: #4285f4;
   }
+
+.upgrade-box {
+  border-radius: 16px;
+  overflow: hidden;
+}
