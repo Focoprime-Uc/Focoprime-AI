@@ -1298,6 +1298,7 @@ body {
   background: var(--secondary-color);
   border-radius: 999px;
   padding: 6px 14px;
+  border-color: linear-gradient(to right, #1d7efd, #8f6fff);
   cursor: pointer;
   transition: 0.3s;
 }
