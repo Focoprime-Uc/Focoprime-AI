@@ -367,7 +367,7 @@ fill="currentColor" viewBox="0 0 24 24" >
   // Sessão
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      loginModal.remove();
+      loginModal.style.display = "none";
 
       document.querySelector(".heading").textContent =
         "Olá, " + user.displayName;
@@ -382,7 +382,6 @@ fill="currentColor" viewBox="0 0 24 24" >
     signOut(auth);
   });
 </script>
-
 <script>
 window.addEventListener("load", () => {
   const loader = document.getElementById("ai-loader");
