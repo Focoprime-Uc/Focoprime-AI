@@ -979,7 +979,7 @@ body.bot-responding .prompt-form #stop-response-btn {
   display: inline-flex;              /* 🔑 chave do alinhamento */
   align-items: center;               /* centra verticalmente */
   justify-content: center;
-  gap: 8px;                           /* espaço entre ícone e texto */
+  gap: 6px;                           /* espaço entre ícone e texto */
   padding: 8px 14px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.15);
