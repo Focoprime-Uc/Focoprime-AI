@@ -362,3 +362,62 @@ async function gerarPDF(texto) {
   // Download do PDF
   doc.save("focoprime.pdf");
 }
+
+
+// ELEMENTOS
+const logoutBtnMain = document.getElementById("logoutBtn"); // botão de topo
+const userSidebar = document.getElementById("userSidebar");
+const closeUserSidebar = document.getElementById("closeUserSidebar");
+const userOverlay = document.getElementById("userOverlay");
+
+const userNameInput = document.getElementById("userName");
+const userEmailInput = document.getElementById("userEmail");
+const saveUserInfoBtn = document.getElementById("saveUserInfo");
+const userLogoutBtn = document.getElementById("userLogoutBtn");
+
+// Abrir sidebar usuário
+logoutBtnMain.addEventListener("click", () => {
+  userSidebar.classList.add("active");
+  userOverlay.classList.add("active");
+
+  // Preencher dados do usuário
+  const user = auth.currentUser;
+  if (user) {
+    userNameInput.value = user.displayName;
+    userEmailInput.value = user.email;
+  }
+});
+
+// Fechar sidebar
+closeUserSidebar.addEventListener("click", () => {
+  userSidebar.classList.remove("active");
+  userOverlay.classList.remove("active");
+});
+
+userOverlay.addEventListener("click", () => {
+  userSidebar.classList.remove("active");
+  userOverlay.classList.remove("active");
+});
+
+// Salvar alterações do nome (Firebase)
+saveUserInfoBtn.addEventListener("click", async () => {
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      await user.updateProfile({ displayName: userNameInput.value });
+      alert("Nome atualizado com sucesso!");
+      document.querySelector(".heading").textContent =
+        "Olá, " + userNameInput.value;
+    } catch (err) {
+      alert("Erro ao atualizar nome");
+      console.error(err);
+    }
+  }
+});
+
+// Logout da sidebar
+userLogoutBtn.addEventListener("click", () => {
+  signOut(auth);
+  userSidebar.classList.remove("active");
+  userOverlay.classList.remove("active");
+});
