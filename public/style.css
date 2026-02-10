@@ -1185,3 +1185,21 @@ body {
   transform: scale(1.05);
   pointer-events: none;
 }
+
+.login-modal {
+  pointer-events: auto;
+}
+
+.login-modal.hidden {
+  display: none;
+  pointer-events: none;
+}
+
+.prompt-container {
+  z-index: 10000;
+}
+
+#send-prompt-btn {
+  pointer-events: auto;
+  z-index: 10001;
+}
