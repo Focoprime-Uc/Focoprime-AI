@@ -975,6 +975,7 @@ body.bot-responding .prompt-form #stop-response-btn {
 }
 
 .top-app-btn {
+  gap: 8px;
   background: gold;
   color: #000;
   padding: 6px 14px;
