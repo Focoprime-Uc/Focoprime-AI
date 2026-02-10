@@ -292,6 +292,33 @@ fill="currentColor" viewBox="0 0 24 24" >
     </div>
   </div>
   
+  <!-- SIDEBAR USUÁRIO (ESQUERDA) -->
+<div id="userSidebar" class="user-sidebar">
+  <div class="user-sidebar-header">
+    <h2>Minha Conta</h2>
+    <button id="closeUserSidebar" class="material-symbols-rounded">close</button>
+  </div>
+
+  <div class="user-info">
+    <label>Nome:</label>
+    <input type="text" id="userName" placeholder="Nome" />
+
+    <label>Email:</label>
+    <input type="email" id="userEmail" placeholder="Email" disabled />
+
+    <button id="saveUserInfo" class="save-btn">
+      <i class="fa-solid fa-floppy-disk"></i> Salvar
+    </button>
+  </div>
+
+  <button id="userLogoutBtn" class="logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i> Sair
+  </button>
+</div>
+
+<!-- Overlay para sidebar do usuário -->
+<div id="userOverlay" class="menu-overlay"></div>
+  
   <script src="script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
