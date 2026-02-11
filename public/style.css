@@ -1429,17 +1429,29 @@ body {
   border: 2px solid #1d7efd;
 }
 
-.titu {
-  display: inline-block;
-  padding: 4px 12px;
-  margin-left: 6px;
-  font-size: 0.9rem;
+.upgrade-title {
+  display: flex;
+  align-items: center; /* 🔥 alinha verticalmente */
+  justify-content: center;
+  gap: 12px;
+}
+
+.upgrade-title h2 {
+  font-size: 28px;
   font-weight: 700;
-  color: #fff;
+  margin: 0;
+}
+
+.pro-badge {
+  padding: 6px 16px;
   border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
   background: linear-gradient(to right, #1d7efd, #8f6fff);
-  box-shadow: 0 4px 12px rgba(29, 126, 253, 0.4);
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .upgrade-features {
