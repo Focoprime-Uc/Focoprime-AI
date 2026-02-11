@@ -1396,8 +1396,8 @@ body {
 
 /* ÍCONE DO HEADER */
 .upgrade-logo {
-  width: 24px;
-  height: 24px;
+  width: 45px;
+  height: 45px;
   margin: 0 auto;
   border-radius: 50%;
   background: linear-gradient(to right, #1d7efd, #8f6fff);
@@ -1424,7 +1424,7 @@ body {
   color: var(--subheading-color);
   margin-top: 4px;
   padding: 10px;
-  background: var(--secondary-color);
+  background: linear-gradient(to right, #1d7efd, #8f6fff);
   border-radius: 12px;
 }
 
