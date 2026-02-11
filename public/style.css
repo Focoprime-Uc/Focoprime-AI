@@ -1430,12 +1430,21 @@ body {
 }
 
 .titu {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-left: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 50px;
   background: linear-gradient(to right, #1d7efd, #8f6fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  font-weight: 800;
+  box-shadow: 0 0 15px rgba(143, 111, 255, 0.6);
   letter-spacing: 1px;
+  transition: 0.3s ease;
+}
+
+.titu:hover {
+  transform: scale(1.05);
 }
 
 .upgrade-features {
