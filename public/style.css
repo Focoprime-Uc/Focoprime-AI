@@ -1430,7 +1430,12 @@ body {
 }
 
 .titu {
-  color: linear-gradient(to right, #1d7efd, #8f6fff);
+  background: linear-gradient(to right, #1d7efd, #8f6fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .upgrade-features {
