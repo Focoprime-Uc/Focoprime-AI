@@ -1325,7 +1325,7 @@ body {
   background: var(--secondary-color);
   border-radius: 999px;
   padding: 6px 14px;
-  border-color: linear-gradient(to right, #1d7efd, #8f6fff);
+  border: 2px solid #1d7efd;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -1426,6 +1426,7 @@ body {
   padding: 10px;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 12px;
+  border: 2px solid #1d7efd;
 }
 
 .upgrade-features {
