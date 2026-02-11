@@ -290,27 +290,59 @@ fill="currentColor" viewBox="0 0 24 24" >
     <!-- LOGIN MODAL -->
 <div id="loginModal" class="login-modal">
   <div class="login-box">
+
+    <!-- HEADER -->
     <img src="images/Logo.png" class="login-logo" />
-    <h2>Bem-vindo à FocoPrime Inteligência Escolar</h2>
-    <p>Entrar com uma conta real</p>
-    
-    <!-- botão do email -->
-    <hr style="margin:15px 0; opacity:0.2;">
+    <h2 id="loginTitle">Bem-vindo à FocoPrime</h2>
+    <p id="loginSubtitle">Entrar com a sua conta</p>
 
-<input type="email" id="emailInput" placeholder="Email" class="email-input">
-<input type="password" id="passwordInput" placeholder="Senha" class="email-input">
+    <!-- ================= LOGIN VIEW ================= -->
+    <div id="loginView">
 
-<button id="emailLoginBtn" class="email-btn">
-  Entrar com Email
-</button>
+      <input type="email" id="emailInput" placeholder="Email" class="input-premium">
+      <input type="password" id="passwordInput" placeholder="Senha" class="input-premium">
 
-<button id="emailRegisterBtn" class="email-btn register">
-  Criar Conta
-</button>
+      <button id="emailLoginBtn" class="btn-premium">
+        Entrar
+      </button>
 
-<button id="googleLoginBtn" class="google-btn">
-  <i class="fa-brands fa-google"></i> Entrar com Google
-</button>
+      <button id="googleLoginBtn" class="btn-google">
+        <i class="fa-brands fa-google"></i> Continuar com Google
+      </button>
+
+      <p class="switch-text">
+        Ainda não tens conta?
+        <span id="showRegister">Criar conta</span>
+      </p>
+
+    </div>
+
+    <!-- ================= REGISTER VIEW ================= -->
+    <div id="registerView" style="display:none;">
+
+      <div class="avatar-upload">
+        <input type="file" id="photoInput" accept="image/*" hidden>
+        <img src="images/user-placeholder.png" id="previewPhoto">
+        <button type="button" id="changePhotoBtn">
+          <i class="ri-camera-line"></i>
+        </button>
+      </div>
+
+      <input type="text" id="registerName" placeholder="Nome completo" class="input-premium">
+      <input type="email" id="registerEmail" placeholder="Email" class="input-premium">
+      <input type="password" id="registerPassword" placeholder="Senha" class="input-premium">
+
+      <button id="emailRegisterBtn" class="btn-premium">
+        Criar Conta
+      </button>
+
+      <p class="switch-text">
+        Já tens conta?
+        <span id="showLogin">Entrar</span>
+      </p>
+
+    </div>
+
   </div>
 </div>
     
@@ -522,13 +554,24 @@ emailLoginBtn.addEventListener("click", async () => {
 /* ===============================
    📝 REGISTO
 ================================= */
+const registerName = document.getElementById("registerName");
+const registerEmail = document.getElementById("registerEmail");
+const registerPassword = document.getElementById("registerPassword");
+
 emailRegisterBtn.addEventListener("click", async () => {
   try {
-    await createUserWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
       auth,
-      emailInput.value,
-      passwordInput.value
+      registerEmail.value,
+      registerPassword.value
     );
+
+    const user = userCredential.user;
+
+    // Salvar nome
+    await updateProfile(user, {
+      displayName: registerName.value
+    });
 
     alert("Conta criada com sucesso!");
   } catch (error) {
@@ -622,7 +665,50 @@ window.addEventListener("load", () => {
 
   }, 800); // tempo mínimo para animação
 });
+
+// Alternar views
+const loginView = document.getElementById("loginView");
+const registerView = document.getElementById("registerView");
+
+const showRegister = document.getElementById("showRegister");
+const showLogin = document.getElementById("showLogin");
+
+const loginTitle = document.getElementById("loginTitle");
+const loginSubtitle = document.getElementById("loginSubtitle");
+
+showRegister.addEventListener("click", () => {
+  loginView.style.display = "none";
+  registerView.style.display = "block";
+  loginTitle.textContent = "Criar Conta";
+  loginSubtitle.textContent = "Junte-se à FocoPrime";
+});
+
+showLogin.addEventListener("click", () => {
+  registerView.style.display = "none";
+  loginView.style.display = "block";
+  loginTitle.textContent = "Bem-vindo à FocoPrime";
+  loginSubtitle.textContent = "Entrar com a sua conta";
+});
+
+const photoInput = document.getElementById("photoInput");
+const previewPhoto = document.getElementById("previewPhoto");
+const changePhotoBtn = document.getElementById("changePhotoBtn");
+
+changePhotoBtn.addEventListener("click", () => {
+  photoInput.click();
+});
+
+photoInput.addEventListener("change", () => {
+  const file = photoInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      previewPhoto.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
 </script>
 </body>
 
-  </html>
+                  </html>
