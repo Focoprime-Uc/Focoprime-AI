@@ -1,1618 +1,328 @@
-/* Import Google Font - Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+<!DOCTYPE html>
+<!-- Coding By focoprime - www.focoprime.me -->
+<html lang="pt">
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focoprime AI</title>
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+  <!-- SEO + IA -->
+  <meta name="description" content="FocoPrime IA é um assistente escolar inteligente criado em Moçambique para ajudar alunos com estudos, exames e aprendizagem personalizada.">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+<meta property="og:title" content="FocoPrime IA – Assistente Escolar Inteligente">
+<meta property="og:description" content="Assistente escolar criado em Moçambique para ajudar alunos com estudos, exames e aprendizagem personalizada.">
+<meta property="og:image" content="https://ai-focoprime.online/images/Preview.png">
+<meta property="og:url" content="https://ai-focoprime.online">
+<meta property="og:site_name" content="FocoPrime IA">
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FocoPrime IA – Assistente Escolar Inteligente">
+<meta name="twitter:description" content="Aprenda melhor com a FocoPrime IA, um assistente educacional inteligente feito para estudantes.">
+<meta name="twitter:image" content="https://ai-focoprime.online/images/Preview.png">
+  <!-- Anúncios do Mondiad -->
+  <script async src="https://ss.mrmnd.com/ctatic/6e30348f-197b-4bac-986f-eaf7ec7bd707.js"></script>
+  <!-- Linking Google Fonts For Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@32,400,0,0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!--- Link do remixicon -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+  <!-- Prism.js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
 
-:root {
-  /* Dark theme colors */
-  --text-color: #edf3ff;
-  --subheading-color: #97a7ca;
-  --placeholder-color: #c3cdde;
-  --primary-color: #101623;
-  --secondary-color: #283045;
-  --secondary-hover-color: #333e58;
-  --scrollbar-color: #626a7f;
-}
+<!-- Linguagens principais -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+</head>
 
-body.light-theme {
-  /* Light theme colors */
-  --text-color: #090c13;
-  --subheading-color: #7b8cae;
-  --placeholder-color: #606982;
-  --primary-color: #f3f7ff;
-  --secondary-color: #dce6f9;
-  --secondary-hover-color: #d2ddf2;
-  --scrollbar-color: #a2aac2;
-}
-
-body {
-  color: var(--text-color);
-  background: var(--primary-color);
-}
-
-.logo img {
-    height: 50px;
-}
-
-.cabeca {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/*===== Ivones soviais =====*/
-.social-container {
-  gap: 30px;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  padding: 10px;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.social-icon {
-  color: white;
-  font-size: 20px;
-  text-decoration: none;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-  transform: scale(1.2);
-}
-
-/* Individual glowing effects */
-.facebook:hover {
-  color: #3b5998;
-  text-shadow: 0 0 10px #3b5998, 0 0 20px blue, 0 0 30px mediumblue;
-}
-
-.instagram:hover {
-  color: #e4405f;
-  text-shadow: 0 0 10px #e4405f, 0 0 20px #e4405f, 0 0 30px #e4405f;
-}
-
-.snapchat:hover {
-  color: #fffc00;
-  text-shadow: 0 0 10px #fffc00, 0 0 20px #fffc00, 0 0 30px #fffc00;
-}
-
-.tiktok:hover {
-  color: #69c9d0;
-  text-shadow: 0 0 10px #69c9d0, 0 0 20px #69c9d0, 0 0 30px #69c9d0;
-}
-
-.whatsapp {
-  color: #25d366;
-  transition: all 0.5s ease;
-}
-
-.whatsapp:hover {
-  color: #25d366;
-  text-shadow: 0 0 15px #25d366, 0 0 30px #25d366, 0 0 45px #25d366;
-  transform: scale(1.3);
-}
-
-.container {
-  overflow-y: auto;
-  padding: 32px 0 60px;
-  height: calc(100vh - 127px);
-  scrollbar-color: var(--scrollbar-color) transparent;
-}
-
-.container :where(.app-header, .suggestions, .message, .prompt-wrapper) {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 20px;
-  max-width: 990px;
-}
-
-.container .app-header {
-  margin-top: 3vh;
-}
-
-.app-header .heading {
-  width: fit-content;
-  font-size: 3rem;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.app-header .sub-heading {
-  font-size: 2.6rem;
-  margin-top: -5px;
-  color: var(--subheading-color);
-}
-
-.container .suggestions {
-  width: 100%;
-  list-style: none;
-  display: flex;
-  gap: 15px;
-  margin-top: 9.5vh;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-body.chats-active .container :where(.app-header, .suggestions) {
-  display: none;
-}
-
-.suggestions .suggestions-item {
-  cursor: pointer;
-  padding: 18px;
-  width: 228px;
-  flex-shrink: 0;
-  display: flex;
-  scroll-snap-align: center;
-  flex-direction: column;
-  align-items: flex-end;
-  border-radius: 12px;
-  justify-content: space-between;
-  background: var(--secondary-color);
-  transition: 0.3s ease;
-}
-
-.suggestions .suggestions-item:hover {
-  background: var(--secondary-hover-color);
-}
-
-.suggestions .suggestions-item .text {
-  font-size: 1.1rem;
-}
-
-.suggestions .suggestions-item .icon {
-  width: 45px;
-  height: 45px;
-  display: flex;
-  font-size: 1.4rem;
-  margin-top: 35px;
-  align-self: flex-end;
-  align-items: center;
-  border-radius: 50%;
-  justify-content: center;
-  color: #1d7efd;
-  background: var(--primary-color);
-}
-
-.suggestions .suggestions-item:nth-child(2) .icon {
-  color: #28a745;
-}
-
-.suggestions .suggestions-item:nth-child(3) .icon {
-  color: #ffc107;
-}
-
-.suggestions .suggestions-item:nth-child(4) .icon {
-  color: #6f42c1;
-}
-
-.container .chats-container {
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-}
-
-.chats-container .message {
-  display: flex;
-  gap: 11px;
-  align-items: center;
-}
-
-.chats-container .message .avatar {
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
-  align-self: flex-start;
-  border-radius: 12px;
-  padding: 6px;
-  margin-right: -7px;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  border: 1px solid var(--secondary-hover-color);
-}
-
-.chats-container .message.loading .avatar {
-  animation: rotate 3s linear infinite;
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.chats-container .message .message-text {
-  padding: 3px 6px;
-  word-wrap: break-word;
-  white-space: pre-line;
-}
-
-.chats-container .bot-message {
-  margin: 9px auto;
-}
-
-.chats-container .user-message {
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.chats-container .user-message .message-text {
-  padding: 12px 16px;
-  max-width: 75%;
-  background: var(--secondary-color);
-  border-radius: 13px 13px 3px 13px;
-}
-
-.chats-container .user-message .img-attachment {
-  margin-top: -7px;
-  width: 50%;
-  border-radius: 13px 3px 13px 13px;
-}
-
-.chats-container .user-message .file-attachment {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  padding: 10px;
-  margin-top: -7px;
-  border-radius: 13px 3px 13px 13px;
-  background: var(--secondary-color);
-}
-
-.chats-container .user-message .file-attachment span {
-  color: #1d7efd;
-}
-
-.container .prompt-container {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-  padding: 16px 0;
-  background: var(--primary-color);
-}
-
-.prompt-container :where(.prompt-wrapper, .prompt-form, .prompt-actions) {
-  display: flex;
-  gap: 12px;
-  height: 56px;
-  align-items: center;
-}
-
-.prompt-container .prompt-form {
-  height: 100%;
-  width: 100%;
-  border-radius: 130px;
-  background: var(--secondary-color);
-}
-
-.prompt-form .prompt-input {
-  width: 100%;
-  height: 100%;
-  background: none;
-  outline: none;
-  border: none;
-  font-size: 1rem;
-  color: var(--text-color);
-  padding-left: 24px;
-}
-
-
-.prompt-form .prompt-input::placeholder {
-  color: var(--placeholder-color);
-}
-
-.prompt-wrapper button {
-  width: 56px;
-  height: 100%;
-  flex-shrink: 0;
-  cursor: pointer;
-  border-radius: 50%;
-  font-size: 1.4rem;
-  border: none;
-  color: var(--text-color);
-  background: var(--secondary-color);
-  transition: 0.3s ease;
-}
-
-.prompt-wrapper :is(button:hover, #cancel-file-btn, .file-icon) {
-  background: var(--secondary-hover-color);
-}
-
-.prompt-form .prompt-actions {
-  gap: 5px;
-  margin-right: 7px;
-}
-
-.prompt-wrapper .prompt-form :where(.file-upload-wrapper, button, img) {
-  position: relative;
-  height: 45px;
-  width: 45px;
-}
-
-.prompt-form .prompt-actions #send-prompt-btn {
-  color: #fff;
-  display: none;
-  background: #1d7efd;
-}
-
-.prompt-form .prompt-input:valid~.prompt-actions #send-prompt-btn {
-  display: block;
-}
-
-.prompt-form #send-prompt-btn:hover {
-  background: #0264e3;
-}
-
-.prompt-form .file-upload-wrapper :where(button, img) {
-  display: none;
-  border-radius: 50%;
-  object-fit: cover;
-  position: absolute;
-}
-
-.prompt-form .file-upload-wrapper.active #add-file-btn {
-  display: none;
-}
-
-.prompt-form .file-upload-wrapper #add-file-btn,
-.prompt-form .file-upload-wrapper.active.img-attached img,
-.prompt-form .file-upload-wrapper.active.file-attached .file-icon,
-.prompt-form .file-upload-wrapper.active:hover #cancel-file-btn {
-  display: block;
-}
-
-.prompt-form :is(#stop-response-btn:hover, #cancel-file-btn) {
-  color: #d62939;
-}
-
-.prompt-wrapper .prompt-form .file-icon {
-  color: #1d7efd;
-}
-
-.prompt-form #stop-response-btn,
-body.bot-responding .prompt-form .file-upload-wrapper {
-  display: none;
-}
-
-body.bot-responding .prompt-form #stop-response-btn {
-  display: block;
-}
-
-.prompt-container .disclaimer-text {
-  font-size: 0.9rem;
-  text-align: center;
-  padding: 16px 20px 0;
-  color: var(--placeholder-color);
-}
-
-/* Responsive media query code for small screens */
-@media (max-width: 768px) {
-  .container {
-    padding: 20px 0 100px;
-  }
+<body>
+  <!--- TOP UP BAR CABEÇALHO  --->
+  <div id="top-app-bar"></div>
   
-  .app-header :is(.heading, .sub-heading) {
-    font-size: 2rem;
-    line-height: 1.4;
-  }
+  <!--- CABEÇALHO FOCOPRIME  --->
+  <div id="header"></div>
   
-  .app-header .sub-heading {
-    font-size: 1.7rem;
-  }
+  <!--- USER PAINEL --->
+  <div id="userPanelContainer"></div>
   
-  .container .chats-container {
-    gap: 15px;
-  }
+  <div class="container">
+    
+    <!--- APK RECOMENDAÇÃO  --->
+    <div id="appInstallBar"></div>
+    
+    <!--- UPGRADE PREMIUM MODAL --->
+    <!---======= UPGRADE MODE ====== --->
+    <div id="upgradeModal" class="upgrade-modal">
+      <div class="upgrade-box">
+        <button class="upgrade-close" id="closeUpgrade">&times;</button>
+        
+        <div class="upgrade-header">
+          <span class="upgrade-logo">
+            <svg xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 24 24" >
+              <!-- focoprime chat ia svg --->
+              <path d="M17.31 14H9.72L5.95 2.68A1 1 0 0 0 5 2H2v2h2.28l3.54 10.63A2 2 0 0 0 9.72 16h7.59a2 2 0 0 0 1.87-1.3l2.76-7.35-1.87-.7zM10 18a2 2 0 1 0 0 4 2 2 0 1 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 1 0 0-4"></path><path d="m11.71 7.29-1.42 1.42 2.71 2.7 4.71-4.7-1.42-1.42L13 8.59z"></path>
+            </svg>
+          </span>
+          
+          <!--- parte do título  --->
+          <div class="upgrade-title">
+            <h2>Upgrade para</h2>
+            <span class="pro-badge">PRO</span>
+          </div>
+          <!--- descrição  --->
+          <p>Desbloqueie recursos avançados da FocoPrime IA e tenha acesso total a focoprime</p>
+        </div>
+        <!--- recursos  --->
+        <ul class="upgrade-features">
+          <li>
+            <span class="material-symbols-rounded">image</span>
+            Fotos ilimitadas
+          </li>
+          <li>
+            <span class="material-symbols-rounded">all_inclusive</span>
+            Mensagens ilimitadas
+          </li>
+          <li>
+            <span class="material-symbols-rounded">record_voice_over</span>
+            Explicação por voz
+          </li>
+          <li>
+            <span class="material-symbols-rounded">spellcheck</span>
+            Resolução de textos
+          </li>
+          <li>
+            <span class="material-symbols-rounded">hub</span>
+            Modelos ilimitados
+          </li>
+        </ul>
+        
+        <!--- botão do upgrade --->
+        <button class="upgrade-btn">
+          <span class="material-symbols-rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            fill="currentColor" viewBox="0 0 24 24" >
+              <!--- focoprime iriano 2026 ícone  --->
+              <path d="M20.33 3.06a1 1 0 0 0-1.11.32L16 7.4l-3.22-4.02c-.38-.47-1.18-.47-1.56 0L8 7.4 4.78 3.38c-.27-.33-.71-.46-1.11-.32S3 3.58 3 4v15c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-.42-.27-.8-.67-.94M7.22 9.63c.38.47 1.18.47 1.56 0L12 5.61l3.22 4.02c.38.47 1.18.47 1.56 0L19 6.86v8.15H5V6.85l2.22 2.77ZM5 19.01v-2h14v2z"></path>
+            </svg>
+          </span>
+          Fazer Upgrade Agora
+        </button>
+        <!--- nota focoprime (baixo) --->
+        <span class="upgrade-note">
+          Cancelar quando quiser • Seguro • Rápido
+        </span>
+      </div>
+    </div>
+    <!--- ====== FINAL DO POPUP (UPGRADE) ====--->
+    <!--- =====≈==============================--->
+    <!--- ====== LOADER DE ENTRADA ====== --->
+    <div id="ai-loader"></div>
+    
+    <!--- ====== MENU SIDEBAR PRINCIPAL ====== --->
+    <div id="sideMenu" class="side-menu">
+      <div class="side-menu-header">
+        <img src="images/logo-header.png">
+        <button id="closeMenuBtn" class="material-symbols-rounded">close</button>
+      </div>
+      
+      <ul class="side-menu-list">
+        <li class="side-item" id="newChatBtn">
+          <span class="material-symbols-rounded"><i class="ri-chat-smile-ai-fill"></i></span>
+          <span>Nova Mensagem</span>
+        </li>
+        <!--- historias  --->
+        <li class="side-item" onclick="location.href='historias/index.html'">
+          <span class="material-symbols-rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            fill="currentColor" viewBox="0 0 24 24" >
+              <!--- ícone focoprime (historias) --->
+              <path d="M21.21 8.11c-.25-.59-.56-1.16-.92-1.7-.36-.53-.77-1.03-1.22-1.48s-.95-.86-1.48-1.22c-.54-.36-1.11-.67-1.7-.92-.6-.26-1.24-.45-1.88-.58-1.31-.27-2.72-.27-4.03 0-.64.13-1.27.33-1.88.58-.59.25-1.16.56-1.7.92-.53.36-1.03.77-1.48 1.22-.17.17-.32.35-.48.52L1.99 3v6h6L5.86 6.87c.15-.18.31-.36.48-.52.36-.36.76-.69 1.18-.98.43-.29.89-.54 1.36-.74.48-.2.99-.36 1.5-.47 1.05-.21 2.18-.21 3.23 0 .51.11 1.02.26 1.5.47.47.2.93.45 1.36.74.42.29.82.62 1.18.98s.69.76.98 1.18c.29.43.54.89.74 1.36.2.48.36.99.47 1.5.11.53.16 1.07.16 1.61a7.85 7.85 0 0 1-.63 3.11c-.2.47-.45.93-.74 1.36-.29.42-.62.82-.98 1.18s-.76.69-1.18.98c-.43.29-.89.54-1.36.74-.48.2-.99.36-1.5.47-1.05.21-2.18.21-3.23 0a8 8 0 0 1-1.5-.47c-.47-.2-.93-.45-1.36-.74-.42-.29-.82-.62-1.18-.98s-.69-.76-.98-1.18c-.29-.43-.54-.89-.74-1.36-.2-.48-.36-.99-.47-1.5A8 8 0 0 1 3.99 12h-2c0 .68.07 1.35.2 2.01.13.64.33 1.27.58 1.88.25.59.56 1.16.92 1.7.36.53.77 1.03 1.22 1.48s.95.86 1.48 1.22c.54.36 1.11.67 1.7.92.6.26 1.24.45 1.88.58.66.13 1.33.2 2.01.2s1.36-.07 2.01-.2c.64-.13 1.27-.33 1.88-.58.59-.25 1.16-.56 1.7-.92.53-.36 1.03-.77 1.48-1.22s.86-.95 1.22-1.48c.36-.54.67-1.11.92-1.7.26-.6.45-1.24.58-1.88.13-.66.2-1.34.2-2.01s-.07-1.35-.2-2.01c-.13-.64-.33-1.27-.58-1.88Z"/><path d="M11 7v6h6v-2h-4V7z"/>
+            </svg>
+          </span>
+          <span>Histórico</span>
+        </li>
+        <!--- texte Inteligentes--->
+        <li class="side-item" onclick="location.href='testes/testes.html'">
+          <span class="material-symbols-rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            fill="currentColor" viewBox="0 0 24 24" >
+              <!--- ícone focoprime  --->
+              <path d="m21.09,7.33c1.22-1.22,1.22-3.2,0-4.41-1.22-1.22-3.2-1.22-4.41,0L7.8,11.78c-.71.06-1.41.27-2.01.64-1.17.72-1.81,1.89-1.81,3.29,0,.3.02.59.04.86.08,1.03.11,1.42-1.47,2.21-.32.16-.53.47-.55.82-.02.35.14.69.43.89,1,.69,2.76,1.49,4.62,1.49,1.35,0,2.74-.42,3.92-1.6,1.12-1.12,1.71-2.85,1.55-4.49l8.56-8.56Zm-3-3c.44-.44,1.15-.44,1.59,0s.44,1.15,0,1.58l-7.86,7.86c-.4-.63-.96-1.15-1.65-1.52l7.92-7.92Zm-8.53,14.64c-1.44,1.44-3.31,1.1-4.58.61,1.09-.98,1.13-1.99,1.04-3.16-.02-.22-.04-.46-.04-.71,0-.7.29-1.23.86-1.59.68-.42,1.66-.49,2.31-.16.65.32.99.81,1.18,1.28l-.05.05.1.1c.05.16.09.32.12.47.18,1.09-.22,2.37-.96,3.11Z"/><path d="m2.32,6.49l2.21.98.98,2.21c.09.19.28.32.49.32s.4-.12.49-.32l.98-2.21,2.21-.98c.19-.09.32-.28.32-.49s-.12-.4-.32-.49l-2.21-.98-.98-2.21c-.08-.19-.27-.32-.48-.32-.21-.02-.4.12-.49.31l-.99,2.14-2.23,1.07c-.19.09-.3.28-.3.49s.13.39.32.48Z"/><path d="m21.76,18.63l-1.66-.74-.74-1.66c-.06-.14-.21-.24-.36-.24-.16-.01-.3.09-.37.23l-.74,1.6-1.67.8c-.14.07-.23.21-.23.37,0,.16.1.3.24.36l1.66.74.74,1.66c.06.14.21.24.37.24s.3-.09.37-.24l.74-1.66,1.66-.74c.14-.06.24-.21.24-.37s-.09-.3-.24-.37Z"/>
+            </svg>
+          </span>
+          <span>Textes Inteligentes</span>
+        </li>
+        <!--- Definições --->
+        <li class="side-item">
+          <span class="material-symbols-rounded">settings</span>
+          <span>Definições</span>
+        </li>
+        <!--- novidades --->
+        <li class="side-item" onclick="location.href='news/news.html'">
+          <span class="material-symbols-rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            fill="currentColor" viewBox="0 0 24 24" >
+              <!--- ícone focoprime --->
+              <path d="M18.5 10H22v2h-3.5zm.05-1.17 1.5-1 1.5-1L21 6l-.55-.83-1.5 1-1.5 1L18 8zm0 4.34L18 14l-.55.83 1.5 1 1.5 1L21 16l.55-.83-1.5-1zM15 8.18V4c0-.37-.2-.71-.53-.88s-.72-.15-1.03.05L7.69 7h-1.7c-2.21 0-4 1.79-4 4 0 1.52.86 2.82 2.1 3.5l1.94 6.77 1.92-.55-1.64-5.73h1.37l5.75 3.83c.17.11.36.17.55.17.16 0 .32-.04.47-.12.33-.17.53-.51.53-.88v-4.18c1.16-.41 2-1.51 2-2.82s-.84-2.4-2-2.82Zm-2 7.95-4.45-2.96A1 1 0 0 0 8 13H6c-1.1 0-2-.9-2-2s.9-2 2-2h2c.2 0 .39-.06.55-.17L13 5.87z"></path>
+            </svg>
+          </span>
+          <span>Novidades</span>
+        </li>
+      </ul>
+      <!--- botão de sair --->
+      <button id="sideLogoutBtn" class="logout-btn side-logout" class="side-menu-footer">
+        <span class="material-symbols-rounded">logout</span>
+        <span>Sair</span>
+      </button>
+    </div>
+    <!--- menu overlay --->
+    <div id="menuOverlay" class="menu-overlay"></div>
+    <!--- ====== FECHAMENTO DO SIDEMENU ===== --->
+    <!--- =================================== --->
+
+    <!--- ====== APP HEADER ====== --->
+    <div id="appheader"></div>
+    <script>
+      fetch("components/appheader.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("appheader").innerHTML = data;
+      });
+    </script>
+    <!--- ====== FECHAMENTO DO APP HEADER ====== --->
+    <!--- ====================================== --->
+    
+    <!--- ====== LOGIN MODAL (REQUERIDO) ======= --->
+    <div id="loginModal" class="login-modal">
+      <div class="login-box">
+        
+        <!--- Header --->
+        <img src="images/Logo.png" class="login-logo" />
+        <h2 id="loginTitle">Bem vindo a FocoPrime</h2>
+        <p id="loginSubtitle">Entrar com a sua conta</p>
+        <!---========== LOGIN VIEW ==========--->
+        <div id="loginView">
+          <input type="email" id="emailInput" placeholder="Email" class="input-premium">
+          <input type="password" id="passwordInput" placeholder="Senha" class="input-premium">
+          
+          <!--- Esqueceu a senha? --->
+          <p class="forgot-password">
+            <span id="forgotPasswordBtn">
+              Esqueceu a senha?
+            </span>
+          </p>
+          
+          <button id="emailLoginBtn" class="btn-premium">
+            Entrar
+          </button>
+          
+          <button id="googleLoginBtn" class="btn-google">
+            <i class="fa-brands fa-google"></i> Continuar com Google
+          </button>
+          
+          <p class="switch-text">
+            Ainda não tens conta?
+            <span id="showRegister">Criar conta</span>
+          </p>
+          
+        </div>
+        
+        <!---=============== REGISTER VIEW ============--->
+        <div id="registerView" style="display: none;">
+          
+          <div class="avatar-upload">
+            <input type="file" id="photoInput" accept="image/*" hidden>
+            <img src="images/user-placeholder.png" id="previewPhoto">
+            <button type="button" id="changePhotoBtn">
+              <i class="ri-camera-line"></i>
+            </button>
+          </div>
+          
+          <input type="text" id="registerName" placeholder="Nome completo" class="input-premium">
+          <input type="email" id="registerEmail" placeholder="Email" class="input-premium">
+          <input type="password" id="registerPassword" placeholder="Senha" class="input-premium">
+          
+          <button id="emailRegisterBtn" class="btn-premium">
+            Criar conta
+          </button>
+          
+          <p class="switch-text">
+            Já tens conta?
+            <span id="showLogin">Entrar</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--- ====== FECHAMENTO DO LOGIN (ID) ====== --->
+    <!--- ====================================== --->
+    
+    <!--- ====== SUGESTÕES ====== --->
+    <div id="sugere"></div>
+    <!--- ====== FECHAMENTO ===== --->
+    
+    
+    <!-- Chats -->
+    <div class="chats-container"></div>
+    
+    <!-- Prompt Input -->
+    <div class="prompt-container">
+      <div class="prompt-wrapper">
+        <form action="#" class="prompt-form">
+          <input type="text" placeholder="Perguntar á focoprime" class="prompt-input" required />
+          <div class="prompt-actions">
+            <!-- File Upload Wrapper -->
+            <div class="file-upload-wrapper">
+              <img src="#" class="file-preview" />
+              <input id="file-input" type="file" accept="image/*, .pdf, .txt, .csv" hidden />
+              <button type="button" class="file-icon material-symbols-rounded">description</button>
+              <button id="cancel-file-btn" type="button" class="material-symbols-rounded">close</button>
+              <button id="add-file-btn" type="button" class="material-symbols-rounded">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="currentColor" viewBox="0 0 24 24" >
+                  <!--- focoprime 2026 --->
+                  <path d="m5 17.41 3-3 1.29 1.29c.39.39 1.02.39 1.41 0l5.29-5.29 3 3V14h2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H5zM19 5v5.59L16.71 8.3a.996.996 0 0 0-1.41 0l-5.29 5.29-1.29-1.29a.996.996 0 0 0-1.41 0l-2.29 2.29V5h14Z"></path><path d="M8.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 1 0 0-3m13.22 11.07-1.94-.86-.86-1.94a.46.46 0 0 0-.42-.28c-.19-.02-.35.1-.43.27l-.86 1.87-1.95.94c-.16.08-.27.25-.26.43 0 .18.11.35.28.42l1.94.86.86 1.94a.471.471 0 0 0 .86 0l.86-1.94 1.94-.86a.471.471 0 0 0 0-.86Z"></path>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- Send Prompt and Stop Response Buttons -->
+            <button id="stop-response-btn" type="button" class="material-symbols-rounded">stop_circle</button>
+            <button id="send-prompt-btn" class="material-symbols-rounded">arrow_upward</button>
+          </div>
+        </form>
+        
+        <!-- Theme and Delete Chats Buttons -->
+        <button id="theme-toggle-btn" class="material-symbols-rounded">light_mode</button>
+        <button id="delete-chats-btn" class="material-symbols-rounded menu-icon">
+          <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          fill="currentColor" viewBox="0 0 24 24" >
+            <!--- focoprime @2026 www.ai-focoprime.online --->
+            <path d="M4 11h5c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2m0-7h5v5H4zm11 9c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2zm0 7v-5h5v5zM4 20h3v2l4-3-4-3v2H4v-5H2v5c0 1.1.9 2 2 2M22 6c0-1.1-.9-2-2-2h-3V2l-4 3 4 3V6h3v5h2z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
   
-  .chats-container .bot-message {
-    margin: 4px auto;
-  }
+  <!--- prism js --->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-html.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
   
-  .prompt-container :where(.prompt-wrapper, .prompt-form, .prompt-actions) {
-    gap: 8px;
-    height: 53px;
-  }
-  
-  .prompt-container button {
-    width: 53px;
-  }
-  
-  .prompt-form :is(.file-upload-wrapper, button, img) {
-    height: 42px;
-    width: 42px;
-  }
-  
-  .prompt-form .prompt-input {
-    padding-left: 20px;
-  }
-  
-  .prompt-form .file-upload-wrapper.active #cancel-file-btn {
-    opacity: 0;
-  }
-  
-  .prompt-wrapper.hide-controls :where(#theme-toggle-btn, #delete-chats-btn) {
-    display: none;
-  }
-}
-
-.bookmart {
-  background: none;
-  padding: 20px;
-  color: #000;
-}
-
-.message-time {
-  font-size: 0.75rem;
-  opacity: 0.6;
-  margin-bottom: 3px;
-  display: block;
-}
-
-/* Hora do usuário (alinhada à direita) */
-.user-message .message-time {
-  text-align: right;
-  margin-right: 6px;
-}
-
-/* Hora do bot (alinhada à esquerda) */
-.bot-message .message-time {
-  text-align: left;
-  margin-left: 7px; /* alinha com o texto, não com o avatar */
-}
-
-/* Container do bot */
-.bot-content {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ===== Message Actions ===== */
-.message-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 4px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* Mostrar ao passar o mouse (desktop) */
-.bot-message:hover .message-actions {
-  opacity: 1;
-}
-
-/* Sempre visível no mobile */
-@media (max-width: 768px) {
-  .message-actions {
-    opacity: 1;
-  }
-}
-
-.action-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.85rem;
-  color: var(--placeholder-color);
-  padding: 4px;
-  transition: transform 0.2s, color 0.2s;
-}
-
-.action-btn:hover {
-  transform: scale(1.15);
-  color: var(--text-color);
-}
-
-/* Feedback visual */
-.action-btn.like.active {
-  color: #28a745;
-}
-
-.action-btn.dislike.active {
-  color: #d62939;
-    }
-
-/* ===== LOGIN MODAL ===== */
-.login-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.login-box {
-  background: var(--secondary-color);
-  padding: 30px 25px;
-  width: 90%;
-  max-width: 360px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  animation: fadeUp 0.4s ease;
-}
-
-.input-premium {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  border: 1px solid #2d3748;
-  background: #1f2937;
-  color: white;
-  outline: none;
-  transition: 0.3s;
-}
-
-.input-premium:focus {
-  border: 1px solid #8f6fff;
-  box-shadow: 0 0 0 3px rgba(143,111,255,0.2);
-}
-
-.btn-premium {
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  border: none;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 10px;
-  transition: 0.3s;
-}
-
-.btn-premium:hover {
-  transform: translateY(-2px);
-}
-
-.btn-google {
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid #2d3748;
-  background: #1f2937;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 15px;
-}
-/* ===OUTROS CÓDIGOS DO LOGIN (INATIVOS) */
-.login-logo {
-  width: 70px;
-  margin-bottom: 10px;
-}
-
-.login-box h2 {
-  margin-bottom: 5px;
-  font-size: 1.4rem;
-}
-
-.login-box p {
-  font-size: 0.95rem;
-  color: var(--placeholder-color);
-  margin-bottom: 15px;
-}
-
-.login-box input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: var(--primary-color);
-  color: var(--text-color);
-  margin-bottom: 15px;
-  font-size: 1rem;
-}
-
-.login-box button {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  transition: transform 0.2s ease, opacity 0.2s;
-}
-
-.login-box button:hover {
-  transform: scale(1.03);
-  opacity: 0.95;
-}
-
-/* AVATAR UPLOAD */
-.avatar-upload {
-  position: relative;
-  width: 100px;
-  margin: 0 auto 20px;
-}
-
-.avatar-upload img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #8f6fff;
-}
-
-.avatar-upload button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: #8f6fff;
-  border: none;
-  border-radius: 50px;
-  padding: 6px;
-  color: white;
-  cursor: pointer;
-}
-
-.switch-text {
-  font-size: 14px;
-  color: #aaa;
-}
-
-.switch-text span {
-  color: #8f6fff;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.switch-text span:hover {
-  text-decoration: underline;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===== BOTÃO SAIR (LOGOUT) ===== */
-.logout-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 10px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: white;
-
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s;
-}
-
-.logout-btn span.material-symbols-rounded {
-  font-size: 1.3rem;
-}
-
-.logout-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(214, 41, 57, 0.45);
-  opacity: 0.95;
-}
-
-.logout-btn:active {
-  transform: scale(0.96);
-}
-
-/* ===== SIDEBAR DIREITA ===== */
-.side-menu {
-  position: fixed;
-  top: 45px;
-  right: -100vw;
-  width: 100vw;
-  height: 100vh;
-  background: var(--secondary-color);
-  box-shadow: -10px 0 30px rgba(0,0,0,0.35);
-  z-index: 9998;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  transition: right 0.35s ease;
-}
-
-.side-menu.active {
-  right: 0;
-}
-
-/* Header */
-.side-menu-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  margin: -20px -20px 20px -20px;
-  padding: 10px 10px;
-}
-
-.side-menu-header img {
-  height: 50px;
-  color: #000;
-}
-
-.side-menu-header h3 {
-  font-size: 1.2rem;
-}
-
-.side-menu-header button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 2.5rem;
-  color: white;
-}
-
-/* Lista */
-.side-menu-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.side-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.2s;
-}
-
-.side-item span.material-symbols-rounded {
-  font-size: 1.4rem;
-  color: #1d7efd;
-}
-
-.side-item:hover {
-  background: var(--secondary-hover-color);
-  transform: translateX(5px);
-}
-
-/* Logout 100% */
-.side-logout {
-  padding: 10px 20px;
-  width: 100%;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-/* Overlay */
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(3px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 9997;
-}
-
-.menu-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* ===============================
-   SIDEBAR – VERSÃO PC / DESKTOP
-================================ */
-@media (min-width: 728px) {
-
-  .side-menu {
-    width: 360px;
-    right: -380px;
-    padding: 28px;
-    border-left: 1px solid var(--secondary-hover-color);
-  }
-
-  .side-menu.active {
-    right: 0;
-  }
-
-  .side-menu-header h3 {
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
-
-  .side-menu-list {
-    margin-top: 10px;
-  }
-
-  .side-item {
-    padding: 14px 16px;
-    border-radius: 14px;
-    font-size: 1.05rem;
-  }
-
-  .side-item span.material-symbols-rounded {
-    font-size: 1.6rem;
-  }
-
-  .side-item:hover {
-    background: linear-gradient(
-      to right,
-      rgba(29, 126, 253, 0.15),
-      transparent
-    );
-    transform: translateX(6px);
-  }
-
-  /* Logout estilo painel */
-  .side-logout {
-    height: 52px;
-    border-radius: 14px;
-    font-size: 1rem;
-  }
-
-  /* Overlay mais discreto no PC */
-  .menu-overlay {
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(2px);
-  }
-}
-@media (min-width: 1280px) {
-  .side-menu {
-    right: 0;
-    position: sticky;
-    height: 100vh;
-  }
-
-  .menu-overlay {
-    display: none;
-  }
-}
-
-.hair {
-  box-sadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.side-menu-list .side-item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 16px;
-  right: 16px;
-  height: 2px;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-}
-
-.side-menu-list .side-item:hover::after {
-  transform: scaleX(1);
-}
-
-/* sujensk3hje*/
-.side-menu-list .side-item:not(:last-child) {
-  border-bottom: 1px solid rgba(29,126,253,0.2);
-  margin-bottom: 8px; /* espaço entre o item e o separador */
-  padding-bottom: 8px;
-}
-
-/* =======================
-   LOADER DE ENTRADA
-======================= */
-.ai-loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--primary-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  opacity: 1;
-  transition: opacity 0.6s ease;
-}
-
-.ai-loader.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.loader-logo img {
-  width: 120px;
-  animation: logo-appear 1s ease forwards;
-}
-
-@keyframes logo-appear {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.loader-dots {
-  display: flex;
-  gap: 10px;
-  margin-top: 25px;
-}
-
-.loader-dots span {
-  width: 12px;
-  height: 12px;
-  background: #5af;
-  border-radius: 50%;
-  display: inline-block;
-  animation: bounce 1.2s infinite ease-in-out;
-}
-
-.loader-dots span:nth-child(2) { animation-delay: 0.2s; }
-.loader-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
-}
-
-/* ===== ASSINATURA DO LOADER (FUNDO) ===== */
-.loader-signature {
-  position: absolute;
-  bottom: 25px; /* distância do fundo */
-  left: 50%;
-  transform: translateX(-50%);
-
-  font-size: 0.85rem;
-  letter-spacing: 0.6px;
-  color: var(--placeholder-color);
-  opacity: 0;
-
-  animation: signature-fade 1.2s ease forwards;
-  animation-delay: 1.3s;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.loader-signature strong {
-  font-weight: 600;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.loader-parag {
-  position: absolute;
-  bottom: 45px; /* distância do fundo */
-  left: 50%;
-  transform: translateX(-50%);
-
-  font-size: 0.60rem;
-  letter-spacing: 0.6px;
-  color: var(--placeholder-color);
-  opacity: 0;
-
-  animation: signature-fade 1.2s ease forwards;
-  animation-delay: 1.3s;
-  text-align: center;
-  white-space: nowrap;
-}
-
-@keyframes signature-fade {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 10px);
-  }
-  to {
-    opacity: 0.85;
-    transform: translate(-50%, 0);
-  }
-}
-
-/* ==============================
-   TOP APP BAR (FIXA)
-================================ */
-.top-app-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 52px;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 14px;
-  z-index: 9999;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.top-app-left {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-
-.top-app-left strong {
-  font-size: 14px;
-}
-
-.top-app-left span {
-  font-size: 12px;
-  opacity: 0.8;
-}
-
-/* Botão Upgrade */
-.top-app-btn {
-  display: inline-flex;              /* 🔑 chave do alinhamento */
-  align-items: center;               /* centra verticalmente */
-  justify-content: center;
-  gap: 6px;                           /* espaço entre ícone e texto */
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  line-height: 1;                     /* evita desalinhamento */
-  transition: all 0.25s ease;
-  backdrop-filter: blur(6px);
-}
-
-/* Ícone */
-.top-app-btn .material-symbols-rounded {
-  font-size: 20px;
-  line-height: 1;                     /* MUITO importante */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Texto */
-.top-app-btn .btn-text {
-  white-space: nowrap;
-}
-
-/* Hover premium */
-.top-app-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
-}
-
-/* Empurra o site para baixo por causa da barra */
-body {
-  padding-top: 52px;
-}
-
-/* BLOCO DE CÓDIGO ESTILO CHATGPT */
-.code-block {
-  position: relative;
-  background: #0f172a;
-  border-radius: 12px;
-  margin: 16px 0;
-  overflow: hidden;
-}
-
-.code-block pre {
-  margin: 0;
-  padding: 16px;
-  overflow-x: auto;
-  font-size: 0.9rem;
-}
-
-.copy-code-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #1d7efd;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  font-size: 0.75rem;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.copy-code-btn:hover {
-  background: #0264e3;
-  }
-  
-  /* APP INSTALL BAR */
-.app-install-bar {
-  position: fixed;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 680px;
-  background: linear-gradient(135deg, #1d7efd, #8f6fff);
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.35);
-  z-index: 9999;
-  animation: slideUp .6s ease;
-}
-
-.app-install-content {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 16px;
-  color: #fff;
-}
-
-.app-icon img {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-}
-
-.app-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.app-text strong {
-  font-size: 1rem;
-}
-
-.app-text span {
-  font-size: .85rem;
-  opacity: .9;
-}
-
-.app-install-btn {
-  background: #fff;
-  color: #1d7efd;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.app-install-btn:hover {
-  background: #f2f2f2;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 30px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-/* ===== APP INSTALL BAR ===== */
-.app-install-bar {
-  position: relative;
-}
-
-/* Botão fechar */
-.app-install-close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-
-  width: 32px;
-  height: 32px;
-
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  font-size: 1.2rem;
-
-  transition: all 0.25s ease;
-  backdrop-filter: blur(6px);
-}
-
-.app-install-close:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: rotate(90deg) scale(1.1);
-}
-
-.app-install-close:active {
-  transform: scale(0.9);
-  }
-  
-  /* REMOVER ÍCONE / AVATAR DA IA */
-.bot-message .avatar {
-  display: none;
-}
-
-/* Ajustar layout da mensagem da IA */
-.bot-message {
-  align-items: flex-start;
-}
-
-/* Texto da IA ocupa todo o espaço */
-.bot-message .message-text {
-  padding-left: 0;
-  max-width: 100%;
-}
-
-/* Login modal */
-.google-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #000;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.google-btn:hover {
-  opacity: 0.9;
-}
-
-/* ===== USER PANEL ===== */
-.user-panel {
-  position: fixed;
-  top: 0;
-  left: -320px;
-  width: 300px;
-  height: 100vh;
-  background: var(--secondary-color);
-  box-shadow: 4px 0 30px rgba(0,0,0,0.4);
-  z-index: 10000;
-  display: flex;
-  flex-direction: column;
-  transition: left 0.35s ease;
-}
-
-.user-panel.open {
-  left: 0;
-}
-
-.user-panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px;
-  border-bottom: 1px solid var(--secondary-hover-color);
-}
-
-.user-panel-header h3 {
-  font-size: 1.2rem;
-}
-
-.user-panel-header button {
-  background: none;
-  border: none;
-  font-size: 1.4rem;
-  cursor: pointer;
-  color: var(--text-color);
-}
-
-.user-panel-body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.user-avatar {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  margin: 0 auto 10px;
-}
-
-.user-panel-body label {
-  font-size: 0.85rem;
-  opacity: 0.7;
-}
-
-.user-panel-body input {
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: var(--primary-color);
-  color: var(--text-color);
-}
-
-.save-btn {
-  margin-top: 10px;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: #1d7efd;
-  color: #fff;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-.save-btn:hover {
-  background: #0264e3;
-}
-
-.user-panel-footer {
-  margin-top: auto;
-  padding: 16px;
-}
-
-.user-panel-footer .danger {
-  width: 100%;
-  background: #d62939;
-  color: #fff;
-  border-radius: 12px;
-}
-
-.user-panel-footer .danger:hover {
-  background: #b81f2d;
-}
-
-/* Overlay */
-.user-panel-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(4px);
-  z-index: 9999;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.3s;
-}
-
-.user-panel-overlay.show {
-  opacity: 1;
-  pointer-events: all;
-}
-
-
-/* ===== USER CHIP ===== */
-.user-chip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--text-color);
-  background: var(--secondary-color);
-  border-radius: 999px;
-  padding: 6px 14px;
-  border: 3px solid #1d7efd;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.user-chip:hover {
-  background: var(--secondary-hover-color);
-}
-
-.user-chip img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* ===== UPGRADE MODAL ===== */
-.upgrade-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.upgrade-modal.show {
-  display: flex;
-}
-
-.upgrade-box {
-  width: 90%;
-  max-width: 420px;
-  background: var(--secondary-color);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.4);
-  animation: popUp 0.3s ease;
-  position: relative;
-}
-
-@keyframes popUp {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.upgrade-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  background: none;
-  border: none;
-  font-size: 28px;
-  color: var(--placeholder-color);
-  cursor: pointer;
-}
-
-.upgrade-header {
-  text-align: center;
-}
-
-/* ÍCONE DO HEADER */
-.upgrade-logo {
-  width: 45px;
-  height: 45px;
-  margin: 0 auto;
-  border-radius: 50%;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(6px);
-}
-
-/* SVG interno */
-.upgrade-logo svg {
-  width: 28px;
-  height: 28px;
-  color: #fff;
-}
-
-.upgrade-header h2 {
-  margin-top: 10px;
-  font-size: 1.8rem;
-}
-
-.upgrade-header p {
-  font-size: 0.95rem;
-  color: var(--subheading-color);
-  margin-top: 4px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  border: 2px solid #1d7efd;
-}
-
-.upgrade-title {
-  display: flex;
-  align-items: center; /* 🔥 alinha verticalmente */
-  justify-content: center;
-  gap: 12px;
-}
-
-.upgrade-title h2 {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.pro-badge {
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: white;
-  background: linear-gradient(135deg, #1d7efd, #8f6fff);
-  box-shadow: 0 4px 12px rgba(29, 126, 253, 0.4);
-}
-
-.upgrade-features {
-  list-style: none;
-  margin: 22px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.upgrade-features li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-}
-
-.upgrade-features span {
-  color: #1d7efd;
-  font-size: 22px;
-}
-
-.upgrade-btn {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  background: gold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: 0.3s ease;
-}
-
-.upgrade-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(29,126,253,.4);
-}
-
-.upgrade-note {
-  display: block;
-  text-align: center;
-  margin-top: 12px;
-  font-size: 0.8rem;
-  color: var(--placeholder-color);
-}
-
-.email-input {
-  width: 100%;
-  padding: 12px;
-  margin: 5px 0;
-  border-radius: 8px;
-  border: none;
-  background: var(--secondary-color);
-  color: var(--text-color);
-}
-
-.email-btn {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  color: white;
-  cursor: pointer;
-}
-
-.email-btn.register {
-  background: #28a745;
-                 }
+  <script type="module" src="scripts/init.js"></script>
+  <script src="script.js"></script>
+  <script src="scripts/load.js"></script>
+  <script src="scripts/apk.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+
+</html>
