@@ -370,3 +370,23 @@ upgradeModal.addEventListener("click", (e) => {
     upgradeModal.classList.remove("show");
   }
 });
+
+// =========== MOSTRAR OCULTAR SENHA ========
+const toggleLoginPassword = document.getElementById("toggleLoginPassword");
+const toggleRegisterPassword = document.getElementById("toggleRegisterPassword");
+
+function setupPasswordToggle(toggleBtn, inputField) {
+  toggleBtn.addEventListener("click", () => {
+    const type = inputField.getAttribute("type") === "password" ? "text" : "password";
+    inputField.setAttribute("type", type);
+
+    // muda o ícone
+    toggleBtn.classList.toggle("ri-eye-line");
+    toggleBtn.classList.toggle("ri-eye-off-line");
+  });
+}
+
+// Ativa os toggles
+setupPasswordToggle(toggleLoginPassword, passwordInput);
+setupPasswordToggle(toggleRegisterPassword, registerPassword);
+
