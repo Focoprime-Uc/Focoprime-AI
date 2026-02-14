@@ -210,8 +210,11 @@
         <p id="loginSubtitle">Entrar com a sua conta</p>
         <!---========== LOGIN VIEW ==========--->
         <div id="loginView">
-          <input type="email" id="emailInput" placeholder="Email" class="input-premium">
-          <input type="password" id="passwordInput" placeholder="Senha" class="input-premium">
+          <div class="password-container">
+            <input type="email" id="emailInput" placeholder="Email" class="input-premium">
+            <input type="password" id="passwordInput" placeholder="Senha" class="input-premium">
+            <i class="ri-eye-line password-toggle" id="toggleLoginPassword"></i>
+          </div>
           
           <!--- Esqueceu a senha? --->
           <p class="forgot-password">
@@ -248,7 +251,10 @@
           
           <input type="text" id="registerName" placeholder="Nome completo" class="input-premium">
           <input type="email" id="registerEmail" placeholder="Email" class="input-premium">
-          <input type="password" id="registerPassword" placeholder="Senha" class="input-premium">
+          <div class="password-container">
+            <input type="password" id="registerPassword" placeholder="Senha" class="input-premium">
+            <i class="ri-eye-line password-toggle" id="toggleRegisterPassword"></i>
+          </div>
           
           <button id="emailRegisterBtn" class="btn-premium">
             Criar conta
@@ -310,7 +316,17 @@
         </button>
       </div>
     </div>
+    
+    <!--- ======= TOAST DE NOTIFICAÇÃO DO LOGIN ======== --->
+    <!--- ============================================== --->
+    <div id="toast" class="toast">
+      <div class="toast-content">
+        <i class="fa-brands fa-google toast-icon"></i>
+        <span id="toastMessage"></span>
+      </div>
+    </div>
   </div>
+  <!--- ========== FECHAMENTO ============= --->
   
   <!--- prism js --->
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-html.min.js"></script>
