@@ -11,7 +11,8 @@ import {
   signOut,
   updateProfile,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -54,6 +55,7 @@ const saveUserName = document.getElementById("saveUserName");
 const heading = document.querySelector(".heading");
 const userPhoto = document.getElementById("userPhoto");
 const userChipName = document.getElementById("userChipName");
+const forgotPasswordBtn = document.getElementById("forgotPasswordBtn");
 
 /* ===============================
    🔐 GOOGLE LOGIN
@@ -85,6 +87,24 @@ emailLoginBtn.addEventListener("click", async () => {
       emailInput.value,
       passwordInput.value
     );
+  } catch (error) {
+    alert("Erro: " + error.message);
+  }
+});
+
+/* ===============================
+   🔑 RESET PASSWORD
+================================= */
+forgotPasswordBtn.addEventListener("click", async () => {
+
+  if (!emailInput.value) {
+    alert("Digite seu email primeiro.");
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, emailInput.value);
+    alert("Email de redefinição enviado! Verifique sua caixa de entrada.");
   } catch (error) {
     alert("Erro: " + error.message);
   }
