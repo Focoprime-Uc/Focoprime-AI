@@ -1428,6 +1428,8 @@ body {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  border: 3px solid;
+  border-color: #1d7efd;
 }
 
 /* ===== UPGRADE MODAL ===== */
@@ -1640,8 +1642,8 @@ body {
 .toast {
   position: fixed;
   top: 30px;
-  right: 30px;
-  background: #111;
+  right: 50px;
+  background: var(--placeholder-color);
   color: white;
   padding: 14px 18px;
   border-radius: 12px;
@@ -1673,4 +1675,60 @@ body {
 
 .toast.error {
   border-left: 4px solid #ef4444;
+}
+
+.password-container {
+  position: relative;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 20px; /* espaço para o ícone */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #888;
+  transition: color 0.3s;
+  justify-content: center;
+  align-items: center;
+}
+
+.password-toggle:hover {
+  color: #3b82f6; /* cor azul moderna */
+}
+
+/* ===== USER CHIP INFO ===== */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.1;
+}
+
+.user-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+/* Pontinho verde */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e; /* verde moderno */
+  border-radius: 50%;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+/* Texto pequeno */
+.status-text {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #22c55e;
   }
