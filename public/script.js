@@ -107,10 +107,6 @@ function looksLikeCode(text) {
 }
 
 // ==============================
-// LOGIN MODAL
-// ==============================
-
-// ==============================
 // MESSAGE ACTIONS
 // ==============================
 chatsContainer.addEventListener("click", (e) => {
@@ -329,16 +325,6 @@ newChatBtn?.addEventListener("click", () => {
 sideLogoutBtn?.addEventListener("click", () => {
   localStorage.clear();
   location.reload();
-});
-
-// ==============================
-// SUGGESTIONS
-// ==============================
-document.querySelectorAll(".suggestions-item").forEach(item => {
-  item.addEventListener("click", () => {
-    promptInput.value = item.querySelector(".text").textContent;
-    promptForm.dispatchEvent(new Event("submit"));
-  });
 });
 
 // ==============================
