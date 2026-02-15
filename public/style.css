@@ -1731,4 +1731,20 @@ body {
   font-size: 0.7rem;
   font-weight: 500;
   color: #22c55e;
-    }
+}
+
+.login-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.login-chip i {
+  font-size: 18px;
+}
+
+/*shegsnshjdndh */
+.login-btn span.material-symbols-rounded {
+  color: #8f6fff;
+}
