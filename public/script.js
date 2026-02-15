@@ -16,6 +16,10 @@ const MODEL = "llama-3.1-8b-instant";
 let controller, typingInterval;
 const chatHistory = [];
 
+// Inicializa system prompt ao carregar página
+const savedUserName = localStorage.getItem("user_name") || "Aluno";
+updateSystemPrompt(savedUserName);
+
 // ==============================
 // SYSTEM PROMPT
 // ==============================
@@ -389,4 +393,3 @@ function setupPasswordToggle(toggleBtn, inputField) {
 // Ativa os toggles
 setupPasswordToggle(toggleLoginPassword, passwordInput);
 setupPasswordToggle(toggleRegisterPassword, registerPassword);
-
