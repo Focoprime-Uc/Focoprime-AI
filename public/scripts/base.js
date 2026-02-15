@@ -2,7 +2,6 @@
    🔥 FIREBASE CONFIG
 ================================= */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
 import {
   getAuth,
   GoogleAuthProvider,
@@ -29,6 +28,7 @@ const provider = new GoogleAuthProvider();
    📌 ELEMENTOS DOM
 ================================= */
 const loginModal = document.getElementById("loginModal");
+const loginBtn = document.getElementById("loginBtn");
 const googleBtn = document.getElementById("googleLoginBtn");
 
 const emailInput = document.getElementById("emailInput");
@@ -43,6 +43,7 @@ const photoInput = document.getElementById("photoInput");
 
 const logoutBtn = document.getElementById("logoutBtn");
 const logoutReal = document.getElementById("logoutReal");
+const sideLogoutBtn = document.getElementById("sideLogoutBtn");
 
 const userPanel = document.getElementById("userPanel");
 const overlay = document.getElementById("userPanelOverlay");
@@ -56,51 +57,42 @@ const heading = document.querySelector(".heading");
 const userPhoto = document.getElementById("userPhoto");
 const userChipName = document.getElementById("userChipName");
 const forgotPasswordBtn = document.getElementById("forgotPasswordBtn");
+
 const toast = document.getElementById("toast");
 const toastMessage = document.getElementById("toastMessage");
 
+/* ===============================
+   🟢 FUNÇÃO TOAST
+================================= */
 function showToast(message, type = "success") {
   toastMessage.textContent = message;
-
   toast.classList.remove("success", "error");
-  toast.classList.add(type);
-  toast.classList.add("show");
+  toast.classList.add(type, "show");
 
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 4000);
+  setTimeout(() => toast.classList.remove("show"), 4000);
 }
 
 /* ===============================
-   🔐 GOOGLE LOGIN
+   🔐 LOGIN GOOGLE
 ================================= */
 googleBtn.addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    // Atualiza instantaneamente
-    userChipName.textContent =
-      user.displayName?.split(" ")[0] || "Usuário";
-
-    userPhoto.src =
-      user.photoURL || "images/carta.png";
-
+    userChipName.textContent = user.displayName?.split(" ")[0] || "Usuário";
+    userPhoto.src = user.photoURL || "images/carta.png";
   } catch (error) {
     alert("Erro Google: " + error.message);
   }
 });
 
 /* ===============================
-   📧 LOGIN COM EMAIL
+   📧 LOGIN EMAIL
 ================================= */
 emailLoginBtn.addEventListener("click", async () => {
   try {
-    await signInWithEmailAndPassword(
-      auth,
-      emailInput.value,
-      passwordInput.value
-    );
+    await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
   } catch (error) {
     alert("Erro: " + error.message);
   }
@@ -110,22 +102,17 @@ emailLoginBtn.addEventListener("click", async () => {
    🔑 RESET PASSWORD
 ================================= */
 forgotPasswordBtn.addEventListener("click", async () => {
-
-  if (!emailInput.value) {
-    showToast("Digite seu email primeiro.", "error");
-    return;
-  }
-
+  if (!emailInput.value) return showToast("Digite seu email primeiro.", "error");
   try {
     await sendPasswordResetEmail(auth, emailInput.value);
     showToast("Email de redefinição enviado com sucesso!", "success");
-  } catch (error) {
+  } catch {
     showToast("Erro ao enviar email.", "error");
   }
 });
 
 /* ===============================
-   📝 REGISTO
+   📝 REGISTRO
 ================================= */
 emailRegisterBtn.addEventListener("click", async () => {
   try {
@@ -138,83 +125,54 @@ emailRegisterBtn.addEventListener("click", async () => {
     const user = userCredential.user;
 
     let photoData = null;
-
     if (photoInput.files[0]) {
       const reader = new FileReader();
-      photoData = await new Promise((resolve) => {
+      photoData = await new Promise(resolve => {
         reader.onload = e => resolve(e.target.result);
         reader.readAsDataURL(photoInput.files[0]);
       });
     }
 
-    await updateProfile(user, {
-  displayName: registerName.value
-});
+    await updateProfile(user, { displayName: registerName.value });
+    if (photoData) localStorage.setItem("userPhoto_" + user.uid, photoData);
 
-// Salvar foto localmente
-if (photoData) {
-  localStorage.setItem("userPhoto_" + user.uid, photoData);
-}
-
-    // 🔥 FORÇA ATUALIZAÇÃO DO USER
     await user.reload();
     const updatedUser = auth.currentUser;
 
     heading.textContent = "Olá, " + updatedUser.displayName;
-    userChipName.textContent =
-      updatedUser.displayName.split(" ")[0];
-
-    userPhoto.src =
-  photoData || "images/carta.png";
+    userChipName.textContent = updatedUser.displayName.split(" ")[0];
+    userPhoto.src = photoData || "images/carta.png";
 
     alert("Conta criada com sucesso!");
+    localStorage.setItem("user_name", registerName.value);
+    updateSystemPrompt(registerName.value);
 
   } catch (error) {
     alert("Erro: " + error.message);
   }
-  
-  localStorage.setItem("user_name", registerName.value);
-  updateSystemPrompt(registerName.value);
 });
 
 /* ===============================
    👤 CONTROLE DE SESSÃO
 ================================= */
 onAuthStateChanged(auth, (user) => {
-  const loginBtn = document.getElementById("loginBtn");
-
   if (user) {
-    // usuário logado → mostra o botão normal
     loginModal.style.display = "none";
     logoutBtn.style.display = "flex";
     loginBtn.style.display = "none";
 
     heading.textContent = "Olá, " + (user.displayName || "Aluno");
-    
-    // guardar nome no localStorage 
     localStorage.setItem("user_name", user.displayName || "Aluno");
-    
-    // Actualizar Sytem prompt da IA
-    if (typeof updateSystemPrompt === "function") {
-      updateSystemPrompt(user.displayName || "Aluno");
-    }
+    if (typeof updateSystemPrompt === "function") updateSystemPrompt(user.displayName || "Aluno");
 
     userEmail.value = user.email;
     userName.value = user.displayName || "";
     userChipName.textContent = user.displayName?.split(" ")[0] || "Usuário";
 
     const savedPhoto = localStorage.getItem("userPhoto_" + user.uid);
-
-    if (savedPhoto) {
-      userPhoto.src = savedPhoto;
-    } else if (user.photoURL) {
-      userPhoto.src = user.photoURL;
-    } else {
-      userPhoto.src = "images/carta.png";
-    }
+    userPhoto.src = savedPhoto || user.photoURL || "images/carta.png";
 
   } else {
-    // usuário não logado → mostra botão entrar
     logoutBtn.style.display = "none";
     loginBtn.style.display = "flex";
   }
@@ -228,13 +186,9 @@ saveUserName.addEventListener("click", async () => {
   if (!user) return;
 
   try {
-    await updateProfile(user, {
-      displayName: userName.value
-    });
-
+    await updateProfile(user, { displayName: userName.value });
     heading.textContent = "Olá, " + userName.value;
     userChipName.textContent = userName.value.split(" ")[0];
-
     alert("Nome atualizado com sucesso!");
   } catch (error) {
     alert("Erro: " + error.message);
@@ -246,35 +200,29 @@ saveUserName.addEventListener("click", async () => {
 ================================= */
 logoutReal.addEventListener("click", async () => {
   await signOut(auth);
+  localStorage.removeItem("user_name");
   closeUserPanel();
+  location.reload();
 });
-
-const sideLogoutBtn = document.getElementById("sideLogoutBtn");
 
 sideLogoutBtn?.addEventListener("click", async () => {
   try {
     await signOut(auth);
-
-    // limpa apenas o nome guardado
     localStorage.removeItem("user_name");
 
-    // fecha menu se estiver aberto
     const sideMenu = document.getElementById("sideMenu");
     const menuOverlay = document.getElementById("menuOverlay");
-
     sideMenu?.classList.remove("active");
     menuOverlay?.classList.remove("active");
 
     location.reload();
-
   } catch (error) {
     alert("Erro ao sair: " + error.message);
   }
 });
 
-
 /* ===============================
-   📂 ABRIR / FECHAR PAINEL
+   📂 PAINEL USUÁRIO
 ================================= */
 logoutBtn.addEventListener("click", () => {
   userPanel.classList.add("open");
@@ -289,9 +237,9 @@ function closeUserPanel() {
 closePanel.addEventListener("click", closeUserPanel);
 overlay.addEventListener("click", closeUserPanel);
 
-// ehrhejejeenehne
-const loginBtn = document.getElementById("loginBtn");
-
+/* ===============================
+   🟢 ABRIR LOGIN
+================================= */
 loginBtn.addEventListener("click", () => {
   loginModal.style.display = "flex";
 });
