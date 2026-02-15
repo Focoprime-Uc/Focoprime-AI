@@ -326,11 +326,6 @@ newChatBtn?.addEventListener("click", () => {
   closeMenu();
 });
 
-sideLogoutBtn?.addEventListener("click", () => {
-  localStorage.clear();
-  location.reload();
-});
-
 // ==============================
 // FILE UPLOAD
 // ==============================
