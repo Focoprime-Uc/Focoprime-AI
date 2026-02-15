@@ -11,7 +11,6 @@ async function initApp() {
   await loadComponent("header", "components/header.html");
   await loadComponent("userPanelContainer", "components/user-painel.html");
   await loadComponent("appInstallBar", "components/apk.html");
-  await loadComponent("ai-loader", "components/loader.html");
   await loadComponent("sugere", "components/sugestoes.html")
 
   // Depois que tudo existir no DOM
