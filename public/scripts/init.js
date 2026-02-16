@@ -16,6 +16,7 @@ async function initApp() {
   // Depois que tudo existir no DOM
   await import("./base.js");
   await import("./sugere.js");
+  await import("./apk.js");
 }
 
 initApp();
