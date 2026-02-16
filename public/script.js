@@ -253,6 +253,14 @@ if (isCode) {
 // ==============================
 const handleFormSubmit = (e) => {
   e.preventDefault();
+  // 🔐 VERIFICA SE ESTÁ LOGADO
+  const currentUser = window.auth?.currentUser;
+
+  if (!currentUser) {
+    const loginModal = document.getElementById("loginModal");
+    loginModal.style.display = "flex"; // ou classList.add("show") se usares classe
+    return;
+  }
   const userMessage = promptInput.value.trim();
   if (!userMessage || document.body.classList.contains("bot-responding")) return;
 
