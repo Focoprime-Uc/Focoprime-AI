@@ -590,7 +590,7 @@ body.bot-responding .prompt-form #stop-response-btn {
 }
 /* ===OUTROS CÓDIGOS DO LOGIN (INATIVOS) */
 .login-logo {
-  width: 70px;
+  width: 100px;
   margin-bottom: 10px;
 }
 
@@ -1747,4 +1747,65 @@ body {
 /*shegsnshjdndh */
 .login-btn span.material-symbols-rounded {
   color: #8f6fff;
-  }
+}
+
+/* Login actualização */
+/* ===== LOGIN CLOSE BUTTON ===== */
+.login-box {
+  position: relative;
+}
+
+.login-close {
+  position: absolute;
+  top: 14px;
+  right: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: var(--placeholder-color);
+  display: flex;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.login-close:hover {
+  color: white;
+  transform: rotate(90deg) scale(1.1);
+}
+
+.login-close:active {
+  transform: scale(0.9);
+}
+
+/* ===== LOGIN TERMS ===== */
+.login-terms{
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: var(--placeholder-color);
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+.login-terms a {
+  color: #8f6fff;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+
+.login-terms a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, #1d7efd, #8f6fff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.login-terms a:hover::after {
+  transform: scaleX(1);
+                              }
