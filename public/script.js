@@ -401,3 +401,8 @@ function setupPasswordToggle(toggleBtn, inputField) {
 // Ativa os toggles
 setupPasswordToggle(toggleLoginPassword, passwordInput);
 setupPasswordToggle(toggleRegisterPassword, registerPassword);
+
+// BOTÃO DE FECHAR LOGIN MODAL POPUP 
+document.getElementById("closeLoginModal").addEventListener("click", () => {
+  document.getElementById("loginModal").style.display = "none";
+});
