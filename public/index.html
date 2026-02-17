@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Coding By focoprime - www.focoprime.me -->
+<!-- Coding By focoprime - www.focoprime.online  -->
 <html lang="pt">
 
 <head>
@@ -223,6 +223,9 @@
     <div id="loginModal" class="login-modal">
       <div class="login-box">
         
+        <span class="login-close" id="closeLoginModal">
+          <span class="material-symbols-rounded">close</span>
+        </span>
         <!--- Header --->
         <img src="images/Logo.png" class="login-logo" />
         <h2 id="loginTitle">Bem vindo a FocoPrime</h2>
@@ -234,22 +237,21 @@
             <input type="password" id="passwordInput" placeholder="Senha" class="input-premium">
             <i class="ri-eye-line password-toggle" id="toggleLoginPassword"></i>
           </div>
-          
           <!--- Esqueceu a senha? --->
           <p class="forgot-password">
             <span id="forgotPasswordBtn">
               Esqueceu a senha?
             </span>
           </p>
-          
+          <!--- Botão entrar --->
           <button id="emailLoginBtn" class="btn-premium">
             Entrar
           </button>
-          
+          <!--- Botão continuar com a Google --->
           <button id="googleLoginBtn" class="btn-google">
             <i class="fa-brands fa-google"></i> Continuar com Google
           </button>
-          
+          <!--- Ainda não tens conta --->
           <p class="switch-text">
             Ainda não tens conta?
             <span id="showRegister">Criar conta</span>
@@ -284,6 +286,11 @@
             <span id="showLogin">Entrar</span>
           </p>
         </div>
+        <!--- Login terms --->
+        <span class="login-terms">
+          Ao continuar, você aceita as nossas
+          <a href="#"><strong>Políticas de privacidade</strong></a>
+        </span>
       </div>
     </div>
     <!--- ====== FECHAMENTO DO LOGIN (ID) ====== --->
@@ -352,12 +359,12 @@
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
   
-  <script src="script.js"></script>
   <script type="module" src="scripts/init.js"></script>
+  <script src="script.js"></script>
   <script src="scripts/load.js"></script>
   <script src="scripts/apk.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 
-        </html>
+          </html>
