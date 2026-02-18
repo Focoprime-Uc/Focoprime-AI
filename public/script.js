@@ -323,7 +323,7 @@ const newChatBtn = document.getElementById("newChatBtn");
 const openMenu = () => { sideMenu.classList.add("active"); menuOverlay.classList.add("active"); };
 const closeMenu = () => { sideMenu.classList.remove("active"); menuOverlay.classList.remove("active"); };
 
-document.getElementById("delete-chats-btn")?.addEventListener("click", openMenu);
+document.getElementById("newsButton")?.addEventListener("click", openMenu);
 closeMenuBtn?.addEventListener("click", closeMenu);
 menuOverlay?.addEventListener("click", closeMenu);
 
@@ -406,3 +406,29 @@ setupPasswordToggle(toggleRegisterPassword, registerPassword);
 document.getElementById("closeLoginModal").addEventListener("click", () => {
   document.getElementById("loginModal").style.display = "none";
 });
+
+// sjejeghjehhe
+const newsButton = document.getElementById("newsButton");
+
+let idleTimeout;
+
+// Função que coloca em modo discreto
+function setIdle() {
+  newsButton.classList.add("idle");
+}
+
+// Função que volta ao normal
+function resetIdle() {
+  newsButton.classList.remove("idle");
+
+  clearTimeout(idleTimeout);
+  idleTimeout = setTimeout(setIdle, 3000);
+}
+
+// Detecta interação
+["click", "touchstart", "mousemove", "keydown"].forEach(event => {
+  document.addEventListener(event, resetIdle);
+});
+
+// Inicializa contador
+idleTimeout = setTimeout(setIdle, 3000);
