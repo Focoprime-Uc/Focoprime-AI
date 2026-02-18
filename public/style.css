@@ -40,10 +40,11 @@ body {
 }
 
 .cabeca {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
 }
 
 /*===== Ivones soviais =====*/
@@ -724,13 +725,18 @@ body.bot-responding .prompt-form #stop-response-btn {
 /* ===== SIDEBAR DIREITA ===== */
 .side-menu {
   position: fixed;
-  top: 45px;
+  top: 25;
   right: -100vw;
-  width: 100vw;
-  height: 100vh;
+  width: 20vw;
+  height: 50vh;
+  border-radius: 12px;
+  margin-right: 7px;
   background: var(--secondary-color);
   box-shadow: -10px 0 30px rgba(0,0,0,0.35);
   z-index: 9998;
+  align-items: center;
+  border: 3px solid;
+  border-color: #1d7efd;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -739,16 +745,6 @@ body.bot-responding .prompt-form #stop-response-btn {
 
 .side-menu.active {
   right: 0;
-}
-
-/* Header */
-.side-menu-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(to right, #1d7efd, #8f6fff);
-  margin: -20px -20px 20px -20px;
-  padding: 10px 10px;
 }
 
 .side-menu-header img {
@@ -766,6 +762,10 @@ body.bot-responding .prompt-form #stop-response-btn {
   cursor: pointer;
   font-size: 2.5rem;
   color: white;
+}
+
+.side-menu li span {
+  display: none;
 }
 
 /* Lista */
@@ -787,12 +787,21 @@ body.bot-responding .prompt-form #stop-response-btn {
 
 .side-item span.material-symbols-rounded {
   font-size: 1.4rem;
+  display: flex;
   color: #1d7efd;
 }
 
 .side-item:hover {
   background: var(--secondary-hover-color);
   transform: translateX(5px);
+}
+
+.side-logout span {
+  display: none;
+}
+
+.side-logout span.material-symbols-rounded {
+  display: flex;
 }
 
 /* Logout 100% */
@@ -807,8 +816,7 @@ body.bot-responding .prompt-form #stop-response-btn {
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(3px);
+  backgrotund: rgba(66, 133, 244, 0.2); /* azul Google com 40% de transparência */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -824,8 +832,13 @@ body.bot-responding .prompt-form #stop-response-btn {
    SIDEBAR – VERSÃO PC / DESKTOP
 ================================ */
 @media (min-width: 728px) {
+  
+  .side-menu li span {
+    display: flex;
+  }
 
   .side-menu {
+    align-items: left;
     width: 360px;
     right: -380px;
     padding: 28px;
@@ -1808,4 +1821,32 @@ body {
 
 .login-terms a:hover::after {
   transform: scaleX(1);
-                              }
+}
+
+/* BOTÃO FLUTUANTE */
+.news-button {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #4285f4;
+  color: #fff;
+  padding: 12px 8px;
+  border-radius: 0 12px 12px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  z-index: 50;
+}
+
+/* Estado reduzido (modo discreto) */
+.news-button.idle {
+  transform: scale(0.75);
+  opacity: 0.4;
+}
+
+/* Ao passar o mouse ou tocar */
+.news-button:hover {
+  transform: scale(1.05);
+}
