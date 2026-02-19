@@ -15,6 +15,14 @@ import {
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAKwBNz6CkVP_FpUP9hxMsjj8J8NNbMk3M",
   authDomain: "focoprime-ai.firebaseapp.com",
@@ -24,6 +32,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+window.db = db;
 
 /* ===============================
    📌 ELEMENTOS DOM
@@ -215,6 +225,10 @@ onAuthStateChanged(auth, (user) => {
     logoutBtn.style.display = "none";
     loginBtn.style.display = "flex";
   }
+  // hwhjwjwnshshshe
+  if (user && typeof loadUserUsage === "function") {
+  loadUserUsage(user);
+}
 });
 
 /* ===============================
@@ -272,3 +286,8 @@ loginBtn.addEventListener("click", () => {
 // 🔥 Tornar auth global
 window.auth = auth;
 window.signOut = signOut;
+
+window.doc = doc;
+window.getDoc = getDoc;
+window.setDoc = setDoc;
+window.updateDoc = updateDoc;
