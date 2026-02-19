@@ -7,7 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Focoprime AI</title>
-  <link rel="stylesheet" href="estilos/estilos.css">
   <!-- Favicon -->
   <link rel="icon" href="images/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="images/favicon.png">
@@ -37,6 +36,8 @@
   <!-- Prism.js -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  
+  <link rel="stylesheet" href="estilos/estilos.css">
 
   <!-- Linguagens principais -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -126,6 +127,41 @@
     </div>
     <!--- ====== FINAL DO POPUP (UPGRADE) ====--->
     <!--- =====≈==============================--->
+    
+    <!-- ===== MODEL SELECT MODAL ===== -->
+<div id="modelModal" class="model-modal">
+  <div class="model-box">
+
+    <h3 class="model-title">Selecionar modelo</h3>
+
+    <div class="model-list">
+
+      <div class="model-item" data-model="v3.5">
+        <div class="model-info">
+          <strong>FocoPrime V3.5</strong>
+          <span class="badge free">Grátis</span>
+        </div>
+      </div>
+
+      <div class="model-item" data-model="v4.0">
+        <div class="model-info">
+          <strong>FocoPro V4.0</strong>
+          <span class="badge free">Grátis</span>
+        </div>
+      </div>
+
+      <div class="model-item premium" data-model="v5.0">
+        <div class="model-info">
+          <strong>FocoPremium V5.0</strong>
+          <span class="badge premium-badge">Premium</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+    
     <!--- ====== LOADER DE ENTRADA ====== --->
     <div id="ai-loader" class="ai-loader">
       <div class="loader-logo">
@@ -391,4 +427,4 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 
-              </html>
+    </html>
