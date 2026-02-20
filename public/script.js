@@ -1,3 +1,4 @@
+let userPlan = "free";
 let lastAIResponse = "";
 const container = document.querySelector(".container");
 const chatsContainer = document.querySelector(".chats-container");
@@ -37,21 +38,18 @@ function getRemainingMessages() {
 
 function updateUsageDisplay() {
   const remaining = getRemainingMessages();
+  let display = document.getElementById("modelUsageBadge");
 
-  let display = document.getElementById("modelUsageInfo");
   if (!display) {
     display = document.createElement("div");
-    display.id = "modelUsageInfo";
-    display.style.fontSize = "12px";
-    display.style.opacity = "0.7";
-    display.style.marginTop = "5px";
-    promptForm.appendChild(display);
+    display.id = "modelUsageBadge";
+    document.body.appendChild(display);
   }
 
   if (remaining === Infinity) {
     display.textContent = `Modelo: ${currentModel} • Mensagens ilimitadas`;
   } else {
-    display.textContent = `Modelo: ${currentModel} • Restam ${remaining} mensagens`;
+    display.textContent = `Modelo: ${currentModel} • Restam ${remaining}`;
   }
 }
 
@@ -519,27 +517,24 @@ modelModal.addEventListener("click", (e) => {
 
 // selecionar modelo
 document.querySelectorAll(".model-item").forEach(item => {
-  item.addEventListener("click", () => {
+  item.addEventListener("click", async () => {
+
     const selectedModel = item.dataset.model;
 
+    // 🔒 BLOQUEIO
+    if (selectedModel === "v5.0" && userPlan !== "premium") {
+      alert("🚀 O modelo v5.0 é exclusivo para Premium.");
+      return;
+    }
+
     currentModel = selectedModel;
-    document.querySelectorAll(".model-item").forEach(item => {
-  item.addEventListener("click", async () => {
-    currentModel = item.dataset.model;
 
     const user = window.auth.currentUser;
     if (user) {
       await loadUserUsage(user);
     }
 
-    modelModal.classList.remove("show");
-  });
-});
-
     updateUsageDisplay();
-
-    console.log("Modelo selecionado:", selectedModel);
-
     modelModal.classList.remove("show");
   });
 });
@@ -551,11 +546,16 @@ async function loadUserUsage(user) {
 
   if (!snap.exists()) {
     await setDoc(userRef, {
+      plan: "free",
       models: {}
     });
   }
 
-  const data = (await getDoc(userRef)).data();
+  const newSnap = await getDoc(userRef);
+  const data = newSnap.data();
+
+  userPlan = data.plan || "free";
+
   const models = data.models || {};
 
   if (!models[currentModel]) {
@@ -579,4 +579,17 @@ async function loadUserUsage(user) {
   }
 
   updateUsageDisplay();
-                   }
+  applyModelLocks(); // 👈 importante
+}
+
+// FUNÇÃO FREE
+function applyModelLocks() {
+  document.querySelectorAll(".model-item").forEach(item => {
+    const model = item.dataset.model;
+
+    if (model === "v5.0" && userPlan !== "premium") {
+      item.classList.add("locked");
+      item.innerHTML = "v5.0 🔒";
+    }
+  });
+}
