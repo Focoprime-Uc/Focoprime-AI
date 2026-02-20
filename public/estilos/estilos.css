@@ -80,4 +80,24 @@
 @keyframes fadeIn {
   from {opacity:0; transform: scale(.95);}
   to {opacity:1; transform: scale(1);}
-  }
+}
+
+.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* modelos */
+#modelUsageBadge {
+  position: fixed;
+  bottom: 90px; /* ou top: 20px */
+  left: 30px;
+  background: linear-gradient(to right, #1E90FF, #FF69B4, #FFD700);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 999;
+  cursor: default;
+}
