@@ -54,10 +54,21 @@ function updateUsageDisplay() {
     
     if (panelInfo) {
       panelInfo.innerHTML = `
-        <strong>Modelo:</strong> ${currentModel}<br>
-        <strong>Plano:</strong> ${userPlan}<br>
-        <strong>Mensagens:</strong> Ilimitadas
-      `;
+  <div class="row">
+    <span class="label">Modelo</span>
+    <span class="value">${currentModel}</span>
+  </div>
+
+  <div class="row">
+    <span class="label">Plano</span>
+    <span class="value premium">Premium</span>
+  </div>
+
+  <div class="row">
+    <span class="label">Mensagens</span>
+    <span class="value">Ilimitadas</span>
+  </div>
+`;
     }
 
   } else {
@@ -65,11 +76,35 @@ function updateUsageDisplay() {
 
     if (panelInfo) {
       panelInfo.innerHTML = `
-        <strong>Modelo:</strong> ${currentModel}<br>
-        <strong>Plano:</strong> ${userPlan}<br>
-        <strong>Restam:</strong> ${remaining} mensagens<br>
-        <strong>Reset em:</strong> ${timeLeft}
-      `;
+  <div class="row">
+    <span class="label">Modelo</span>
+    <span class="value">${currentModel}</span>
+  </div>
+
+  <div class="row">
+    <span class="label">Plano</span>
+    <span class="value">${userPlan}</span>
+  </div>
+
+  <div class="row">
+    <span class="label">Restam</span>
+    <span class="value">${remaining} mensagens</span>
+  </div>
+
+  <div class="row">
+    <span class="label">Reset</span>
+    <span class="value">${timeLeft}</span>
+  </div>
+`;
+
+const limit = MODEL_LIMITS[currentModel];
+const percentage = limit === Infinity ? 0 : (messageCount / limit) * 100;
+
+panelInfo.innerHTML += `
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:${percentage}%"></div>
+  </div>
+`;
     }
   }
 }
