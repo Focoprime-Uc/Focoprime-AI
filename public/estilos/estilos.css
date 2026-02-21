@@ -174,3 +174,26 @@
   background: linear-gradient(90deg, #00c6ff, #0072ff);
   transition: width 0.4s ease;
 }
+
+.hola {
+  font-size: 0.75rem;
+  color: white;
+}
+
+.barran {
+  display: flex;
+  padding: 10px;
+  border: 3px solid;
+  border-color: #1d7efd;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.barran span.material-symbols-rounded {
+  display: flex;
+  background: #1d7efd;
+  padding: 6px;
+  color: white;
+  border-radius: 50%;
+}
