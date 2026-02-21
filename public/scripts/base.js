@@ -291,3 +291,28 @@ window.doc = doc;
 window.getDoc = getDoc;
 window.setDoc = setDoc;
 window.updateDoc = updateDoc;
+
+import { collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.collection = collection;
+window.getDocs = getDocs;
+window.deleteDoc = deleteDoc;
+
+function loadChat(chat) {
+  chatsContainer.innerHTML = "";
+  chatHistory.length = 0;
+
+  chat.messages.forEach(msg => {
+    chatHistory.push(msg);
+
+    const div = createMessageElement(
+      `<span class="message-time">${getCurrentTime()}</span>
+       <p class="message-text">${msg.content}</p>`,
+      msg.role === "user" ? "user-message" : "bot-message"
+    );
+
+    chatsContainer.appendChild(div);
+  });
+
+  currentChatId = chat.id;
+       }
