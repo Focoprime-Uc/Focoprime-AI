@@ -20,7 +20,11 @@ import {
   doc,
   getDoc,
   setDoc,
-  updateDoc
+  updateDoc,
+  collection,
+  getDocs,
+  deleteDoc,
+  addDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -296,27 +300,41 @@ window.getDoc = getDoc;
 window.setDoc = setDoc;
 window.updateDoc = updateDoc;
 
-import { collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
 window.collection = collection;
 window.getDocs = getDocs;
 window.deleteDoc = deleteDoc;
+window.addDoc = addDoc;
 
-function loadChat(chat) {
+async function loadChat(chat) {
+  const user = window.auth.currentUser;
+  if (!user) return;
+
   chatsContainer.innerHTML = "";
   chatHistory.length = 0;
-
-  chat.messages.forEach(msg => {
-    chatHistory.push(msg);
-
-    const div = createMessageElement(
-      `<span class="message-time">${getCurrentTime()}</span>
-       <p class="message-text">${msg.content}</p>`,
-      msg.role === "user" ? "user-message" : "bot-message"
-    );
-
-    chatsContainer.appendChild(div);
-  });
-
   currentChatId = chat.id;
-   }
+
+  const messagesRef = collection(window.db, "users", user.uid, "chats", chat.id, "messages");
+  const snapshot = await getDocs(messagesRef);
+
+  const messages = snapshot.docs.map(doc => doc.data());
+  messages.sort((a, b) => a.createdAt - b.createdAt);
+
+  if (messages.length === 0) {
+    chatsContainer.innerHTML = `<p class="empty-chat">Esta conversa está vazia.</p>`;
+  } else {
+    messages.forEach(msg => {
+      chatHistory.push(msg);
+
+      const div = createMessageElement(
+        `<span class="message-time">${getCurrentTime()}</span>
+         <p class="message-text">${marked.parse(escapeHTML(msg.content))}</p>`,
+        msg.role === "user" ? "user-message" : "bot-message"
+      );
+
+      chatsContainer.appendChild(div);
+    });
+  }
+
+  scrollToBottom();
+}
+window.loadChat = loadChat;
