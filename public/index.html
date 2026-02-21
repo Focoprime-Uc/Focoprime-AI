@@ -193,7 +193,7 @@
           <span>Nova</span>
         </li>
         <!--- historias  --->
-        <li class="side-item" onclick="location.href='historias/index.html'">
+        <li class="side-item" id="openHistoryBtn">
           <span class="material-symbols-rounded">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
             fill="currentColor" viewBox="0 0 24 24" >
@@ -252,6 +252,18 @@
     <!--- menu overlay --->
     <div id="menuOverlay" class="menu-overlay"></div>
     <!--- ====== FECHAMENTO DO SIDEMENU ===== --->
+    
+    <!-- ===== HISTÓRICO SIDEBAR ===== -->
+<div id="historySidebar" class="history-sidebar">
+  <div class="history-header">
+    <h3>Histórico</h3>
+    <button id="closeHistoryBtn">✕</button>
+  </div>
+
+  <div id="historyList" class="history-list"></div>
+</div>
+
+<div id="historyOverlay" class="history-overlay"></div>
     <!--- =================================== --->
 
     <!--- ====== APP HEADER ====== --->
@@ -428,4 +440,4 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 
-      </html>
+  </html>
