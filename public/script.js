@@ -197,6 +197,16 @@ function escapeHTML(str) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 }
+// MENSAGENS ESCONDIDAS 
+function toggleWelcomeUI(show) {
+  const header = document.getElementById("appheader");
+  const suggestions = document.getElementById("sugere");
+
+  if (!header || !suggestions) return;
+
+  header.style.display = show ? "block" : "none";
+  suggestions.style.display = show ? "flex" : "none";
+}
 
 function looksLikeCode(text) {
   return (
@@ -375,6 +385,7 @@ const handleFormSubmit = async (e) => {
 
   promptInput.value = "";
   document.body.classList.add("chats-active", "bot-responding");
+  toggleWelcomeUI(false);
 
   chatHistory.push({ role: "user", content: userMessage });
   if (!currentChatId) {
@@ -456,16 +467,14 @@ closeMenuBtn?.addEventListener("click", closeMenu);
 menuOverlay?.addEventListener("click", closeMenu);
 
 newChatBtn?.addEventListener("click", () => {
-  currentChatId = null; // 🔥 muito importante
+  currentChatId = null;
   chatHistory.splice(1);
   chatsContainer.innerHTML = "";
   document.body.classList.remove("chats-active", "bot-responding");
-  closeMenu();
-});
 
-sideLogoutBtn?.addEventListener("click", async () => {
-  await window.signOut(window.auth);
-  location.reload();
+  toggleWelcomeUI(true); // 🔥 MOSTRAR DE NOVO
+
+  closeMenu();
 });
 
 // ==============================
@@ -740,7 +749,11 @@ async function loadUserChats() {
     item.innerHTML = `
       <img src="${user.photoURL || 'images/carta.png'}" width="28" style="border-radius:50%">
       <span class="history-title">${chat.title}</span>
-      <button class="delete-history">🗑</button>
+      <button class="delete-history"><svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
+fill="currentColor" viewBox="0 0 24 24" >
+<!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+<path d="M18.5 2h-12C4.57 2 3 3.57 3 5.5V21c0 .35.18.67.47.85s.66.2.97.04l5.55-2.78 5.55 2.78a.997.997 0 0 0 1.45-.89v-8h4c.55 0 1-.45 1-1V5.5c0-1.93-1.57-3.5-3.5-3.5ZM15 19.38l-4.55-2.28a1 1 0 0 0-.89 0l-4.55 2.28V5.5c0-.83.67-1.5 1.5-1.5h8.85c-.22.46-.35.96-.35 1.5v13.88ZM20 11h-3V5.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5z"></path><path d="M7 9h6v2H7z"></path>
+</svg></button>
     `;
 
     item.querySelector(".delete-history").addEventListener("click", async (e) => {
@@ -756,4 +769,4 @@ async function loadUserChats() {
 
     historyList.appendChild(item);
   });
-                       }
+    }
