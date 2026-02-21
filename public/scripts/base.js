@@ -312,6 +312,9 @@ async function loadChat(chat) {
   chatsContainer.innerHTML = "";
   chatHistory.length = 0;
   currentChatId = chat.id;
+  if (typeof toggleWelcomeUI === "function") {
+  toggleWelcomeUI(false);
+}
 
   const chatRef = doc(window.db, "users", user.uid, "chats", chat.id);
   const snap = await getDoc(chatRef);
