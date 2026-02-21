@@ -205,7 +205,7 @@
   top: 0;
   width: 350px;
   height: 100%;
-  background: #111;
+  background: var(--secondary-color);
   box-shadow: -5px 0 20px rgba(0,0,0,0.5);
   transition: 0.3s ease;
   z-index: 9999;
@@ -232,7 +232,7 @@
 }
 
 .history-item {
-  background: rgba(255,255,255,0.05);
+  background: #1d7efd;
   padding: 12px;
   border-radius: 12px;
   margin-bottom: 10px;
@@ -244,7 +244,7 @@
 }
 
 .history-item:hover {
-  background: rgba(255,255,255,0.1);
+  background: blue;
 }
 
 .history-title {
@@ -257,6 +257,12 @@
 .delete-history {
   background: none;
   border: none;
-  color: #ff4d4d;
+  color: white;
   cursor: pointer;
+}
+
+.closehistory {
+  border: none;
+  color: var(--text-color);
+
   }
