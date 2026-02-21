@@ -1,3 +1,4 @@
+let currentChatId = null;
 let userPlan = "free";
 let lastAIResponse = "";
 const container = document.querySelector(".container");
@@ -336,6 +337,9 @@ if (isCode) {
 
   lastAIResponse = responseText;
   chatHistory.push({ role: "assistant", content: responseText });
+  if (currentChatId) {
+  saveChatToFirestore(chatHistory[1]?.content.substring(0,40) || "Nova Conversa", chatHistory);
+}
 }
 
   } catch (error) {
@@ -373,6 +377,10 @@ const handleFormSubmit = async (e) => {
   document.body.classList.add("chats-active", "bot-responding");
 
   chatHistory.push({ role: "user", content: userMessage });
+  if (!currentChatId) {
+  const title = userMessage.substring(0, 40);
+  saveChatToFirestore(title, chatHistory);
+}
   messageCount++;
 updateUsageDisplay();
 
@@ -645,7 +653,7 @@ function applyModelLocks() {
 
     if (model === "v5.0" && userPlan !== "premium") {
       item.classList.add("locked");
-      item.innerHTML = "v5.0 🔒";
+      item.innerHTML = "Focoprime (pro) V5.0 🔒";
     }
   });
 }
@@ -666,3 +674,85 @@ setInterval(() => {
     updateUsageDisplay();
   }
 }, 60000); // atualiza a cada 1 minuto
+
+// HISTÓRICO DE CONVERSAS 
+const historySidebar = document.getElementById("historySidebar");
+const historyOverlay = document.getElementById("historyOverlay");
+const openHistoryBtn = document.getElementById("openHistoryBtn");
+const closeHistoryBtn = document.getElementById("closeHistoryBtn");
+const historyList = document.getElementById("historyList");
+
+openHistoryBtn?.addEventListener("click", () => {
+  historySidebar.classList.add("active");
+  historyOverlay.classList.add("active");
+});
+
+closeHistoryBtn?.addEventListener("click", closeHistory);
+historyOverlay?.addEventListener("click", closeHistory);
+
+function closeHistory() {
+  historySidebar.classList.remove("active");
+  historyOverlay.classList.remove("active");
+}
+
+// FUNÇÃO SALVAR CONVERSAS 
+async function saveChatToFirestore(title, messages) {
+  const user = window.auth.currentUser;
+  if (!user) return;
+
+  const chatId = currentChatId || crypto.randomUUID();
+  currentChatId = chatId;
+
+  const chatRef = doc(window.db, "users", user.uid, "chats", chatId);
+
+  await setDoc(chatRef, {
+    title,
+    messages,
+    createdAt: Date.now()
+  });
+
+  loadUserChats();
+}
+
+// RECENTE PRIMEIRO 
+async function loadUserChats() {
+  const user = window.auth.currentUser;
+  if (!user) return;
+
+  historyList.innerHTML = "";
+
+  const chatsRef = collection(window.db, "users", user.uid, "chats");
+  const snapshot = await getDocs(chatsRef);
+
+  const chats = [];
+
+  snapshot.forEach(doc => {
+    chats.push({ id: doc.id, ...doc.data() });
+  });
+
+  chats.sort((a, b) => b.createdAt - a.createdAt);
+
+  chats.forEach(chat => {
+    const item = document.createElement("div");
+    item.className = "history-item";
+
+    item.innerHTML = `
+      <img src="${user.photoURL || 'images/carta.png'}" width="28" style="border-radius:50%">
+      <span class="history-title">${chat.title}</span>
+      <button class="delete-history">🗑</button>
+    `;
+
+    item.querySelector(".delete-history").addEventListener("click", async (e) => {
+      e.stopPropagation();
+      await deleteDoc(doc(window.db, "users", user.uid, "chats", chat.id));
+      loadUserChats();
+    });
+
+    item.addEventListener("click", () => {
+      loadChat(chat);
+      closeHistory();
+    });
+
+    historyList.appendChild(item);
+  });
+    }
