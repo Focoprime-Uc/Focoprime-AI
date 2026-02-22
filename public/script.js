@@ -559,32 +559,6 @@ document.getElementById("closeLoginModal").addEventListener("click", () => {
   document.getElementById("loginModal").style.display = "none";
 });
 
-// EFEITO DE DESFOQUE DO BOTÃO LATERAL
-const newsButton = document.getElementById("newsButton");
-
-let idleTimeout;
-
-// Função que coloca em modo discreto
-function setIdle() {
-  newsButton.classList.add("idle");
-}
-
-// Função que volta ao normal
-function resetIdle() {
-  newsButton.classList.remove("idle");
-
-  clearTimeout(idleTimeout);
-  idleTimeout = setTimeout(setIdle, 3000);
-}
-
-// Detecta interação
-["click", "touchstart", "mousemove", "keydown"].forEach(event => {
-  document.addEventListener(event, resetIdle);
-});
-
-// Inicializa contador
-idleTimeout = setTimeout(setIdle, 3000);
-
 
 // ===== MODEL MODAL =====
 
@@ -783,4 +757,4 @@ fill="currentColor" viewBox="0 0 24 24" >
 
     historyList.appendChild(item);
   });
-                }
+    }
