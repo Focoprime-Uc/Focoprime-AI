@@ -367,3 +367,7 @@ async function loadChat(chat) {
   scrollToBottom();
 }
 window.loadChat = loadChat;
+
+document.getElementById("newsButton")?.addEventListener("click", openMenu);
+closeMenuBtn?.addEventListener("click", closeMenu);
+menuOverlay?.addEventListener("click", closeMenu);
