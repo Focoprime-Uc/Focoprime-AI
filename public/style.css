@@ -1118,11 +1118,6 @@ body.bot-responding .prompt-form #stop-response-btn {
   transform: translateY(-1px);
 }
 
-/* Empurra o site para baixo por causa da barra */
-body {
-  padding-top: 52px;
-}
-
 /* BLOCO DE CÓDIGO ESTILO CHATGPT */
 .code-block {
   width: 100%;
@@ -1837,25 +1832,3 @@ body {
 .login-terms a:hover::after {
   transform: scaleX(1);
 }
-
-/* BOTÃO FLUTUANTE */
-.news-button {
-  position: fixed;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #4285f4;
-  color: #fff;
-  padding: 12px 8px;
-  border-radius: 0 12px 12px 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  z-index: 50;
-}
-
-/* Estado reduzido (modo discreto) */
-.news-button.idle {
-  opacity: 0.4;
-  }
