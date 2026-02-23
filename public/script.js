@@ -389,7 +389,7 @@ async function generateChatTitle(userMessage) {
         messages: [
           {
             role: "system",
-            content: "Cria um título curto (máximo 5 palavras), profissional e bonito para esta conversa. Não uses aspas."
+            content: "Cria um título curto, use a objectivo da pergunta (máximo 5 palavras),que tenha não podem ultrapassar 40 caracteres, profissional e bonito para esta conversa. Não uses aspas."
           },
           {
             role: "user",
