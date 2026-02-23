@@ -16,6 +16,7 @@ async function initApp() {
   await import("./base.js");
   await import("./sugere.js");
   await import("./apk.js");
+  await import("./modelos.js");
 }
 
 initApp();
