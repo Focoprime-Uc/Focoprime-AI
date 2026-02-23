@@ -776,6 +776,9 @@ let mediaRecorder;
 let audioChunks = [];
 let isRecording = false;
 
+let recordTimer;
+let seconds = 0;
+
 async function startRecording() {
   if (isRecording) return;
 
@@ -789,18 +792,59 @@ async function startRecording() {
       audioChunks.push(e.data);
     };
 
-    mediaRecorder.onstop = () => {
+    mediaRecorder.onstop = async () => {
       const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-      const audioURL = URL.createObjectURL(audioBlob);
-      addAudioMessage(audioURL);
+
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64Audio = reader.result;
+
+        // adicionar ao histórico
+        chatHistory.push({
+          role: "user",
+          type: "audio",
+          content: base64Audio
+        });
+
+        addAudioMessage(base64Audio);
+
+        // salvar no firestore
+        if (currentChatId) {
+          const user = window.auth.currentUser;
+          const chatRef = doc(window.db, "users", user.uid, "chats", currentChatId);
+
+          await updateDoc(chatRef, {
+            messages: chatHistory
+          });
+        }
+      };
+
+      reader.readAsDataURL(audioBlob);
     };
 
     mediaRecorder.start();
     isRecording = true;
     recordBtn.classList.add("recording");
 
+    document.getElementById("recordingUI").style.display = "flex";
+
+    seconds = 0;
+
+    recordTimer = setInterval(() => {
+      seconds++;
+
+      const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const secs = String(seconds % 60).padStart(2, '0');
+
+      document.getElementById("recordTime").textContent = `${mins}:${secs}`;
+
+      const progress = (seconds / 60) * 100;
+      document.getElementById("recordProgress").style.width = `${progress}%`;
+
+    }, 1000);
+
   } catch (err) {
-    alert("Permita o acesso ao microfone.");
+    alert("Permita acesso ao microfone.");
   }
 }
 
@@ -808,20 +852,25 @@ function stopRecording() {
   if (!isRecording) return;
 
   mediaRecorder.stop();
-  isRecording = false;
+  clearInterval(recordTimer);
+
+  document.getElementById("recordingUI").style.display = "none";
+  document.getElementById("recordProgress").style.width = "0%";
+  document.getElementById("recordTime").textContent = "00:00";
+
   recordBtn.classList.remove("recording");
+  isRecording = false;
 }
 
-/* MOBILE */
-recordBtn.addEventListener("touchstart", startRecording);
-recordBtn.addEventListener("touchend", stopRecording);
+recordBtn.addEventListener("click", () => {
+  if (!isRecording) {
+    startRecording();
+  } else {
+    stopRecording();
+  }
+});
 
-/* DESKTOP */
-recordBtn.addEventListener("mousedown", startRecording);
-recordBtn.addEventListener("mouseup", stopRecording);
-recordBtn.addEventListener("mouseleave", stopRecording);
-
-function addAudioMessage(audioURL) {
+function addAudioMessage(base64Audio) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message", "user-message");
 
@@ -831,11 +880,11 @@ function addAudioMessage(audioURL) {
 
   const audio = document.createElement("audio");
   audio.controls = true;
-  audio.src = audioURL;
+  audio.src = base64Audio;
 
   messageDiv.appendChild(time);
   messageDiv.appendChild(audio);
 
   chatsContainer.appendChild(messageDiv);
-  chatsContainer.scrollTop = chatsContainer.scrollHeight;
-    }
+  scrollToBottom();
+        }
