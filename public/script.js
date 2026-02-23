@@ -360,7 +360,14 @@ if (isCode) {
   lastAIResponse = responseText;
   chatHistory.push({ role: "assistant", content: responseText });
   if (currentChatId) {
-  saveChatToFirestore(chatHistory[1]?.content.substring(0,40) || "Nova Conversa", chatHistory);
+  const user = window.auth.currentUser;
+  if (!user) return;
+
+  const chatRef = doc(window.db, "users", user.uid, "chats", currentChatId);
+
+  await updateDoc(chatRef, {
+    messages: chatHistory
+  });
 }
 }
 
