@@ -18,7 +18,11 @@
 }
 
 .history-header {
-  padding: 16px;
+  background-image: url('../images/carta.png');
+  background-size: cover;
+  background-position: center;
+  background-repetat: no-repeat;
+  padding: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -64,4 +68,40 @@
 .closehistory {
   border: none;
   color: var(--text-color);
+}
+
+/* ======== BARRA DE PESQUISA ===========*/
+.search-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--secondary-hover-color);
+  border-radius: 12px;
+  padding: 6px 8px;
+  margign-right: 8px;
+}
+
+.search-wrapper input {
+  flex: 1;
+  background: var(--secondary-color);
+  border: none;
+  outline: none;
+  color: var(--text-color);
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.search-wrapper input::placeholder {
+  color: var(--text-color);
+}
+
+.search-wrapper .search-icon {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding-left: 4px;
+  display: flex;
+  align-items: center;
 }
