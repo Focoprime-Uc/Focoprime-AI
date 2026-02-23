@@ -828,3 +828,67 @@ body.bot-responding .prompt-form #stop-response-btn {
   color: #8f6fff;
 }
 
+/* ejebhwnwjwn */
+/* ===== BOTÃO GRAVAR ÁUDIO ===== */
+
+#delete-chats-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+#delete-chats-btn.recording {
+  background: #d62939 !important;
+  color: #fff;
+}
+
+#delete-chats-btn::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  border-top: 4px solid #1d7efd;
+  opacity: 0;
+}
+
+#delete-chats-btn.recording::after {
+  opacity: 1;
+  animation: spinRing 1s linear infinite;
+}
+
+@keyframes spinRing {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== ESTILO DO ÁUDIO NA MENSAGEM ===== */
+
+.user-message audio {
+  max-width: 230px;
+  margin-top: 6px;
+  border-radius: 12px;
+}
+
+/* sjjeehnhw */
+.recording-ui {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.record-bar {
+  width: 150px;
+  height: 6px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.record-progress {
+  height: 100%;
+  width: 0%;
+  background: #ff3b3b;
+  transition: width 0.1s linear;
+}
