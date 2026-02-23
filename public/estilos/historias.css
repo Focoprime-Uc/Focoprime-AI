@@ -48,7 +48,7 @@
 }
 
 .history-item:hover {
-  background: blue;
+  background: #a8c;
 }
 
 .history-title {
@@ -61,7 +61,7 @@
 .delete-history {
   background: none;
   border: none;
-  color: white;
+  color: var(--text-color);
   cursor: pointer;
 }
 
@@ -105,3 +105,18 @@
   display: flex;
   align-items: center;
 }
+
+
+.history-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+  flex: 1;
+}
+
+.history-time {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: 2px;
+  margin-left: 10px;
+  }
