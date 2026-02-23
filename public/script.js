@@ -108,6 +108,18 @@ panelInfo.innerHTML += `
 `;
     }
   }
+  
+  // Atualizar texto no header
+const statusText = document.getElementById("statusText");
+if (statusText) {
+  const remaining = getRemainingMessages();
+
+  if (remaining === Infinity) {
+    statusText.textContent = "Ilimitado";
+  } else {
+    statusText.textContent = `${remaining} restantes`;
+  }
+}
 }
 
 updateUsageDisplay();
@@ -715,4 +727,4 @@ fill="currentColor" viewBox="0 0 24 24" >
 
     historyList.appendChild(item);
   });
-                  }
+}
