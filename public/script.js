@@ -800,11 +800,28 @@ async function startRecording() {
         const base64Audio = reader.result;
 
         // adicionar ao histórico
-        chatHistory.push({
-          role: "user",
-          type: "audio",
-          content: base64Audio
-        });
+        // Enviar áudio como texto descritivo
+chatHistory.push({
+  role: "user",
+  content: "O utilizador enviou um áudio. Responde normalmente."
+});
+
+// Criar bolha da IA imediatamente
+setTimeout(() => {
+  const botTime = getCurrentTime();
+  const botMsgDiv = createMessageElement(`
+    <img class="avatar" src="images/groq.png" />
+    <div class="bot-content">
+      <span class="message-time">${botTime}</span>
+      <p class="message-text">A pensar...</p>
+    </div>
+  `, "bot-message", "loading");
+
+  chatsContainer.appendChild(botMsgDiv);
+  scrollToBottom();
+
+  generateResponse(botMsgDiv);
+}, 300);
 
         addAudioMessage(base64Audio);
 
