@@ -767,3 +767,75 @@ fill="currentColor" viewBox="0 0 24 24" >
     historyList.appendChild(item);
   });
 }
+
+
+// GRACAR AUDIO
+const recordBtn = document.getElementById("delete-chats-btn");
+
+let mediaRecorder;
+let audioChunks = [];
+let isRecording = false;
+
+async function startRecording() {
+  if (isRecording) return;
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+
+    mediaRecorder.ondataavailable = e => {
+      audioChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+      const audioURL = URL.createObjectURL(audioBlob);
+      addAudioMessage(audioURL);
+    };
+
+    mediaRecorder.start();
+    isRecording = true;
+    recordBtn.classList.add("recording");
+
+  } catch (err) {
+    alert("Permita o acesso ao microfone.");
+  }
+}
+
+function stopRecording() {
+  if (!isRecording) return;
+
+  mediaRecorder.stop();
+  isRecording = false;
+  recordBtn.classList.remove("recording");
+}
+
+/* MOBILE */
+recordBtn.addEventListener("touchstart", startRecording);
+recordBtn.addEventListener("touchend", stopRecording);
+
+/* DESKTOP */
+recordBtn.addEventListener("mousedown", startRecording);
+recordBtn.addEventListener("mouseup", stopRecording);
+recordBtn.addEventListener("mouseleave", stopRecording);
+
+function addAudioMessage(audioURL) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("message", "user-message");
+
+  const time = document.createElement("span");
+  time.classList.add("message-time");
+  time.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  const audio = document.createElement("audio");
+  audio.controls = true;
+  audio.src = audioURL;
+
+  messageDiv.appendChild(time);
+  messageDiv.appendChild(audio);
+
+  chatsContainer.appendChild(messageDiv);
+  chatsContainer.scrollTop = chatsContainer.scrollHeight;
+    }
