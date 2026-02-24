@@ -323,3 +323,24 @@
 .email-btn.register {
   background: #28a745;
 }
+
+/* ========== BOTÃO DE CONTINUAR COM GOOGLE ========= */
+.btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* ======== COR DO BOTÃO GOOGLE =======÷ */
+.btn-google {
+  background: #ffffff !important;
+  color: #000 !important;
+  border: 3px solid #1d7efd;
+    }
