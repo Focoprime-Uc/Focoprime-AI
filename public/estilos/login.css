@@ -47,8 +47,12 @@
   background: linear-gradient(to right, #1d7efd, #8f6fff);
   color: white;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   margin-bottom: 10px;
+  gap: 8px;
   transition: 0.3s;
 }
 
@@ -278,6 +282,48 @@
   opacity: 0.8;
 }
 
+/* AINDA SOBRE A SENHA */
+.password-container {
+  position: relative;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 20px; /* espaço para o ícone */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #888;
+  transition: color 0.3s;
+  justify-content: center;
+  align-items: center;
+}
+
+.password-toggle:hover {
+  color: #3b82f6; /* cor azul moderna */
+}
+
+.login-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.login-chip i {
+  font-size: 18px;
+}
+
+/*shegsnshjdndh */
+.login-btn span.material-symbols-rounded {
+  color: #8f6fff;
+}
+
 /* Login modal */
 .google-btn {
   width: 100%;
@@ -343,4 +389,4 @@
   background: #ffffff !important;
   color: #000 !important;
   border: 3px solid #1d7efd;
-    }
+}
