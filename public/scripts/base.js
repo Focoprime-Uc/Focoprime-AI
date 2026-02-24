@@ -73,6 +73,18 @@ const forgotPasswordBtn = document.getElementById("forgotPasswordBtn");
 const toast = document.getElementById("toast");
 const toastMessage = document.getElementById("toastMessage");
 
+const loginErrorBar = document.getElementById("loginErrorBar");
+const loginErrorText = document.getElementById("loginErrorText");
+
+function showLoginError(message) {
+  loginErrorText.textContent = message;
+  loginErrorBar.classList.add("show");
+
+  setTimeout(() => {
+    loginErrorBar.classList.remove("show");
+  }, 4000);
+}
+
 function showToast(message, type = "success") {
   toastMessage.textContent = message;
 
@@ -101,7 +113,8 @@ googleBtn.addEventListener("click", async () => {
       user.photoURL || "images/carta.png";
 
   } catch (error) {
-    alert("Erro Google: " + error.message);
+    const loginErrorBar = document.getElementById("loginErrorBar");
+const loginErrorText = document.getElementById("loginErrorText");
   }
 });
 
@@ -109,15 +122,43 @@ googleBtn.addEventListener("click", async () => {
    📧 LOGIN COM EMAIL
 ================================= */
 emailLoginBtn.addEventListener("click", async () => {
+
+  if (!emailInput.value) {
+    showLoginError("Por favor, insira o seu email.");
+    return;
+  }
+
+  if (!passwordInput.value) {
+    showLoginError("Por favor, insira a sua senha.");
+    return;
+  }
+
   try {
     await signInWithEmailAndPassword(
       auth,
       emailInput.value,
       passwordInput.value
     );
+
   } catch (error) {
-    alert("Erro: " + error.message);
+
+  if (error.code === "auth/invalid-email") {
+    showLoginError("Email inválido.");
   }
+
+  else if (error.code === "auth/invalid-credential") {
+    showLoginError("Email ou senha incorretos.");
+  }
+
+  else if (error.code === "auth/too-many-requests") {
+    showLoginError("Muitas tentativas. Tente mais tarde.");
+  }
+
+  else {
+    showLoginError("Erro ao iniciar sessão. Tente novamente.");
+  }
+
+}
 });
 
 /* ===============================
@@ -371,3 +412,6 @@ window.loadChat = loadChat;
 document.getElementById("newsButton")?.addEventListener("click", openMenu);
 closeMenuBtn?.addEventListener("click", closeMenu);
 menuOverlay?.addEventListener("click", closeMenu);
+
+
+window.statusText = statusText;
