@@ -437,7 +437,7 @@
   font-weight: bold;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   opacity: 0;
-  z-index: 100;
+  z-index: 50;
   transition: opacity 0.5s, transform 0.5s;
 }
 
@@ -445,4 +445,4 @@
 .login-success-bar.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
-}
+    }
