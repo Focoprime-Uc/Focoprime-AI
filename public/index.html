@@ -444,6 +444,25 @@
   </div>
   <!--- ========== FECHAMENTO ============= --->
   
+  <!-- GROUP CHAT MODAL -->
+<div id="groupChatModal" class="group-chat-modal">
+  <div class="group-chat-box">
+    
+    <div class="group-header">
+      <h3>Chat da Comunidade</h3>
+      <button id="closeGroupChat">✕</button>
+    </div>
+
+    <div id="groupMessages" class="group-messages"></div>
+
+    <div class="group-input">
+      <input type="text" id="groupMessageInput" placeholder="Escrever mensagem...">
+      <button id="sendGroupMessage">Enviar</button>
+    </div>
+
+  </div>
+</div>
+  
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js")
