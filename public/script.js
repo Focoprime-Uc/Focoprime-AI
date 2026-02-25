@@ -788,3 +788,21 @@ fill="currentColor" viewBox="0 0 24 24" >
     historyList.appendChild(item);
   });
 }
+
+// PWA APP PROGRESSIVE
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); // impede que apareça o prompt automático
+  deferredPrompt = e;
+  document.getElementById('appInstallBar').style.display = 'flex'; // sua barra de instalar
+});
+
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log('Usuário escolheu:', outcome);
+    deferredPrompt = null;
+  }
+});
