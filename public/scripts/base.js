@@ -456,11 +456,12 @@ sendBtn.addEventListener("click", () => {
   if (!message) return;
 
   push(ref(realtimeDB, "groupChat"), {
-    name: user.displayName,
-    photo: user.photoURL || "images/user-placeholder.png",
-    text: message,
-    timestamp: Date.now()
-  });
+  name: user.displayName,
+  email: user.email, // adiciona esta linha
+  photo: user.photoURL || "images/user-placeholder.png",
+  text: message,
+  timestamp: Date.now()
+});
 
   groupInput.value = "";
 });
@@ -477,12 +478,12 @@ onValue(ref(realtimeDB, "groupChat"), (snapshot) => {
     div.classList.add("group-message");
 
     div.innerHTML = `
-      <img src="${data.photo}">
-      <div>
-        <strong>${data.name}</strong>
-        <p>${data.text}</p>
-      </div>
-    `;
+  <img src="${data.photo}">
+  <div>
+    <strong>${data.name}</strong> <span class="user-email">&lt;${data.email}&gt;</span>
+    <p>${data.text}</p>
+  </div>
+`;
 
     groupMessages.appendChild(div);
   });
