@@ -85,6 +85,28 @@ function showLoginError(message) {
   }, 4000);
 }
 
+// BARRA DE SUCESSO 
+function showLoginSuccess(message) {
+  const successBar = document.getElementById("loginSuccessBar");
+  const successText = document.getElementById("loginSuccessText");
+
+  successText.textContent = message || "Login efetuado com sucesso!";
+
+  // mostrar a barra primeiro
+  successBar.classList.add("show");
+
+  // deixar o modal visível pelo menos 1,5s
+  setTimeout(() => {
+    // esconde o modal
+    loginModal.style.display = "none";
+
+    // depois de fechar o modal, anima a barra sumindo
+    setTimeout(() => {
+      successBar.classList.remove("show");
+    }, 300); // tempo da transição do CSS
+  }, 1500);
+}
+
 function showToast(message, type = "success") {
   toastMessage.textContent = message;
 
@@ -106,15 +128,14 @@ googleBtn.addEventListener("click", async () => {
     const user = result.user;
 
     // Atualiza instantaneamente
-    userChipName.textContent =
-      user.displayName?.split(" ")[0] || "Usuário";
+    userChipName.textContent = user.displayName?.split(" ")[0] || "Usuário";
+    userPhoto.src = user.photoURL || "images/carta.png";
 
-    userPhoto.src =
-      user.photoURL || "images/carta.png";
+    // ✅ Mostrar barra de sucesso
+    showLoginSuccess("Login efetuado com sucesso!");
 
   } catch (error) {
-    const loginErrorBar = document.getElementById("loginErrorBar");
-const loginErrorText = document.getElementById("loginErrorText");
+    showLoginError("Erro ao iniciar sessão com Google.");
   }
 });
 
@@ -140,25 +161,26 @@ emailLoginBtn.addEventListener("click", async () => {
       passwordInput.value
     );
 
+    showLoginSuccess("Login efetuado com sucesso!");
+
   } catch (error) {
 
-  if (error.code === "auth/invalid-email") {
-    showLoginError("Email inválido.");
-  }
+    if (error.code === "auth/invalid-email") {
+      showLoginError("Email inválido.");
+    }
 
-  else if (error.code === "auth/invalid-credential") {
-    showLoginError("Email ou senha incorretos.");
-  }
+    else if (error.code === "auth/invalid-credential") {
+      showLoginError("Email ou senha incorretos.");
+    }
 
-  else if (error.code === "auth/too-many-requests") {
-    showLoginError("Muitas tentativas. Tente mais tarde.");
-  }
+    else if (error.code === "auth/too-many-requests") {
+      showLoginError("Muitas tentativas. Tente mais tarde.");
+    }
 
-  else {
-    showLoginError("Erro ao iniciar sessão. Tente novamente.");
+    else {
+      showLoginError("Erro ao iniciar sessão. Tente novamente.");
+    }
   }
-
-}
 });
 
 /* ===============================
@@ -222,11 +244,12 @@ if (photoData) {
     userPhoto.src =
   photoData || "images/carta.png";
 
-    alert("Conta criada com sucesso!");
+    // ✅ Mostrar barra de sucesso
+  showLoginSuccess("Conta criada com sucesso!");
 
-  } catch (error) {
-    alert("Erro: " + error.message);
-  }
+} catch (error) {
+  showLoginError("Erro ao criar conta: " + error.message);
+}
   
   localStorage.setItem("user_name", registerName.value);
   updateSystemPrompt(registerName.value);
