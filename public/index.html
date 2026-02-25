@@ -10,6 +10,10 @@
   <!-- Favicon -->
   <link rel="icon" href="images/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="images/favicon.png">
+  
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2563eb">
+  
   <!-- SEO + IA -->
   <meta name="description" content="FocoPrime IA é um assistente escolar inteligente criado em Moçambique para ajudar alunos com estudos, exames e aprendizagem personalizada.">
   <!-- Open Graph -->
@@ -461,7 +465,13 @@ fill="currentColor" viewBox="0 0 24 24" >
   <!--- ========== FECHAMENTO ============= --->
   <!--- =================================== --->
   
-  <!-- Barra de sucesso -->
+  <script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(() => console.log("PWA ativa"))
+    .catch(err => console.log("Erro PWA:", err));
+}
+</script>
   <!--- ======== FECHAMENTO ============= --->
 
   
@@ -479,4 +489,4 @@ fill="currentColor" viewBox="0 0 24 24" >
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 
-            </html>
+  </html>
