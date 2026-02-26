@@ -208,7 +208,7 @@
   background: #f1f1f1;
   border-left: 3px solid #1d7efd;
   padding: 5px 10px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #333;
   margin-bottom: 5px;
   border-radius: 5px;
@@ -263,3 +263,75 @@
   border-radius: 50%;
   font-size: 1.2rem;
 }
+
+/* ===== PREVIEW PROFISSIONAL DE RESPOSTA ===== */
+.group-reply-preview {
+  background: rgba(29, 126, 253, 0.08);
+  border-left: 4px solid #1d7efd;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  animation: fadeInReply 0.2s ease;
+}
+
+.group-reply-preview strong {
+  font-size: 0.8rem;
+  color: #1d7efd;
+  display: block;
+}
+
+.group-reply-preview small {
+  font-size: 0.7rem;
+  color: #888;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.group-reply-preview button {
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  color: #888;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.group-reply-preview button:hover {
+  color: red;
+  transform: scale(1.1);
+}
+
+@keyframes fadeInReply {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MENSAGEM RESPONDIDA DENTRO DO CHAT ===== */
+.replied-message {
+  background: rgba(0,0,0,0.05);
+  border-left: 3px solid #1d7efd;
+  padding: 6px 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.replied-message strong {
+  font-size: 0.75rem;
+  color: #1d7efd;
+  display: block;
+}
+
+.replied-message small {
+  font-size: 0.65rem;
+  color: #777;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
