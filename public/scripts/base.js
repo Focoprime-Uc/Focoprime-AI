@@ -491,10 +491,11 @@ const showAvatar = !(currentUser && data.email === currentUser.email);
 div.innerHTML = `
   ${showAvatar ? `<img src="${data.photo}">` : ''}
   <div class="message-content">
-    <span class="user-name">${data.name}</span>
-    <span class="user-email">${data.email || 'sem email'}</span>
-    <p class="message-text">${data.text}</p>
-  </div>
+  <span class="user-name">${data.name}</span>
+  <span class="user-email">${data.email || 'sem email'}</span>
+  <span class="message-time">${formatTimestamp(data.timestamp)}</span>
+  <p class="message-text">${data.text}</p>
+</div>
 `;
 
   groupMessages.appendChild(div);
@@ -508,3 +509,17 @@ document.getElementById("closeGroupChat")
   document.getElementById("groupChatModal")
   .classList.remove("active");
 });
+
+
+function formatTimestamp(ts) {
+  const date = new Date(ts);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Janeiro = 0
+  const year = date.getFullYear();
+
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+                                          }
