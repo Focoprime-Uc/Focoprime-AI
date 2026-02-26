@@ -159,7 +159,7 @@
 .group-message .user-email {
   font-size: 0.75rem;
   color: #a0a0a0;
-  margin-left: 5px;
+  margin-left: 0;
 }
 
 /* Mensagens do usuário logado à direita */
@@ -193,4 +193,10 @@
 .group-message.my-message .message-content {
   align-items: flex-end;
   text-align: right;
+}
+
+.group-message .message-time {
+  font-size: 0.55rem;
+  color: #888;
+  margin-top: 2px;
 }
