@@ -505,7 +505,12 @@ onValue(ref(realtimeDB, "groupChat"), (snapshot) => {
         <span class="user-name">${data.name}</span>
         <span class="user-email">${data.email || 'sem email'}</span>
         <span class="message-time">${formatTimestamp(data.timestamp)}</span>
-        ${data.replyTo ? `<div class="replied-message">Respondendo: ${data.replyTo}</div>` : ''}
+        ${data.replyTo ? `
+  <div class="replied-message">
+    <strong>${data.replyTo.name}</strong>
+    <small>${data.replyTo.text}</small>
+  </div>
+` : ''}
         <p class="message-text">${data.text}</p>
         ${!isMyMessage ? `<button class="reply-btn">Responder</button>` : ''}
       </div>
@@ -518,14 +523,27 @@ onValue(ref(realtimeDB, "groupChat"), (snapshot) => {
 
   // Botões de responder
   groupMessages.querySelectorAll(".reply-btn").forEach(btn => {
-    btn.onclick = (e) => {
-      const msg = e.target.closest(".message-content").querySelector(".message-text").textContent;
-      replyingTo = msg;
-      replyTextEl.textContent = msg;
-      replyPreview.style.display = "flex";
-      groupInput.focus();
-    }
-  });
+  btn.onclick = (e) => {
+    const content = e.target.closest(".message-content");
+    const msgText = content.querySelector(".message-text").textContent;
+    const msgName = content.querySelector(".user-name").textContent;
+    const msgEmail = content.querySelector(".user-email").textContent;
+
+    replyingTo = {
+      name: msgName,
+      email: msgEmail,
+      text: msgText
+    };
+
+    replyTextEl.innerHTML = `
+      <strong>${msgName}</strong>
+      <small>${msgText}</small>
+    `;
+
+    replyPreview.style.display = "flex";
+    groupInput.focus();
+  };
+});
 });
 
 document.getElementById("closeGroupChat")
@@ -546,4 +564,4 @@ function formatTimestamp(ts) {
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-}
+   }
