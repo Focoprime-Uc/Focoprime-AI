@@ -366,6 +366,15 @@ userPhoto.src = currentUserPhoto;
   if (user && typeof loadUserUsage === "function") {
   loadUserUsage(user);
 }
+
+const sidebarPhoto = document.getElementById("sidebarUserPhoto");
+const sidebarName = document.getElementById("sidebarUserName");
+
+if (user) {
+  sidebarPhoto.src = currentUserPhoto;
+  sidebarName.textContent = user.displayName || "Usuário";
+}
+
 });
 
 /* ===============================
@@ -623,4 +632,4 @@ function formatTimestamp(ts) {
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-   }
+       }
