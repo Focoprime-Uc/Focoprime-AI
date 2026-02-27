@@ -62,6 +62,42 @@ const registerName = document.getElementById("registerName");
 const registerEmail = document.getElementById("registerEmail");
 const registerPassword = document.getElementById("registerPassword");
 const photoInput = document.getElementById("photoInput");
+const avatarError = document.getElementById("avatarError");
+const previewPhoto = document.getElementById("previewPhoto");
+
+// Abrir seletor ao clicar no botão
+document.getElementById("changePhotoBtn").addEventListener("click", () => {
+  photoInput.click();
+});
+
+// Validar tamanho
+photoInput.addEventListener("change", () => {
+  const file = photoInput.files[0];
+  const avatarUpload = document.querySelector(".avatar-upload");
+
+  if (!file) return;
+
+  const maxSize = 1 * 1024 * 1024; // 1MB
+
+  if (file.size > maxSize) {
+    avatarError.classList.add("show");
+    avatarUpload.classList.add("error");
+
+    photoInput.value = "";
+    previewPhoto.src = "images/user-placeholder.png";
+    return;
+  }
+
+  // Remove erro se estiver tudo certo
+  avatarError.classList.remove("show");
+  avatarUpload.classList.remove("error");
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    previewPhoto.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
 
 const logoutBtn = document.getElementById("logoutBtn");
 const logoutReal = document.getElementById("logoutReal");
