@@ -446,4 +446,95 @@
 .login-success-bar.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+/* ===== AVISO TAMANHO AVATAR ===== */
+.avatar-info {
+  background: rgba(29, 126, 253, 0.15);
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* ===== ERRO AVATAR ===== */
+.avatar-error {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 77, 77, 0.15);
+  color: #ff4d4d;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.avatar-error.show {
+  display: flex;
+}
+
+.avatar-error i {
+  font-size: 16px;
+}
+
+/* ===== ESTADO ERRO AVATAR ===== */
+.avatar-upload.error img {
+  border: 3px solid #ff4d4d !important;
+  box-shadow: 0 0 0 4px rgba(255, 77, 77, 0.2);
+}
+
+.avatar-upload.error button {
+  background: #ff4d4d !important;
+}
+
+/* AVATAR FUNDO */
+/* Avatar placeholder estilo profissional */
+.avatar-upload {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  border: 3px solid #8f6fff;
+  background: linear-gradient(135deg, #1f2937, #2d3748);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8f6fff;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.avatar-upload img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* O texto só aparece quando não tem imagem */
+.avatar-upload img[src="images/user-placeholder.png"] {
+  display: none;
+}
+
+.avatar-upload::before {
+  content: "Sua imagem aqui";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* não bloqueia clique */
+  font-size: 12px;
+  font-weight: 500;
+  color: #8f6fff;
+  text-align: center;
+  white-space: pre-wrap;
   }
