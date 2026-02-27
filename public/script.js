@@ -751,42 +751,48 @@ async function loadUserChats() {
 
   chats.sort((a, b) => b.createdAt - a.createdAt);
 
-  chats.forEach(chat => {
-    const item = document.createElement("div");
-    item.className = "history-item";
+  chats.forEach(async (chat) => {
+  const item = document.createElement("div");
+  item.className = "history-item";
 
-    const formattedTime = formatChatTime(chat.createdAt);
+  const formattedTime = formatChatTime(chat.createdAt);
 
-item.innerHTML = `
-  <img src="${user.photoURL || 'images/carta.png'}" width="28" style="border-radius:50%">
-  
-  <div class="history-content">
-    <span class="history-title">${chat.title}</span>
-    <span class="history-time">${formattedTime}</span>
-  </div>
+  let avatar = "images/carta.png"; // padrão
+  const userDoc = await getDoc(doc(db, "users", user.uid));
 
-  <button class="delete-history">
-    <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
-fill="currentColor" viewBox="0 0 24 24" >
-<!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
-<path d="m7.76 14.83-2.83 2.83 1.41 1.41 2.83-2.83 2.12-2.12.71-.71.71.71 1.41 1.42 3.54 3.53 1.41-1.41-3.53-3.54-1.42-1.41-.71-.71 5.66-5.66-1.41-1.41L12 10.59 6.34 4.93 4.93 6.34 10.59 12l-.71.71z"></path>
-</svg>
-  </button>
-`;
+  if (userDoc.exists() && userDoc.data().photoBase64) {
+    avatar = userDoc.data().photoBase64; // foto do Firestore
+  } else if (user.photoURL) {
+    avatar = user.photoURL; // login Google
+  }
 
-    item.querySelector(".delete-history").addEventListener("click", async (e) => {
-      e.stopPropagation();
-      await deleteDoc(doc(window.db, "users", user.uid, "chats", chat.id));
-      loadUserChats();
-    });
+  item.innerHTML = `
+    <img src="${avatar}" width="28" height="28" style="border-radius:50%">
+    <div class="history-content">
+      <span class="history-title">${chat.title}</span>
+      <span class="history-time">${formattedTime}</span>
+    </div>
 
-    item.addEventListener("click", () => {
-      loadChat(chat);
-      closeHistory();
-    });
+    <button class="delete-history">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="m7.76 14.83-2.83 2.83 1.41 1.41 2.83-2.83 2.12-2.12.71-.71.71.71 1.41 1.42 3.54 3.53 1.41-1.41-3.53-3.54-1.42-1.41-.71-.71 5.66-5.66-1.41-1.41L12 10.59 6.34 4.93 4.93 6.34 10.59 12l-.71.71z"></path>
+      </svg>
+    </button>
+  `;
 
-    historyList.appendChild(item);
+  item.querySelector(".delete-history").addEventListener("click", async (e) => {
+    e.stopPropagation();
+    await deleteDoc(doc(db, "users", user.uid, "chats", chat.id));
+    loadUserChats();
   });
+
+  item.addEventListener("click", () => {
+    loadChat(chat);
+    closeHistory();
+  });
+
+  historyList.appendChild(item);
+});
 }
 
 // PWA APP PROGRESSIVE
@@ -798,4 +804,6 @@ groupChatBtn.addEventListener("click", () => {
 
 function openGroupChat() {
   document.getElementById("groupChatModal").classList.add("active");
-  }
+}
+
+
