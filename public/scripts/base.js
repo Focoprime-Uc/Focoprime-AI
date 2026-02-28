@@ -508,7 +508,7 @@ window.loadChat = loadChat;
 
 document.getElementById("newsButton")?.addEventListener("click", openMenu);
 closeMenuBtn?.addEventListener("click", closeMenu);
-menuOverlay?.addEventListener("click", closeMenu);
+historyOverlay?.addEventListener("click", closeMenu);
 
 
 window.statusText = statusText;
@@ -632,4 +632,4 @@ function formatTimestamp(ts) {
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-       }
+     }
