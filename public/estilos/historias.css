@@ -13,26 +13,16 @@
   flex-direction: column;
 }
 
-.history-sidebar.active {
-  right: 0;
-}
-
 .history-header {
   background-image: url('../images/carta.png');
   background-size: cover;
   background-position: center;
-  background-repetat: no-repeat;
+  backgrounyd-repetat: no-repeat;
   padding: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.history-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
 }
 
 .history-item {
@@ -146,6 +136,7 @@
 
 /* Pesquisa */
 .search-wrapper {
+  border: 3px solid #1d7efd;
   display: flex;
   align-items: center;
   background: var(--secondary-hover-color);
@@ -212,4 +203,34 @@
 .history-user span {
   font-size: 14px;
   color: #fff;
+}
+
+
+.histgory-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--secondary-color);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 9998;
+}
+
+.hisvtory-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.history-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0; /* 👈 ESSA LINHA RESOLVE */
+}
+
+.history-title {
+  font-size: 14px;
+  font-weight: 500;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
