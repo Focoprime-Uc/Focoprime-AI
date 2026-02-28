@@ -174,7 +174,8 @@
 }
 
 .menu-item:hover {
-  background: #2a2a2a;
+  background: #1d7efd;
+  color: white;
 }
 
 /* ===== LISTA ===== */
@@ -233,4 +234,35 @@
   font-weight: 500;
   word-break: break-word;
   overflow-wrap: break-word;
+}
+
+/* EMPURAR */
+/* Conteúdo principal */
+.main-content {
+  transition: transform 0.3s ease;
+}
+
+/* Quando sidebar estiver ativo */
+.main-content.shifted {
+  transform: translateX(300px); /* mesma largura do sidebar */
+}
+
+/* Overlay escuro */
+.history-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 9998;
+}
+
+.history-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.history-sidebar.active {
+  box-shadow: 5px 0 30px rgba(0,0,0,0.5);
 }
