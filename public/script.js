@@ -8,6 +8,7 @@ const promptInput = promptForm.querySelector(".prompt-input");
 const fileInput = promptForm.querySelector("#file-input");
 const fileUploadWrapper = promptForm.querySelector(".file-upload-wrapper");
 const themeToggleBtn = document.querySelector("#theme-toggle-btn");
+const avatarLoading = document.getElementById("avatarLoading");
 
 // ==============================
 // BACKEND API
@@ -949,28 +950,28 @@ panelPhotoInput.addEventListener("change", async () => {
 
   if (file.size > maxSize) {
     panelAvatarError.classList.add("show");
-    photoOptions.classList.remove("show");
     panelPhotoInput.value = "";
     return;
   }
 
   panelAvatarError.classList.remove("show");
 
+  // 🔥 ATIVA LOADER
+  avatarLoading.classList.add("active");
+
   const reader = new FileReader();
 
   reader.onload = async (e) => {
     const base64 = e.target.result;
-
     const user = window.auth.currentUser;
     if (!user) return;
 
     try {
-      // 🔥 Guardar no Firestore
       await updateDoc(doc(window.db, "users", user.uid), {
         photoBase64: base64
       });
 
-      // Atualizar UI inteira
+      // Atualiza UI
       panelUserPhoto.src = base64;
       document.getElementById("sidebarUserPhoto").src = base64;
       document.getElementById("userPhoto").src = base64;
@@ -981,6 +982,9 @@ panelPhotoInput.addEventListener("change", async () => {
 
     } catch (error) {
       showToast("Erro ao salvar imagem", "error");
+    } finally {
+      // 🔥 DESATIVA LOADER
+      avatarLoading.classList.remove("active");
     }
   };
 
