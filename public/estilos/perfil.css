@@ -1,0 +1,170 @@
+/* ===== GEMINI USER PANEL ===== */
+
+.user-gemini-panel {
+  position: fixed;
+  left: -400px;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--secondary-color);
+  box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+  transition: 0.3s ease;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-gemini-panel.active {
+  left: 0;
+}
+
+.user-gemini-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 9999;
+}
+
+.user-gemini-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidehead {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Perfil */
+.user-gemini-profile {
+  text-align: center;
+  padding: 20px;
+}
+
+.user-gemini-profile img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.bio {
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin: 0 auto 10px auto; /* 👈 centraliza horizontalmente */
+  justify-content: center;
+}
+
+.bio:hover {
+  background: #1d7efd;
+}
+
+.fechar {
+  background: none;
+  border: none;
+  height: 28px;
+}
+
+.gemini-item:hover {
+  background: #1d7efd;
+  color: #fff;
+}
+
+.gemini-item.premium {
+  background: goldenrod;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Logout */
+.panel-logout {
+  border: none;
+  background: #d62939;
+  color: #fff;
+  padding: 12px;
+  margin: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+
+.chatgpt-email {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 20px;
+  flex-direction: grid;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(29,126,253,0.1);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.chatgpt-email i {
+  font-size: 18px;
+  color: #1d7efd;
+}
+
+.user-gemini-menu {
+  margin-top: 10px;
+}
+
+/* ===== GRID MENU ===== */
+
+.user-gemini-menu {
+  flex: 1;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 👈 2 por linha */
+  gap: 15px;
+  overflow-y: auto;
+}
+
+/* CARD GRID */
+.gemini-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1; /* 👈 deixa quadrado */
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  background: var(--secondary-hover-color);
+  text-align: center;
+}
+
+/* Ícones grandes */
+.gemini-item .gid {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+/* Texto */
+.gemini-item span {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Hover moderno */
+.gemini-item:hover {
+  background: #1d7efd;
+  color: white;
+  transform: translateY(-4px);
+}
+
+/* Premium destacado */
+.gemini-item.premium {
+  background: linear-gradient(135deg, goldenrod, orange);
+  color: white;
+}
