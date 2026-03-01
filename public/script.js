@@ -242,6 +242,23 @@ function looksLikeCode(text) {
   );
 }
 
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = "custom-toast " + type;
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 50);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}
+
 // ==============================
 // MESSAGE ACTIONS
 // ==============================
@@ -818,4 +835,47 @@ userGeminiOverlay.addEventListener("click", closeUserGeminiPanel);
 panelLogoutBtn.addEventListener("click", async () => {
   await window.signOut(window.auth);
   closeUserGeminiPanel();
+});
+
+
+// ACTUALIZAR NOME
+const editNameBtn = document.getElementById("editNameBtn");
+const saveNameBtn = document.getElementById("saveNameBtn");
+const panelUserName = document.getElementById("panelUserName");
+const panelUserNameInput = document.getElementById("panelUserNameInput");
+
+editNameBtn.addEventListener("click", () => {
+  panelUserNameInput.value = panelUserName.textContent;
+
+  panelUserName.style.display = "none";
+  editNameBtn.style.display = "none";
+
+  panelUserNameInput.style.display = "inline-block";
+  saveNameBtn.style.display = "inline-block";
+
+  panelUserNameInput.focus();
+});
+
+saveNameBtn.addEventListener("click", async () => {
+  const newName = panelUserNameInput.value.trim();
+  if (!newName) return alert("Nome vazio");
+
+  const user = window.auth.currentUser;
+  if (!user) return alert("Sem utilizador");
+
+  try {
+    console.log("ANTES:", user.displayName);
+
+    await updateProfile(user, {
+      displayName: newName
+    });
+
+    console.log("DEPOIS:", user.displayName);
+
+    alert("Atualizado no Auth com sucesso");
+
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
 });
