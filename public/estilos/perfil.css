@@ -322,3 +322,9 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.gemini-item.report {
+  background: #d62939;
+  color: #fff;
+  font-weight: 600;
+  }
