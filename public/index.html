@@ -52,6 +52,7 @@
   <link rel="stylesheet" href="estilos/codebloco.css">
   <link rel="stylesheet" href="estilos/userpainel.css">
   <link rel="stylesheet" href="estilos/groups.css">
+  <link rel="stylesheet" href="estilos/perfil.css">
 
   <!-- Linguagens principais -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -240,15 +241,86 @@
   <div id="historyList" class="history-list"></div>
 
   <!-- 👤 UTILIZADOR -->
-  <div class="history-user">
-    <img id="sidebarUserPhoto" src="images/carta.png">
-    <span id="sidebarUserName">Usuário</span>
-  </div>
+<div class="history-user" id="openUserPanelBtn">
+  <img id="sidebarUserPhoto" src="images/carta.png">
+  <span id="sidebarUserName">Usuário</span>
+  <i class="ri-arrow-right-s-line user-arrow"></i>
+</div>
 
 </div>
 
 <div id="historyOverlay" class="history-overlay"></div>
     <!--- ============== FECHAMENTO DO HISTÓRICO ========= --->
+    <!-- ===== USER PANEL GEMINI STYLE ===== -->
+<div id="userGeminiPanel" class="user-gemini-panel">
+
+  <div class="sidehead">
+    <span class="sidetitle">Perfil do usuário</span>
+    <button id="closeUserGemini" class="fechar">
+      <span class="material-symbols-rounded">
+        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
+fill="currentColor" viewBox="0 0 24 24" >
+<!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+<path d="M3 5h18v2H3zm5 6h13v2H8zm5 6h8v2h-8z"></path>
+</svg>
+      </span>
+    </button>
+  </div>
+
+  <div class="user-gemini-profile">
+    <img id="panelUserPhoto" src="images/carta.png">
+    <h3 id="panelUserName">Usuário</h3>
+  </div>
+
+    <div class="bio">
+      <i class="ri-user-settings-line"></i>
+      <span>Adicionar biografia</span>
+    </div>
+    
+    <!-- EMAIL -->
+<div class="chatgpt-email">
+  <i class="ri-mail-line"></i>
+  <span id="panelUserEmail">email@email.com</span>
+</div>
+
+<!-- MENU IGUAL AO CHATGPT -->
+<div class="user-gemini-menu">
+
+  <div class="gemini-item">
+    <i class="ri-user-settings-line gid"></i>
+    <span>Personalização</span>
+  </div>
+
+  <div class="gemini-item">
+    <i class="ri-apps-2-line gid"></i>
+    <span>Apps</span>
+  </div>
+
+  <div class="gemini-item">
+    <i class="ri-briefcase-4-line gid"></i>
+    <span>Área de trabalho</span>
+  </div>
+
+  <div class="gemini-item premium">
+    <i class="ri-vip-crown-2-line gid"></i>
+    <span>Atualizar para Plus</span>
+  </div>
+
+  <div class="gemini-item">
+    <i class="ri-parent-line gid"></i>
+    <span>Controlos parentais</span>
+  </div>
+
+</div>
+
+  <button id="panelLogoutBtn" class="panel-logout">
+    <i class="ri-logout-box-r-line"></i>
+    Sair da conta
+  </button>
+
+</div>
+
+<div id="userGeminiOverlay" class="user-gemini-overlay"></div>
 
     <!--- ====== APP HEADER ====== --->
     <div id="appheader"></div>
