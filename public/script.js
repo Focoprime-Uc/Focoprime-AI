@@ -787,3 +787,35 @@ function openGroupChat() {
   document.getElementById("groupChatModal").classList.add("active");
 }
 
+
+const openUserPanelBtn = document.getElementById("openUserPanelBtn");
+const userGeminiPanel = document.getElementById("userGeminiPanel");
+const userGeminiOverlay = document.getElementById("userGeminiOverlay");
+const closeUserGemini = document.getElementById("closeUserGemini");
+const panelLogoutBtn = document.getElementById("panelLogoutBtn");
+
+openUserPanelBtn.addEventListener("click", () => {
+  userGeminiPanel.classList.add("active");
+  userGeminiOverlay.classList.add("active");
+
+  const user = window.auth.currentUser;
+  if (user) {
+    document.getElementById("panelUserEmail").textContent = user.email;
+    document.getElementById("panelUserName").textContent = user.displayName || "Usuário";
+    document.getElementById("panelUserPhoto").src =
+      user.photoURL || currentUserPhoto;
+  }
+});
+
+function closeUserGeminiPanel() {
+  userGeminiPanel.classList.remove("active");
+  userGeminiOverlay.classList.remove("active");
+}
+
+closeUserGemini.addEventListener("click", closeUserGeminiPanel);
+userGeminiOverlay.addEventListener("click", closeUserGeminiPanel);
+
+panelLogoutBtn.addEventListener("click", async () => {
+  await window.signOut(window.auth);
+  closeUserGeminiPanel();
+});
