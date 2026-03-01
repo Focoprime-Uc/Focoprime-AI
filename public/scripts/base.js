@@ -633,3 +633,6 @@ function formatTimestamp(ts) {
 
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
      }
+
+
+window.updateProfile = updateProfile;
