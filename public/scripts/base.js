@@ -334,6 +334,10 @@ onAuthStateChanged(auth, async (user) => {
     if (loginBtn) loginBtn.style.display = "none";
     if (chatTitleBar) chatTitleBar.style.display = "block";
     if (heading) heading.textContent = "Olá, " + (user.displayName || "Aluno");
+    
+    if (typeof loadUserChats === "function") {
+      loadUserChats();
+    }
 
     // carregar foto e dados
     const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -361,6 +365,12 @@ onAuthStateChanged(auth, async (user) => {
     if (chatTitleBar) chatTitleBar.style.display = "none";
     if (heading) heading.textContent = "";
   }
+  
+    // hwhjwjwnshshshe
+  if (user && typeof loadUserUsage === "function") {
+  loadUserUsage(user);
+}
+  
 });
 
 /* ===============================
