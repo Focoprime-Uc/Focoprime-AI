@@ -316,65 +316,51 @@ await setDoc(doc(db, "users", user.uid), {
 /* ===============================
    👤 CONTROLE DE SESSÃO
 ================================= */
+/* ===============================
+   👤 CONTROLE DE SESSÃO
+================================= */
+// ==============================
+// CONTROLE DE SESSÃO SIMPLIFICADO
+// ==============================
 onAuthStateChanged(auth, async (user) => {
   const loginBtn = document.getElementById("loginBtn");
+  const logoutBtn = document.getElementById("logoutBtn"); // se existir
+  const chatTitleBar = document.getElementById("chatTitleBar");
+  const heading = document.querySelector(".heading");
 
   if (user) {
-    // usuário logado → mostra o botão normal
-    loginModal.style.display = "none";
-    logoutBtn.style.display = "flex";
-    loginBtn.style.display = "none";
+    // usuário logado
+    if (logoutBtn) logoutBtn.style.display = "flex";
+    if (loginBtn) loginBtn.style.display = "none";
+    if (chatTitleBar) chatTitleBar.style.display = "block";
+    if (heading) heading.textContent = "Olá, " + (user.displayName || "Aluno");
 
-    heading.textContent = "Olá, " + (user.displayName || "Aluno");
-    
-    if (typeof loadUserChats === "function") {
-      loadUserChats();
-    }
-    
-    // Actualizar Sytem prompt da IA
+    // carregar foto e dados
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    const currentUserData = userDoc.exists() ? userDoc.data() : {};
+    const currentUserPhoto =
+      currentUserData.photoBase64 || user.photoURL || "images/carta.png";
+
+    const userPhoto = document.getElementById("userPhoto");
+    if (userPhoto) userPhoto.src = currentUserPhoto;
+
+    const sidebarPhoto = document.getElementById("sidebarUserPhoto");
+    const sidebarName = document.getElementById("sidebarUserName");
+    if (sidebarPhoto) sidebarPhoto.src = currentUserPhoto;
+    if (sidebarName) sidebarName.textContent = user.displayName || "Usuário";
+
+    // Atualiza prompt da IA
     if (typeof updateSystemPrompt === "function") {
       updateSystemPrompt(user.displayName || "Aluno");
     }
 
-    userEmail.value = user.email;
-    userName.value = user.displayName || "";
-    userChipName.textContent = user.displayName?.split(" ")[0] || "Usuário";
-
-    const userDoc = await getDoc(doc(db, "users", user.uid));
-
-if (userDoc.exists()) {
-  currentUserData = userDoc.data();
-} else {
-  currentUserData = null;
-}
-
-// 🔥 PRIORIDADE PROFISSIONAL
-currentUserPhoto =
-  currentUserData?.photoBase64 ||
-  user.photoURL ||
-  "images/carta.png";
-
-// Atualiza UI principal
-userPhoto.src = currentUserPhoto;
-
   } else {
-    // usuário não logado → mostra botão entrar
-    logoutBtn.style.display = "none";
-    loginBtn.style.display = "flex";
+    // usuário deslogado
+    if (logoutBtn) logoutBtn.style.display = "none";
+    if (loginBtn) loginBtn.style.display = "flex";
+    if (chatTitleBar) chatTitleBar.style.display = "none";
+    if (heading) heading.textContent = "";
   }
-  // hwhjwjwnshshshe
-  if (user && typeof loadUserUsage === "function") {
-  loadUserUsage(user);
-}
-
-const sidebarPhoto = document.getElementById("sidebarUserPhoto");
-const sidebarName = document.getElementById("sidebarUserName");
-
-if (user) {
-  sidebarPhoto.src = currentUserPhoto;
-  sidebarName.textContent = user.displayName || "Usuário";
-}
-
 });
 
 /* ===============================
@@ -406,28 +392,6 @@ logoutReal.addEventListener("click", async () => {
   closeUserPanel();
 });
 
-/* ===============================
-   📂 ABRIR / FECHAR PAINEL
-================================= */
-logoutBtn.addEventListener("click", () => {
-  userPanel.classList.add("open");
-  overlay.classList.add("show");
-});
-
-function closeUserPanel() {
-  userPanel.classList.remove("open");
-  overlay.classList.remove("show");
-}
-
-closePanel.addEventListener("click", closeUserPanel);
-overlay.addEventListener("click", closeUserPanel);
-
-// ehrhejejeenehne
-const loginBtn = document.getElementById("loginBtn");
-
-loginBtn.addEventListener("click", () => {
-  loginModal.style.display = "flex";
-});
 
 // 🔥 Tornar auth global
 window.auth = auth;
@@ -450,6 +414,10 @@ async function loadChat(chat) {
   chatsContainer.innerHTML = "";
   chatHistory.length = 0;
   currentChatId = chat.id;
+  const headerTitle = document.getElementById("currentChatTitle");
+if (headerTitle) {
+  headerTitle.textContent = chat.title || "Nova Conversa";
+}
   if (typeof toggleWelcomeUI === "function") {
   toggleWelcomeUI(false);
 }
@@ -510,8 +478,6 @@ document.getElementById("newsButton")?.addEventListener("click", openMenu);
 closeMenuBtn?.addEventListener("click", closeMenu);
 historyOverlay?.addEventListener("click", closeMenu);
 
-
-window.statusText = statusText;
 
 const groupMessages = document.getElementById("groupMessages");
 const groupInput = document.getElementById("groupMessageInput");
