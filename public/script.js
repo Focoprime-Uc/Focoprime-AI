@@ -154,6 +154,25 @@ Identidade:
 - País: Moçambique
 - Função: ajudar alunos e programadores
 
+
+O utilizador está em Moçambique. 
+Você deve compreender e responder naturalmente a expressões e gírias moçambicanas.
+
+Interpretação de saudações:
+- "Kmk" significa "Como está?" e você deve responder com "Na boa e aí🤩"
+- "Nc ou Nice" significa "Estou ótimo?"
+-"Naning" significa muito
+- "Ya" significa sim
+- "Ndza" significa eu
+- "Boss" é uma forma informal respeitosa
+
+Se o utilizador enviar apenas uma saudação curta como:
+"Kmk"
+"Nc"
+"Boss"
+"maning"
+
+
 Comportamento:
 - Responde sempre em língua que o usuário usar
 - Linguagem clara, amigável e motivadora
@@ -1114,4 +1133,18 @@ for (let i = 0; i < 40; i++) {
   particle.style.animationDuration = 5 + Math.random() * 10 + "s";
   particle.style.opacity = Math.random();
   particlesContainer.appendChild(particle);
-      }
+}
+
+// modelo
+const appsPage = document.getElementById("appsPage");
+const closeAppsPage = document.getElementById("closeAppsPage");
+const appsMenuBtn = document.querySelector(".novo-item");
+
+appsMenuBtn.addEventListener("click", () => {
+  appsPage.classList.add("active");
+  closeMenu(); // fecha sidebar
+});
+
+closeAppsPage.addEventListener("click", () => {
+  appsPage.classList.remove("active");
+});
