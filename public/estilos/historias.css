@@ -289,3 +289,27 @@
   letter-spacing: 0.5px;
   box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
+
+/* Badge new no menu */
+.novo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.novo-badge {
+  background: linear-gradient(to right, #1d7efd, #8f6fff);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  box-gshadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
