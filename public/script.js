@@ -1,3 +1,8 @@
+// ==============================
+// DEV MODE (DESATIVAR HISTÓRICO)
+// ==============================
+const DEV_MODE = true;
+
 let currentChatId = null;
 let userPlan = "free";
 let lastAIResponse = "";
@@ -126,6 +131,19 @@ updateUsageDisplay();
 
 let controller, typingInterval;
 const chatHistory = [];
+
+// ==============================
+// LIMITAR HISTÓRICO (10 mensagens)
+// ==============================
+function limitChatHistory() {
+  const systemMessage = chatHistory[0]; // manter system prompt
+
+  if (chatHistory.length > 11) {
+    const lastMessages = chatHistory.slice(-10); // últimas 10
+    chatHistory.length = 0;
+    chatHistory.push(systemMessage, ...lastMessages);
+  }
+}
 
 // Inicializa system prompt ao carregar página
 updateSystemPrompt("Aluno");
@@ -372,7 +390,11 @@ const generateResponse = async (botMsgDiv) => {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: chatHistory }),
+      body: JSON.stringify({
+  messages: DEV_MODE
+    ? chatHistory.slice(-1) // só última mensagem
+    : chatHistory
+}),
       signal: controller.signal
     });
 
@@ -397,6 +419,7 @@ if (isCode) {
 
   lastAIResponse = rawText;
   chatHistory.push({ role: "assistant", content: rawText });
+  limitChatHistory();
 
 } else {
   // texto normal → typing effect
@@ -404,15 +427,18 @@ if (isCode) {
 
   lastAIResponse = responseText;
   chatHistory.push({ role: "assistant", content: responseText });
+  limitChatHistory();
   if (currentChatId) {
   const user = window.auth.currentUser;
   if (!user) return;
 
   const chatRef = doc(window.db, "users", user.uid, "chats", currentChatId);
 
+  if (!DEV_MODE) {
   await updateDoc(chatRef, {
     messages: chatHistory
   });
+}
 }
 }
 
@@ -490,12 +516,18 @@ const handleFormSubmit = async (e) => {
   toggleWelcomeUI(false);
 
   chatHistory.push({ role: "user", content: userMessage });
+  limitChatHistory();
   if (!currentChatId) {
   const aiTitle = await generateChatTitle(userMessage);
+  // dev mode
+  if (!DEV_MODE) {
   saveChatToFirestore(aiTitle, chatHistory);
 }
+}
+  if (!DEV_MODE) {
   messageCount++;
-updateUsageDisplay();
+  updateUsageDisplay();
+}
 
 const userRef = doc(window.db, "users", currentUser.uid);
 
@@ -819,15 +851,4 @@ async function loadUserChats() {
 
   historyList.appendChild(item);
 });
-}
-
-// PWA APP PROGRESSIVE
-const groupChatBtn = document.getElementById("delete-chats-btn");
-
-groupChatBtn.addEventListener("click", () => {
-  openGroupChat();
-});
-
-function openGroupChat() {
-  document.getElementById("groupChatModal").classList.add("active");
 }
